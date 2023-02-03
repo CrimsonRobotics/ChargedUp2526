@@ -43,7 +43,7 @@ public class Drivetrain extends SubsystemBase {
 
     gyro = new ADXRS450_Gyro();
     gyro.calibrate();
-    pigeon = new PigeonIMU(0); //Need to check device number
+    pigeon = new PigeonIMU(10); //Need to check device number
 
     turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
     turnPID.setIntegratorRange(-Constants.pidMaxPercent, Constants.pidMaxPercent);
@@ -71,11 +71,11 @@ public class Drivetrain extends SubsystemBase {
     double pitchReadout = Robot.driveTrain.pigeon.getPitch();
     double yawReadout = Robot.driveTrain.pigeon.getYaw();
 
-      if (gyroReadout>5){
+      if (yawReadout>5){
         Robot.driveTrain.ManualDrive(-0.1 , 0.1);
       }
 
-      else if (gyroReadout<-5) {
+      else if (yawReadout<-5) {
         Robot.driveTrain.ManualDrive(0.1 , -0.1);
       }
 
@@ -106,10 +106,10 @@ public class Drivetrain extends SubsystemBase {
 
   public void pigeonAlign() {
   
-    double[] ypr = new double [3];
-    Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
-    double gyroReadout = ypr[0]; //% 360;
-    // double gyroReadout = Robot.driveTrain.pigeon.getYaw(); //% 360;
+    // double[] ypr = new double [3];
+    // Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
+    // double gyroReadout = ypr[0]; //% 360;
+    double gyroReadout = Robot.driveTrain.pigeon.getYaw()% 360;
     double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(0, speed);
@@ -120,20 +120,27 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
       // This method will be called once per scheduler run
+      double[] ypr = new double [3];
+      Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
+      double gyroReadout = ypr[0]; 
+      SmartDashboard.putNumber("yaw", gyroReadout);
       SmartDashboard.putData(turnPID);
       // SmartDashboard.putNumber("Yaw", Robot.driveTrain.pigeon.getYaw());
     
       RobotContainer container = Robot.m_robotContainer;
       if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
         // Robot.driveTrain.pidAlign();
-        Robot.driveTrain.balance();
+        // Robot.driveTrain.balance();
+        Robot.driveTrain.Align();
       }
       else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
-        Robot.driveTrain.pigeonAlign();
+        // Robot.driveTrain.pigeonAlign();
+        Robot.driveTrain.ManualDrive(0.1, 0.1);
   
       }
       else if(container.driverL.getRawButton(3) == true){
-        Robot.driveTrain.gyro.reset();
+        // Robot.driveTrain.gyro.reset();
+        Robot.driveTrain.pigeon.setYaw(0);
       }
       else{
         Robot.driveTrain.ManualDrive(0, 0);

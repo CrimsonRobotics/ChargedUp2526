@@ -33,6 +33,10 @@ public class Robot extends TimedRobot {
     driveTrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
     driveTrain.gyro.calibrate();
+    // driveTrain.pigeon.setYaw(0);
+    // driveTrain.pigeon.set
+    // driveTrain.pigeon.setYaw(0);
+
   }
 
   /**
@@ -48,7 +52,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    SmartDashboard.putNumber("Gyro Heading", driveTrain.gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Heading", driveTrain.pigeon.getYaw());
 
     CommandScheduler.getInstance().run();
   }
