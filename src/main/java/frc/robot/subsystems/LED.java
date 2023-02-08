@@ -49,7 +49,7 @@ public class LED extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("led position", Math.floor(Robot.led.ledPot.get()%360 / 60));
+    // SmartDashboard.putNumber("led position", Math.floor(Robot.led.ledPot.get()%360 / 60));
     ledSignal();
 
   }
