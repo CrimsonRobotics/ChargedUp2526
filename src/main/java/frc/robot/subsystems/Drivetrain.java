@@ -34,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
   public PIDController alignPID;
   public PigeonIMU pigeon;
   public DigitalInput limitSwitch;
-  public AnalogPotentiometer pot;
-  public AnalogPotentiometer pot2;
+  // public AnalogPotentiometer pot;
+  // public AnalogPotentiometer pot2;
 
 
   public Drivetrain() {
@@ -59,8 +59,8 @@ public class Drivetrain extends SubsystemBase {
     alignPID.setIntegratorRange(-Constants.alignMaxPercent, Constants.alignMaxPercent);
 
     limitSwitch = new DigitalInput(0);
-    pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
-    pot2 = new AnalogPotentiometer(3, 3600, 0);
+    // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
+    // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
   }
 
@@ -142,8 +142,8 @@ public class Drivetrain extends SubsystemBase {
       // SmartDashboard.putNumber("yaw", gyroReadout);
       SmartDashboard.putData(turnPID);
       SmartDashboard.putBoolean("limit switch", !Robot.driveTrain.limitSwitch.get());
-      SmartDashboard.putNumber("pot", Robot.driveTrain.pot.get());
-      SmartDashboard.putNumber("pot2", Robot.driveTrain.pot2.get());
+      // SmartDashboard.putNumber("pot", Robot.driveTrain.pot.get());
+      // SmartDashboard.putNumber("pot2", Robot.driveTrain.pot2.get());
       SmartDashboard.putNumber("testing", Constants.turnkP);
 
       if (!Robot.driveTrain.limitSwitch.get()){
