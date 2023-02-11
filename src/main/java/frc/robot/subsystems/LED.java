@@ -14,7 +14,7 @@ public class LED extends SubsystemBase {
   public AnalogPotentiometer ledPot;
 
   public LED() {
-    ledPot = new AnalogPotentiometer(3, 3600 /*10*/, 0);
+    ledPot = new AnalogPotentiometer(0, 3600 /*10*/, 0);
 
   }
 

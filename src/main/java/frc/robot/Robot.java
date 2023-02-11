@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LED;
 
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
   public static Drivetrain driveTrain;
   public static LED led;
+  public static Arm arm;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
     driveTrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
     led = new LED();
+    arm = new Arm();
     driveTrain.gyro.calibrate();
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
