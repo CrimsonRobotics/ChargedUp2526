@@ -41,9 +41,11 @@ public class Arm extends SubsystemBase {
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
 
 
-    armPot = new AnalogPotentiometer(1, 270, 0);
-    extendPot = new AnalogPotentiometer(2, 27, 0);
-    wristPot = new AnalogPotentiometer(3, 180, 0);
+    armPot = new AnalogPotentiometer(1, 360, 0);
+
+    wristPot = new AnalogPotentiometer(3, 360, 0);
+
+    extendPot = new AnalogPotentiometer(2, 33.1, 0);
 
     armPID = new PIDController(Constants.armkP, Constants.armkI, Constants.armkD);
     armPID.setIntegratorRange(-Constants.armMaxPercent, Constants.armMaxPercent);
@@ -58,6 +60,7 @@ public class Arm extends SubsystemBase {
       Constants.PCM, 
       PneumaticsModuleType.CTREPCM, 
       Constants.intakeSolenodIDS[0], Constants.intakeSolenodIDS[1]);
+      
 
   }
 
@@ -74,47 +77,28 @@ public class Arm extends SubsystemBase {
   }
 
   public void MoveArm(double armcase[]) {
+    SmartDashboard.putNumber("Arm Case",armcase[0]);
 
     double armPotReadout = Robot.arm.armPot.get();
     // double armPotReadout = 120;
 
     double armspeed = MathUtil.clamp(armPID.calculate(armPotReadout, armcase[0]), -Constants.armMaxPercent, Constants.armMaxPercent);
     armspeed = armspeed / 100;
-    if (armPotReadout<armcase[0]){
-      armspeed = -armspeed;
-    }
-    else {
-      armspeed = armspeed;
-    }
     Robot.arm.ArmDrive(armspeed);
     SmartDashboard.putNumber("Arm Speed",armspeed);
 
     double wristPotReadout = Robot.arm.wristPot.get();
     // double wristPotReadout = 100;
-
-
     double wristspeed = MathUtil.clamp(wristPID.calculate(wristPotReadout, armcase[1]), -Constants.armMaxPercent, Constants.armMaxPercent);
     wristspeed = wristspeed / 100;
-    if (wristPotReadout<armcase[1]){
-      wristspeed = -wristspeed;
-    }
-    else {
-      wristspeed = wristspeed;
-    }
     Robot.arm.ArmDrive(wristspeed);
     SmartDashboard.putNumber("Wrist Speed",wristspeed);
 
-    //double extendPotReadout = Robot.arm.extendPot.get();
-    double extendPotReadout = 15;
+    double extendPotReadout = Robot.arm.extendPot.get();
+    // double extendPotReadout = 15;
 
     double extendspeed = MathUtil.clamp(extendPID.calculate(extendPotReadout, armcase[2]), -Constants.armMaxPercent, Constants.armMaxPercent);
     extendspeed = extendspeed / 100;
-    if (extendPotReadout<armcase[2]){
-      extendspeed = -extendspeed;
-    }
-    else {
-      extendspeed = extendspeed;
-    }
     Robot.arm.ArmDrive(extendspeed);
     SmartDashboard.putNumber("Extend Speed",extendspeed);
 
@@ -138,34 +122,21 @@ public class Arm extends SubsystemBase {
     // This method will be called once per scheduler run
     if(container.driverR.getRawButton(1) == true){
       MoveArm(Constants.coneIntake);
+      SmartDashboard.putBoolean("Arm On", true);
+
     }
     else if(container.driverR.getRawButton(2) == true){
       MoveArm(Constants.cubeIntake);
+      SmartDashboard.putBoolean("Arm On", true);
+
+
+    }
+    else{
+      SmartDashboard.putBoolean("Arm On", false);
 
     }
 
-    // int buttonNumber = container.driverR.getRawButton();
 
-    // switch(buttonNumber) {
-    //   case 0:
-    //     SmartDashboard.putNumber("pos", 1);
-    //     break;
-    //   case 1:
-    //     SmartDashboard.putNumber("pos", 2);
-    //     break;
-    //   case 2:
-    //     SmartDashboard.putNumber("pos", 3);
-    //     break;
-    //   case 3:
-    //     SmartDashboard.putNumber("pos", 4);
-    //     break;
-    //   case 4:
-    //     SmartDashboard.putNumber("pos", 5);
-    //     break;
-    //   case 5:
-    //     SmartDashboard.putNumber("pos", 6);
-    //     break;
-
-    // }
+  
   }
 }

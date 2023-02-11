@@ -54,7 +54,7 @@ public final class Constants {
   public static double extendkI = 0;
   public static double extendkD = 0;
 
-  public static double[] coneIntake = {0, 0, 15, 0};
+  public static double[] coneIntake = {0, 80, 0, 0};
   public static double[] cubeIntake = {20, 20, 20, 1};
 
 
