@@ -40,6 +40,8 @@ public class Arm extends SubsystemBase {
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
 
+    wrist.setSmartCurrentLimit(5);
+
 
     armPot = new AnalogPotentiometer(1, 360, 0);
 
@@ -60,7 +62,6 @@ public class Arm extends SubsystemBase {
       Constants.PCM, 
       PneumaticsModuleType.CTREPCM, 
       Constants.intakeSolenodIDS[0], Constants.intakeSolenodIDS[1]);
-      
 
   }
 

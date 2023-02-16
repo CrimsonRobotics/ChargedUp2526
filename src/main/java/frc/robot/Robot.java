@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Wrist;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain driveTrain;
   public static LED led;
   public static Arm arm;
+  public static Wrist wrist;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,6 +41,8 @@ public class Robot extends TimedRobot {
     led = new LED();
     arm = new Arm();
     driveTrain.gyro.calibrate();
+    wrist = new Wrist();
+    
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     // driveTrain.pigeon.setYaw(0);
