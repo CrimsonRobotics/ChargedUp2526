@@ -21,6 +21,8 @@ public final class Constants {
   public static int[] leftIDs = {1,2,3};
   public static int[] rightIDs = {1,2,3};
 
+  public static int driveLim = 50;
+
   
   //arm motors
   public static int armID = 30;

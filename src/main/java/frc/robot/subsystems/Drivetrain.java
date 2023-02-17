@@ -66,6 +66,12 @@ public class Drivetrain extends SubsystemBase {
     right2.setIdleMode(IdleMode.kBrake);
     right3.setIdleMode(IdleMode.kBrake);
 
+    left1.setSmartCurrentLimit(Constants.driveLim);
+    left2.setSmartCurrentLimit(Constants.driveLim);
+    left3.setSmartCurrentLimit(Constants.driveLim);
+    right1.setSmartCurrentLimit(Constants.driveLim);
+    right2.setSmartCurrentLimit(Constants.driveLim);
+    right3.setSmartCurrentLimit(Constants.driveLim);
   }
 
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
@@ -92,8 +98,26 @@ public class Drivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
-    
-      SmartDashboard.putNumber("testing", Constants.turnkP);
+      SmartDashboard.putNumber("Left 1 Current", left1.getOutputCurrent());
+      SmartDashboard.putNumber("Left 2 Current", left2.getOutputCurrent());
+      SmartDashboard.putNumber("Left 3 Current", left3.getOutputCurrent());
+      SmartDashboard.putNumber("Left 4 Current", right1.getOutputCurrent());
+      SmartDashboard.putNumber("Left 5 Current", right2.getOutputCurrent());
+      SmartDashboard.putNumber("Left 6 Current", right3.getOutputCurrent());
+
+      // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
+      // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
+      // SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
+      // SmartDashboard.putNumber("Left 4 Voltage", right1.getBusVoltage());
+      // SmartDashboard.putNumber("Left 5 Voltage", right2.getBusVoltage());
+      // SmartDashboard.putNumber("Left 6 Voltage", right3.getBusVoltage());
+
+      // SmartDashboard.putNumber("Left 1 Temp", left1.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 2 Temp", left2.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 3 Temp", left3.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 4 Temp", right1.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 5 Temp", right2.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 6 Temp", right3.getMotorTemperature());
     
   }
 }
