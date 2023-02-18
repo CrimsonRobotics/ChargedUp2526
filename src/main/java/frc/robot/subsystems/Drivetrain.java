@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.AnalogInput;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -34,6 +35,7 @@ public class Drivetrain extends SubsystemBase {
   CANSparkMax right1;
   CANSparkMax right2;
   CANSparkMax right3;
+  RelativeEncoder encoder1;
 
   public Drivetrain() {
     // frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushless);
@@ -66,12 +68,17 @@ public class Drivetrain extends SubsystemBase {
     right2.setIdleMode(IdleMode.kBrake);
     right3.setIdleMode(IdleMode.kBrake);
 
-    left1.setSmartCurrentLimit(Constants.driveLim);
-    left2.setSmartCurrentLimit(Constants.driveLim);
-    left3.setSmartCurrentLimit(Constants.driveLim);
-    right1.setSmartCurrentLimit(Constants.driveLim);
-    right2.setSmartCurrentLimit(Constants.driveLim);
-    right3.setSmartCurrentLimit(Constants.driveLim);
+    // left1.setSmartCurrentLimit(Constants.driveLim);
+    // left2.setSmartCurrentLimit(Constants.driveLim);
+    // left3.setSmartCurrentLimit(Constants.driveLim);
+    // right1.setSmartCurrentLimit(Constants.driveLim);
+    // right2.setSmartCurrentLimit(Constants.driveLim);
+    // right3.setSmartCurrentLimit(Constants.driveLim);
+
+
+    encoder1 = left1.getEncoder();
+    encoder1.setPosition(0);
+
   }
 
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
@@ -101,23 +108,27 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Left 1 Current", left1.getOutputCurrent());
       SmartDashboard.putNumber("Left 2 Current", left2.getOutputCurrent());
       SmartDashboard.putNumber("Left 3 Current", left3.getOutputCurrent());
-      SmartDashboard.putNumber("Left 4 Current", right1.getOutputCurrent());
-      SmartDashboard.putNumber("Left 5 Current", right2.getOutputCurrent());
-      SmartDashboard.putNumber("Left 6 Current", right3.getOutputCurrent());
+      SmartDashboard.putNumber("Right 1 Current", right1.getOutputCurrent());
+      SmartDashboard.putNumber("Right 2 Current", right2.getOutputCurrent());
+      SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
 
       SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
       SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
-      SmartDashboard.putNumber("Left 4 Voltage", right1.getBusVoltage());
-      SmartDashboard.putNumber("Left 5 Voltage", right2.getBusVoltage());
-      SmartDashboard.putNumber("Left 6 Voltage", right3.getBusVoltage());
+      SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
+      SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
+      SmartDashboard.putNumber("Right 1 Voltage", right3.getBusVoltage());
 
       SmartDashboard.putNumber("Left 1 Temp", left1.getMotorTemperature());
       SmartDashboard.putNumber("Left 2 Temp", left2.getMotorTemperature());
       SmartDashboard.putNumber("Left 3 Temp", left3.getMotorTemperature());
-      SmartDashboard.putNumber("Left 4 Temp", right1.getMotorTemperature());
-      SmartDashboard.putNumber("Left 5 Temp", right2.getMotorTemperature());
-      SmartDashboard.putNumber("Left 6 Temp", right3.getMotorTemperature());
+      SmartDashboard.putNumber("Right 1 Temp", right1.getMotorTemperature());
+      SmartDashboard.putNumber("Right 2 Temp", right2.getMotorTemperature());
+      SmartDashboard.putNumber("Right 1 Temp", right3.getMotorTemperature());
+
+      SmartDashboard.putNumber("Encoder Position", encoder1.getPosition());
+      SmartDashboard.putNumber("Encoder Velocity", encoder1.getVelocity());
+
     
   }
 }
