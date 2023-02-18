@@ -18,8 +18,8 @@ public final class Constants {
   public static int fRID = 59;
 
   //Main drivetrain motors
-  public static int[] leftIDs = {1,2,3};
-  public static int[] rightIDs = {1,2,3};
+  public static int[] leftIDs = {59,60,62};
+  public static int[] rightIDs = {41,42,43};
 
   public static int driveLim = 50;
 
