@@ -17,10 +17,15 @@ public final class Constants {
   public static int fLID = 60;
   public static int fRID = 59;
 
+  public final static int rightMtr1ID = 52;
+  public final static int rightMtr2ID = 32;
+  public final static int leftMtr1ID = 55;
+  public final static int leftMtr2ID = 61;
+
   //arm motors
   public static int armID = 30;
   public static int extensionID = 31;
-  public static int wristID = 32;
+  public static int wristID = 35;
 
   public final static int PCM = 0;
   public final static int[] intakeSolenodIDS = {4,2};

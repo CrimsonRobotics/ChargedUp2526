@@ -25,8 +25,13 @@ import frc.robot.RobotContainer;
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
 
-  CANSparkMax frontLeft;
-  CANSparkMax frontRight;
+  // CANSparkMax frontLeft;
+  // CANSparkMax frontRight;
+
+  CANSparkMax leftMtr1;
+  CANSparkMax leftMtr2;
+  CANSparkMax rightMtr1;
+  CANSparkMax rightMtr2;
 
   public ADXRS450_Gyro gyro;
 
@@ -39,14 +44,29 @@ public class Drivetrain extends SubsystemBase {
 
 
   public Drivetrain() {
-    frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushless);
-    frontRight = new CANSparkMax(Constants.fRID, MotorType.kBrushless);
+    // frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushless);
+    // frontRight = new CANSparkMax(Constants.fRID, MotorType.kBrushless);
 
-    frontLeft.setInverted(true);
-    frontRight.setInverted(false);
+    // frontLeft.setInverted(true);
+    // frontRight.setInverted(false);
 
-    frontLeft.setIdleMode(IdleMode.kBrake);
-    frontRight.setIdleMode(IdleMode.kBrake);
+    // frontLeft.setIdleMode(IdleMode.kBrake);
+    // frontRight.setIdleMode(IdleMode.kBrake);
+
+    leftMtr1 = new CANSparkMax(Constants.leftMtr1ID, MotorType.kBrushed);
+    leftMtr2 = new CANSparkMax(Constants.leftMtr2ID, MotorType.kBrushed);
+    rightMtr1 = new CANSparkMax(Constants.rightMtr1ID, MotorType.kBrushed);
+    rightMtr2 = new CANSparkMax(Constants.rightMtr2ID, MotorType.kBrushed);
+
+    leftMtr1.setIdleMode(IdleMode.kBrake);
+    leftMtr2.setIdleMode(IdleMode.kBrake);
+    rightMtr1.setIdleMode(IdleMode.kBrake);
+    rightMtr2.setIdleMode(IdleMode.kBrake);
+
+    leftMtr1.setInverted(true);
+    leftMtr2.setInverted(true);
+    rightMtr1.setInverted(false);
+    rightMtr2.setInverted(false);
 
     gyro = new ADXRS450_Gyro();
     gyro.calibrate();
@@ -66,14 +86,22 @@ public class Drivetrain extends SubsystemBase {
 
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
 
-    frontLeft.set(forwardSpeed - turnSpeed);
-    frontRight.set(forwardSpeed + turnSpeed);
+    // frontLeft.set(forwardSpeed - turnSpeed);
+    // frontRight.set(forwardSpeed + turnSpeed);
+    leftMtr1.set(forwardSpeed - turnSpeed);
+    leftMtr2.set(forwardSpeed - turnSpeed);
+    rightMtr1.set(forwardSpeed + turnSpeed);
+    rightMtr2.set(forwardSpeed + turnSpeed);
 
   }
 
   public void ManualDrive(double leftSpeed, double rightSpeed) {
-    frontLeft.set(leftSpeed);
-    frontRight.set(rightSpeed);
+    // frontLeft.set(leftSpeed);
+    // frontRight.set(rightSpeed);
+    leftMtr1.set(leftSpeed);
+    leftMtr2.set(leftSpeed);
+    rightMtr1.set(rightSpeed);
+    rightMtr2.set(rightSpeed);
   }
 
   public void Align(){

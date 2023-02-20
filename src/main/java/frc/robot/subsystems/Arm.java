@@ -56,10 +56,10 @@ public class Arm extends SubsystemBase {
     extendPID = new PIDController(Constants.extendkP, Constants.extendkI, Constants.extendkD);
     extendPID.setIntegratorRange(-Constants.armMaxPercent, Constants.armMaxPercent);
 
-    intakeSolenoid = new DoubleSolenoid(
-      Constants.PCM, 
-      PneumaticsModuleType.CTREPCM, 
-      Constants.intakeSolenodIDS[0], Constants.intakeSolenodIDS[1]);
+    // intakeSolenoid = new DoubleSolenoid(
+    //   Constants.PCM, 
+    //   PneumaticsModuleType.CTREPCM, 
+    //   Constants.intakeSolenodIDS[0], Constants.intakeSolenodIDS[1]);
       
 
   }

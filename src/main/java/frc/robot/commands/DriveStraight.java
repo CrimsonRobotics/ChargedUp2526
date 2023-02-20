@@ -24,17 +24,31 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    originalYaw = Robot.driveTrain.pigeon.getYaw() % 360;
+    // originalYaw = Robot.driveTrain.pigeon.getYaw() % 360;
+    originalYaw = Robot.driveTrain.gyro.getAngle() % 360;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double pigeonReadout = Robot.driveTrain.pigeon.getYaw() % 360;
-    SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
+    // double pigeonReadout = Robot.driveTrain.pigeon.getYaw() % 360;
+    // SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
+    // SmartDashboard.putNumber("original Heading", originalYaw);
+
+    // double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(pigeonReadout, originalYaw), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    // speed = speed / 100;
+    // // Robot.driveTrain.TeleopDrive(0, -speed);
+    // Robot.driveTrain.TeleopDrive(driveSpeed, -speed);
+
+    // // Robot.driveTrain.ManualDrive(-speed, speed);
+
+    // SmartDashboard.putNumber("pigeonAlignSpeed", speed);
+    double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+    SmartDashboard.putNumber("Gyro Heading", gyroReadout);
     SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(pigeonReadout, originalYaw), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(gyroReadout, originalYaw), -Constants.pidMaxPercent, Constants.pidMaxPercent);
     speed = speed / 100;
     // Robot.driveTrain.TeleopDrive(0, -speed);
     Robot.driveTrain.TeleopDrive(driveSpeed, -speed);
