@@ -7,14 +7,25 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.AnalogInput;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
+import com.revrobotics.SparkMaxAnalogSensor;
+import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.CANAnalog.AnalogMode;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAnalogSensor.Mode;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,6 +38,7 @@ public class Drivetrain extends SubsystemBase {
 
   CANSparkMax frontLeft;
   CANSparkMax frontRight;
+  RelativeEncoder encoderLeft;
 
   public ADXRS450_Gyro gyro;
 
@@ -34,6 +46,9 @@ public class Drivetrain extends SubsystemBase {
   public PIDController alignPID;
   public PigeonIMU pigeon;
   public DigitalInput limitSwitch;
+  public SparkMaxAnalogSensor thePot;
+  public SparkMaxLimitSwitch theLimit;
+  // public SparkMaxAnalogSensor theLimit;
   // public AnalogPotentiometer pot;
   // public AnalogPotentiometer pot2;
 
@@ -59,6 +74,12 @@ public class Drivetrain extends SubsystemBase {
     alignPID.setIntegratorRange(-Constants.alignMaxPercent, Constants.alignMaxPercent);
 
     limitSwitch = new DigitalInput(0);
+    thePot = frontRight.getAnalog(Mode.kAbsolute);
+    // theLimit = frontRight.getAnalog(Mode.kAbsolute);
+    theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyClosed);
+
+    encoderLeft = frontLeft.getEncoder();
+    encoderLeft.setPositionConversionFactor(0.04);
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
@@ -142,9 +163,14 @@ public class Drivetrain extends SubsystemBase {
       // SmartDashboard.putNumber("yaw", gyroReadout);
       SmartDashboard.putData(turnPID);
       SmartDashboard.putBoolean("limit switch", !Robot.driveTrain.limitSwitch.get());
+      SmartDashboard.putBoolean("the limit switch", theLimit.isPressed());
+
       // SmartDashboard.putNumber("pot", Robot.driveTrain.pot.get());
       // SmartDashboard.putNumber("pot2", Robot.driveTrain.pot2.get());
       SmartDashboard.putNumber("testing", Constants.turnkP);
+      SmartDashboard.putNumber("fl rel encoder", encoderLeft.getPosition());
+      SmartDashboard.putNumber(" fl encoder position", encoderLeft.getPositionConversionFactor());
+      SmartDashboard.putNumber("the pot", thePot.getPosition()/3.29*10);
 
       if (!Robot.driveTrain.limitSwitch.get()){
         SmartDashboard.putString("limit", "true");
