@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.PIDConstants;
 import frc.robot.Robot;
 
 public class DriveStraight extends CommandBase {
@@ -35,7 +36,7 @@ public class DriveStraight extends CommandBase {
     SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
     SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(pigeonReadout, originalYaw), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(pigeonReadout, originalYaw), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
     speed = speed / 100;
     // Robot.driveTrain.TeleopDrive(0, -speed);
     Robot.driveTrain.TeleopDrive(driveSpeed, -speed);

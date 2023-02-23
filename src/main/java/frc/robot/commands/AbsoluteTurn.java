@@ -4,12 +4,20 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.PIDConstants;
+import frc.robot.Robot;
 
-public class Align extends CommandBase {
+public class AbsoluteTurn extends CommandBase {
   /** Creates a new Align. */
-  public Align() {
+  double turnPoint;
+  boolean isFinished;
+  public AbsoluteTurn(double tp) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.driveTrain);
+    turnPoint = tp;
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +26,17 @@ public class Align extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    double yawReadout = Robot.driveTrain.pigeon.getYaw() % 360;
+    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(yawReadout, turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+    speed = speed / 100;
+    Robot.driveTrain.TeleopDrive(0, -speed);
+
+    if (Math.abs(yawReadout-turnPoint)<2){
+      isFinished = true;
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -27,6 +45,6 @@ public class Align extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

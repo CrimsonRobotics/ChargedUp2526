@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.Helpers;
+import frc.robot.PIDConstants;
 import frc.robot.Robot;
 
-public class TurnPrecise extends CommandBase {
+public class RelativeTurn extends CommandBase {
   /** Creates a new TurnPrecise. */
   double turnPoint;
   boolean isFinished;
   double originalYaw;
-  public TurnPrecise(double tp) {
+  public RelativeTurn(double tp) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
     turnPoint = tp;
@@ -38,7 +39,7 @@ public class TurnPrecise extends CommandBase {
     // SmartDashboard.putNumber("Gyro Heading", gyroReadout);
     // SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(gyroReadout, originalYaw + turnPoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(gyroReadout, originalYaw + turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(0, -speed);
     // if(Helpers.isTurnCCW(originalYaw, originalYaw+turnPoint)){

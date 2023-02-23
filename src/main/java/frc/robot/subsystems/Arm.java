@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import frc.robot.PIDConstants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
@@ -22,13 +23,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
-  CANSparkMax arm;
+  CANSparkMax pivot;
   CANSparkMax extension;
   CANSparkMax wrist;
-  AnalogPotentiometer armPot;
+  AnalogPotentiometer pivotPot;
   AnalogPotentiometer extendPot;
   AnalogPotentiometer wristPot;
-  PIDController armPID;
+  PIDController pivotPID;
   PIDController wristPID;
   PIDController extendPID;
   DoubleSolenoid intakeSolenoid;
@@ -36,25 +37,25 @@ public class Arm extends SubsystemBase {
 
 
   public Arm() {
-    arm = new CANSparkMax(Constants.armID, MotorType.kBrushless);
+    pivot = new CANSparkMax(Constants.pivotID, MotorType.kBrushless);
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
 
 
-    armPot = new AnalogPotentiometer(1, 360, 0);
+    pivotPot = new AnalogPotentiometer(1, 360, 0);
 
     wristPot = new AnalogPotentiometer(3, 360, 0);
 
     extendPot = new AnalogPotentiometer(2, 33.1, 0);
 
-    armPID = new PIDController(Constants.armkP, Constants.armkI, Constants.armkD);
-    armPID.setIntegratorRange(-Constants.armMaxPercent, Constants.armMaxPercent);
+    pivotPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
+    pivotPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
 
-    wristPID = new PIDController(Constants.wristkP, Constants.wristkI, Constants.wristkD);
-    wristPID.setIntegratorRange(-Constants.armMaxPercent, Constants.armMaxPercent);
+    wristPID = new PIDController(PIDConstants.wristkP, PIDConstants.wristkI, PIDConstants.wristkD);
+    wristPID.setIntegratorRange(-PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
 
-    extendPID = new PIDController(Constants.extendkP, Constants.extendkI, Constants.extendkD);
-    extendPID.setIntegratorRange(-Constants.armMaxPercent, Constants.armMaxPercent);
+    extendPID = new PIDController(PIDConstants.extendkP, PIDConstants.extendkI, PIDConstants.extendkD);
+    extendPID.setIntegratorRange(-PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
 
     intakeSolenoid = new DoubleSolenoid(
       Constants.PCM, 
@@ -64,8 +65,8 @@ public class Arm extends SubsystemBase {
 
   }
 
-  public void ArmDrive(double moveSpeed) {
-    arm.set(moveSpeed);
+  public void PivotDrive(double moveSpeed) {
+    pivot.set(moveSpeed);
   }
 
   public void ExtendDrive(double moveSpeed) {
@@ -79,27 +80,27 @@ public class Arm extends SubsystemBase {
   public void MoveArm(double armcase[]) {
     SmartDashboard.putNumber("Arm Case",armcase[0]);
 
-    double armPotReadout = Robot.arm.armPot.get();
+    double pivotPotReadout = Robot.arm.pivotPot.get();
     // double armPotReadout = 120;
 
-    double armspeed = MathUtil.clamp(armPID.calculate(armPotReadout, armcase[0]), -Constants.armMaxPercent, Constants.armMaxPercent);
-    armspeed = armspeed / 100;
-    Robot.arm.ArmDrive(armspeed);
-    SmartDashboard.putNumber("Arm Speed",armspeed);
+    double pivotspeed = MathUtil.clamp(pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+    pivotspeed = pivotspeed / 100;
+    Robot.arm.PivotDrive(pivotspeed);
+    SmartDashboard.putNumber("Arm Speed",pivotspeed);
 
     double wristPotReadout = Robot.arm.wristPot.get();
     // double wristPotReadout = 100;
-    double wristspeed = MathUtil.clamp(wristPID.calculate(wristPotReadout, armcase[1]), -Constants.armMaxPercent, Constants.armMaxPercent);
+    double wristspeed = MathUtil.clamp(wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
     wristspeed = wristspeed / 100;
-    Robot.arm.ArmDrive(wristspeed);
+    Robot.arm.WristDrive(wristspeed);
     SmartDashboard.putNumber("Wrist Speed",wristspeed);
 
     double extendPotReadout = Robot.arm.extendPot.get();
     // double extendPotReadout = 15;
 
-    double extendspeed = MathUtil.clamp(extendPID.calculate(extendPotReadout, armcase[2]), -Constants.armMaxPercent, Constants.armMaxPercent);
+    double extendspeed = MathUtil.clamp(extendPID.calculate(extendPotReadout, armcase[2]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
     extendspeed = extendspeed / 100;
-    Robot.arm.ArmDrive(extendspeed);
+    Robot.arm.ExtendDrive(extendspeed);
     SmartDashboard.putNumber("Extend Speed",extendspeed);
 
     if (armcase[3] == 0) {
@@ -115,7 +116,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     RobotContainer container = Robot.m_robotContainer;
-    SmartDashboard.putNumber("ArmPot readout", Robot.arm.armPot.get());
+    SmartDashboard.putNumber("ArmPot readout", Robot.arm.pivotPot.get());
     SmartDashboard.putNumber("WristPot readout", Robot.arm.wristPot.get());
     SmartDashboard.putNumber("ExtendPot readout", Robot.arm.extendPot.get());
 

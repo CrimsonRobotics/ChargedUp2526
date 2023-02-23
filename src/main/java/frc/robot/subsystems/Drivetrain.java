@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.PIDConstants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
@@ -40,10 +41,18 @@ public class Drivetrain extends SubsystemBase {
   CANSparkMax frontRight;
   RelativeEncoder encoderLeft;
 
+  CANSparkMax left1;
+  CANSparkMax left2;
+  CANSparkMax left3;
+  CANSparkMax right1;
+  CANSparkMax right2;
+  CANSparkMax right3;
+
   public ADXRS450_Gyro gyro;
 
   public PIDController turnPID;
-  public PIDController alignPID;
+  public PIDController balancePID;
+  public PIDController straightPID;
   public PigeonIMU pigeon;
   public DigitalInput limitSwitch;
   public SparkMaxAnalogSensor thePot;
@@ -54,105 +63,158 @@ public class Drivetrain extends SubsystemBase {
 
 
   public Drivetrain() {
-    frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushless);
-    frontRight = new CANSparkMax(Constants.fRID, MotorType.kBrushless);
+    // frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushless);
+    // frontRight = new CANSparkMax(Constants.fRID, MotorType.kBrushless);
 
-    frontLeft.setInverted(true);
-    frontRight.setInverted(false);
+    // frontLeft.setInverted(true);
+    // frontRight.setInverted(false);
 
-    frontLeft.setIdleMode(IdleMode.kBrake);
-    frontRight.setIdleMode(IdleMode.kBrake);
+    // frontLeft.setIdleMode(IdleMode.kBrake);
+    // frontRight.setIdleMode(IdleMode.kBrake);
+    left1 = new CANSparkMax(Constants.leftIDs[0], MotorType.kBrushless);
+    left2 = new CANSparkMax(Constants.leftIDs[1], MotorType.kBrushless);
+    left3 = new CANSparkMax(Constants.leftIDs[2], MotorType.kBrushless);
+    right1 = new CANSparkMax(Constants.rightIDs[0], MotorType.kBrushless);
+    right2 = new CANSparkMax(Constants.rightIDs[1], MotorType.kBrushless);
+    right3 = new CANSparkMax(Constants.rightIDs[2], MotorType.kBrushless);
 
-    gyro = new ADXRS450_Gyro();
-    gyro.calibrate();
+    left1.setInverted(false);
+    left2.setInverted(false);
+    left3.setInverted(false);
+    right1.setInverted(false);
+    right2.setInverted(false);
+    right3.setInverted(false);
+
+    left1.setIdleMode(IdleMode.kBrake);
+    left2.setIdleMode(IdleMode.kBrake);
+    left3.setIdleMode(IdleMode.kBrake);
+    right1.setIdleMode(IdleMode.kBrake);
+    right2.setIdleMode(IdleMode.kBrake);
+    right3.setIdleMode(IdleMode.kBrake);
+
+    // left1.setSmartCurrentLimit(Constants.driveLim);
+    // left2.setSmartCurrentLimit(Constants.driveLim);
+    // left3.setSmartCurrentLimit(Constants.driveLim);
+    // right1.setSmartCurrentLimit(Constants.driveLim);
+    // right2.setSmartCurrentLimit(Constants.driveLim);
+    // right3.setSmartCurrentLimit(Constants.driveLim);
+
+    // gyro = new ADXRS450_Gyro();
+    // gyro.calibrate();
     pigeon = new PigeonIMU(10); //Need to check device number
 
-    turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
-    turnPID.setIntegratorRange(-Constants.pidMaxPercent, Constants.pidMaxPercent);
+    turnPID = new PIDController(PIDConstants.turnkP, PIDConstants.turnkI, PIDConstants.turnkD);
+    turnPID.setIntegratorRange(-PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
 
-    alignPID = new PIDController(Constants.alignkP, Constants.alignkI, Constants.alignkD);
-    alignPID.setIntegratorRange(-Constants.alignMaxPercent, Constants.alignMaxPercent);
+    balancePID = new PIDController(PIDConstants.balancekP, PIDConstants.balancekI, PIDConstants.balancekD);
+    balancePID.setIntegratorRange(-PIDConstants.balanceMaxPercent, PIDConstants.balanceMaxPercent);
+
+    straightPID = new PIDController(PIDConstants.straightkP, PIDConstants.straightkI, PIDConstants.straightkD);
+    straightPID.setIntegratorRange(-PIDConstants.straightMaxPercent, PIDConstants.straightMaxPercent);
 
     limitSwitch = new DigitalInput(0);
-    thePot = frontRight.getAnalog(Mode.kAbsolute);
+    thePot = right1.getAnalog(Mode.kAbsolute);
+    // thePot = frontRight.getAnalog(Mode.kAbsolute);
     // theLimit = frontRight.getAnalog(Mode.kAbsolute);
-    theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    // theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
 
-    encoderLeft = frontLeft.getEncoder();
+    // encoderLeft = frontLeft.getEncoder();
+    encoderLeft = left1.getEncoder();
     encoderLeft.setPositionConversionFactor(0.04);
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
   }
 
+  // public void TeleopDrive(double forwardSpeed, double turnSpeed) {
+
+  //   frontLeft.set(forwardSpeed - turnSpeed);
+  //   frontRight.set(forwardSpeed + turnSpeed);
+
+  // }
+
+  // public void ManualDrive(double leftSpeed, double rightSpeed) {
+  //   frontLeft.set(leftSpeed);
+  //   frontRight.set(rightSpeed);
+  // }
+
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
 
-    frontLeft.set(forwardSpeed - turnSpeed);
-    frontRight.set(forwardSpeed + turnSpeed);
+    left1.set(forwardSpeed - turnSpeed);
+    left2.set(forwardSpeed - turnSpeed);
+    left3.set(forwardSpeed - turnSpeed);
+    right1.set(forwardSpeed + turnSpeed);
+    right2.set(forwardSpeed + turnSpeed);
+    right3.set(forwardSpeed + turnSpeed);
+
 
   }
 
   public void ManualDrive(double leftSpeed, double rightSpeed) {
-    frontLeft.set(leftSpeed);
-    frontRight.set(rightSpeed);
+    left1.set(leftSpeed);
+    left2.set(leftSpeed);
+    left3.set(leftSpeed);
+    right1.set(rightSpeed);
+    right2.set(rightSpeed);
+    right3.set(rightSpeed);
   }
 
-  public void Align(){
-    double gyroReadout = Robot.driveTrain.gyro.getAngle();
-    double pitchReadout = Robot.driveTrain.pigeon.getPitch();
-    double yawReadout = Robot.driveTrain.pigeon.getYaw();
+  // public void Align(){
+  //   double gyroReadout = Robot.driveTrain.gyro.getAngle();
+  //   double pitchReadout = Robot.driveTrain.pigeon.getPitch();
+  //   double yawReadout = Robot.driveTrain.pigeon.getYaw();
 
-      if (yawReadout>5){
-        Robot.driveTrain.ManualDrive(-0.1 , 0.1);
-      }
+  //     if (yawReadout>5){
+  //       Robot.driveTrain.ManualDrive(-0.1 , 0.1);
+  //     }
 
-      else if (yawReadout<-5) {
-        Robot.driveTrain.ManualDrive(0.1 , -0.1);
-      }
+  //     else if (yawReadout<-5) {
+  //       Robot.driveTrain.ManualDrive(0.1 , -0.1);
+  //     }
 
-      else {
-        Robot.driveTrain.ManualDrive(0, 0);
-      }
-  }
+  //     else {
+  //       Robot.driveTrain.ManualDrive(0, 0);
+  //     }
+  // }
 
-  public void pidAlign() {
+  // public void pidAlign() {
    
-    double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
-    double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
-    speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(0, speed);
-    SmartDashboard.putNumber("Speed",speed);
+  //   double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+  //   double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+  //   speed = speed / 100;
+  //   Robot.driveTrain.TeleopDrive(0, speed);
+  //   SmartDashboard.putNumber("Speed",speed);
 
-  }
+  // }
 
-  public void balance() {
+  // public void balance() {
 
-    // double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
-    double pigeonReadout = Robot.driveTrain.pigeon.getRoll() % 360;
+  //   // double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+  //   double pigeonReadout = Robot.driveTrain.pigeon.getRoll() % 360;
 
-    double speed = MathUtil.clamp(alignPID.calculate(pigeonReadout, Constants.alignSetpoint), -Constants.alignMaxPercent, Constants.alignMaxPercent);
-    speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(speed, 0);
-    SmartDashboard.putNumber("align speed",speed);
+  //   double speed = MathUtil.clamp(balancePID.calculate(pigeonReadout, PIDConstants.balanceSetpoint), -PIDConstants.balanceMaxPercent, PIDConstants.balanceMaxPercent);
+  //   speed = speed / 100;
+  //   Robot.driveTrain.TeleopDrive(speed, 0);
+  //   SmartDashboard.putNumber("align speed",speed);
 
-  }
+  // }
 
-  public void pigeonAlign() {
+  // public void pigeonAlign() {
   
-    // double[] ypr = new double [3];
-    // Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
-    // double gyroReadout = ypr[0]; //% 360;
-    double pigeonReadout = Robot.driveTrain.pigeon.getYaw() % 360;
-    SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
+  //   // double[] ypr = new double [3];
+  //   // Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
+  //   // double gyroReadout = ypr[0]; //% 360;
+  //   double pigeonReadout = Robot.driveTrain.pigeon.getYaw() % 360;
+  //   SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
 
-    double speed = MathUtil.clamp(turnPID.calculate(pigeonReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
-    speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(0, -speed);
-    // Robot.driveTrain.ManualDrive(-speed, speed);
+  //   double speed = MathUtil.clamp(turnPID.calculate(pigeonReadout, PIDConstants.turnSetpoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+  //   speed = speed / 100;
+  //   Robot.driveTrain.TeleopDrive(0, -speed);
+  //   // Robot.driveTrain.ManualDrive(-speed, speed);
 
-    SmartDashboard.putNumber("pigeonAlignSpeed", speed);
+  //   SmartDashboard.putNumber("pigeonAlignSpeed", speed);
 
-  }
+  // }
   
   @Override
   public void periodic() {
@@ -161,64 +223,25 @@ public class Drivetrain extends SubsystemBase {
       // Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
       // double gyroReadout = ypr[0]; 
       // SmartDashboard.putNumber("yaw", gyroReadout);
-      SmartDashboard.putData(turnPID);
-      SmartDashboard.putBoolean("limit switch", !Robot.driveTrain.limitSwitch.get());
-      SmartDashboard.putBoolean("the limit switch", theLimit.isPressed());
+      SmartDashboard.putNumber("Left 1 Current", left1.getOutputCurrent());
+      SmartDashboard.putNumber("Left 2 Current", left2.getOutputCurrent());
+      SmartDashboard.putNumber("Left 3 Current", left3.getOutputCurrent());
+      SmartDashboard.putNumber("Right 1 Current", right1.getOutputCurrent());
+      SmartDashboard.putNumber("Right 2 Current", right2.getOutputCurrent());
+      SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
 
-      // SmartDashboard.putNumber("pot", Robot.driveTrain.pot.get());
-      // SmartDashboard.putNumber("pot2", Robot.driveTrain.pot2.get());
-      SmartDashboard.putNumber("testing", Constants.turnkP);
-      SmartDashboard.putNumber("fl rel encoder", encoderLeft.getPosition());
-      SmartDashboard.putNumber(" fl encoder position", encoderLeft.getPositionConversionFactor());
-      // SmartDashboard.putNumber("the pot", thePot.getPosition()/3.29*10);
-      SmartDashboard.putNumber("the pot", thePot.getPosition()/3.26);
+      // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
+      // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
+      // SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
+      // SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
+      // SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
+      // SmartDashboard.putNumber("Right 1 Voltage", right3.getBusVoltage());
 
-
-      if (!Robot.driveTrain.limitSwitch.get()){
-        SmartDashboard.putString("limit", "true");
-      }
-      else{
-        SmartDashboard.putString("limit", "false");
-      }
-      // SmartDashboard.putNumber("Yaw", Robot.driveTrain.pigeon.getYaw());
-    
-      RobotContainer container = Robot.m_robotContainer;
-      if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
-        // Robot.driveTrain.pidAlign();
-        Robot.driveTrain.balance();
-        // Robot.driveTrain.Align();
-      }
-      else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
-        
-        Robot.driveTrain.pigeonAlign();
-        SmartDashboard.putString("pigeonAligning", "true");
-        // Robot.driveTrain.ManualDrive(0.1, 0.1);
-  
-      }
-      // else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == true){
-        
-      //   Robot.driveTrain.pigeonAlign();
-      //   Robot.driveTrain.balance();
-      //   SmartDashboard.putString("both align", "true");
-
-      //   // Robot.driveTrain.ManualDrive(0.1, 0.1);
-  
-      // }
-      else if(container.driverL.getRawButton(3) == true){
-        // Robot.driveTrain.gyro.reset();
-        Robot.driveTrain.pigeon.setYaw(0);
-        // Robot.driveTrain.pigeon.setAccumZAngle(0);
-        // Robot.driveTrain.pigeon.setYaw(0);
-
-      }
-      else{
-
-        Robot.driveTrain.ManualDrive(0, 0);
-        SmartDashboard.putString("pigeonAligning", "false");
-        SmartDashboard.putString("both align", "falae");
-
-
-      }
-    
+      // SmartDashboard.putNumber("Left 1 Temp", left1.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 2 Temp", left2.getMotorTemperature());
+      // SmartDashboard.putNumber("Left 3 Temp", left3.getMotorTemperature());
+      // SmartDashboard.putNumber("Right 1 Temp", right1.getMotorTemperature());
+      // SmartDashboard.putNumber("Right 2 Temp", right2.getMotorTemperature());
+      // SmartDashboard.putNumber("Right 1 Temp", right3.getMotorTemperature());
   }
 }

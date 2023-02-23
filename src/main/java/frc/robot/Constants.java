@@ -17,8 +17,11 @@ public final class Constants {
   public static int fLID = 60;
   public static int fRID = 59;
 
+  public static int[] leftIDs = {59,60,40};
+  public static int[] rightIDs = {41,42,43};
+
   //arm motors
-  public static int armID = 30;
+  public static int pivotID = 30;
   public static int extensionID = 31;
   public static int wristID = 32;
 
@@ -27,32 +30,6 @@ public final class Constants {
 
   public static double driveExpo = 1;
   public static double turnExpo = 1;
-
-  public static double turnkP = 0.6; //0.5
-  public static double turnkI = 0.; //0.01;
-  public static double turnkD = 0; //0.02;
-  public static double turnSetpoint = 0;
-  public static double pidMaxPercent = 90;
-
-  public static double alignkP = 0.7; //1
-  public static double alignkI = 0;
-  public static double alignkD = 0;
-  public static double alignSetpoint = -3.69;
-  public static double alignMaxPercent = 70;
-
-  public static double armkP = 0.7; //1
-  public static double armkI = 0;
-  public static double armkD = 0;
-  public static double armSetpoint = -3.69;
-  public static double armMaxPercent = 70;
-
-  public static double wristkP = 0.7; //1
-  public static double wristkI = 0;
-  public static double wristkD = 0;
-
-  public static double extendkP = 0.7; //1
-  public static double extendkI = 0;
-  public static double extendkD = 0;
 
   public static double[] coneIntake = {0, 80, 0, 0};
   public static double[] cubeIntake = {20, 20, 20, 1};
