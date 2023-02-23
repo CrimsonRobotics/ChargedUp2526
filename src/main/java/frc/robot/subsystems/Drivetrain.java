@@ -76,7 +76,7 @@ public class Drivetrain extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
     thePot = frontRight.getAnalog(Mode.kAbsolute);
     // theLimit = frontRight.getAnalog(Mode.kAbsolute);
-    theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyClosed);
+    theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
 
     encoderLeft = frontLeft.getEncoder();
     encoderLeft.setPositionConversionFactor(0.04);
@@ -170,7 +170,9 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("testing", Constants.turnkP);
       SmartDashboard.putNumber("fl rel encoder", encoderLeft.getPosition());
       SmartDashboard.putNumber(" fl encoder position", encoderLeft.getPositionConversionFactor());
-      SmartDashboard.putNumber("the pot", thePot.getPosition()/3.29*10);
+      // SmartDashboard.putNumber("the pot", thePot.getPosition()/3.29*10);
+      SmartDashboard.putNumber("the pot", thePot.getPosition()/3.26);
+
 
       if (!Robot.driveTrain.limitSwitch.get()){
         SmartDashboard.putString("limit", "true");

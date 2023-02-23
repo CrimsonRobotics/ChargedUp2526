@@ -16,9 +16,10 @@ public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
   public DriveStraight(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-     driveSpeed = speed;
     // double rightSpeed = rS;
     addRequirements(Robot.driveTrain);
+    driveSpeed = speed;
+
   }
 
   // Called when the command is initially scheduled.
