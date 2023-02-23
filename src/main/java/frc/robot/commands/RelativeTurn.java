@@ -28,18 +28,18 @@ public class RelativeTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    originalYaw = Robot.driveTrain.gyro.getAngle() % 360;
+    originalYaw = Robot.driveTrain.pigeon.getYaw() % 360;
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+    double yawReadout = Robot.driveTrain.pigeon.getYaw() % 360;
     // SmartDashboard.putNumber("Gyro Heading", gyroReadout);
     // SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(gyroReadout, originalYaw + turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(yawReadout, originalYaw + turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(0, -speed);
     // if(Helpers.isTurnCCW(originalYaw, originalYaw+turnPoint)){
@@ -53,7 +53,7 @@ public class RelativeTurn extends CommandBase {
     //   Robot.driveTrain.TeleopDrive(0, -speed);
     // }
 
-    if (Math.abs(gyroReadout-turnPoint)<2){
+    if (Math.abs(yawReadout-turnPoint)<Constants.alignError){
       isFinished = true;
     }
   }

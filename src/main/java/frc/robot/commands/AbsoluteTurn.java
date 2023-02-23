@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
 
@@ -18,6 +19,7 @@ public class AbsoluteTurn extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
     turnPoint = tp;
+    isFinished = false;
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +35,7 @@ public class AbsoluteTurn extends CommandBase {
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(0, -speed);
 
-    if (Math.abs(yawReadout-turnPoint)<2){
+    if (Math.abs(yawReadout-turnPoint)<Constants.alignError){
       isFinished = true;
     }
   }

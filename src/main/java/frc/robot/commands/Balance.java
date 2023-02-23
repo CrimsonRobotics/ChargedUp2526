@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
 
@@ -16,6 +17,7 @@ public class Balance extends CommandBase {
   public Balance() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
+    isFinished = false;
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +33,7 @@ public class Balance extends CommandBase {
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(speed, 0);
     
-    if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<2){
+    if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
       isFinished = true;
     }
   }

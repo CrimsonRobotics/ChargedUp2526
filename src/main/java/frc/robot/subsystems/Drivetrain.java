@@ -48,18 +48,16 @@ public class Drivetrain extends SubsystemBase {
   CANSparkMax right2;
   CANSparkMax right3;
 
-  public ADXRS450_Gyro gyro;
+  // public ADXRS450_Gyro gyro;
 
   public PIDController turnPID;
   public PIDController balancePID;
   public PIDController straightPID;
   public PigeonIMU pigeon;
-  public DigitalInput limitSwitch;
-  public SparkMaxAnalogSensor thePot;
-  public SparkMaxLimitSwitch theLimit;
-  // public SparkMaxAnalogSensor theLimit;
-  // public AnalogPotentiometer pot;
-  // public AnalogPotentiometer pot2;
+  // public DigitalInput limitSwitch;
+  // public SparkMaxAnalogSensor thePot;
+  // public SparkMaxLimitSwitch theLimit;
+
 
 
   public Drivetrain() {
@@ -112,8 +110,9 @@ public class Drivetrain extends SubsystemBase {
     straightPID = new PIDController(PIDConstants.straightkP, PIDConstants.straightkI, PIDConstants.straightkD);
     straightPID.setIntegratorRange(-PIDConstants.straightMaxPercent, PIDConstants.straightMaxPercent);
 
-    limitSwitch = new DigitalInput(0);
-    thePot = right1.getAnalog(Mode.kAbsolute);
+    // limitSwitch = new DigitalInput(0);
+    // thePot = right1.getAnalog(Mode.kAbsolute);
+    
     // thePot = frontRight.getAnalog(Mode.kAbsolute);
     // theLimit = frontRight.getAnalog(Mode.kAbsolute);
     // theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
@@ -243,5 +242,62 @@ public class Drivetrain extends SubsystemBase {
       // SmartDashboard.putNumber("Right 1 Temp", right1.getMotorTemperature());
       // SmartDashboard.putNumber("Right 2 Temp", right2.getMotorTemperature());
       // SmartDashboard.putNumber("Right 1 Temp", right3.getMotorTemperature());
+
+      // SmartDashboard.putData(turnPID);
+      // SmartDashboard.putBoolean("limit switch", !Robot.driveTrain.limitSwitch.get());
+      // SmartDashboard.putBoolean("the limit switch", theLimit.isPressed());
+
+      // // SmartDashboard.putNumber("pot", Robot.driveTrain.pot.get());
+      // // SmartDashboard.putNumber("pot2", Robot.driveTrain.pot2.get());
+      // SmartDashboard.putNumber("testing", Constants.turnkP);
+      // SmartDashboard.putNumber("fl rel encoder", encoderLeft.getPosition());
+      // SmartDashboard.putNumber(" fl encoder position", encoderLeft.getPositionConversionFactor());
+      // SmartDashboard.putNumber("the pot", thePot.getPosition()/3.29*10);
+
+      // if (!Robot.driveTrain.limitSwitch.get()){
+      //   SmartDashboard.putString("limit", "true");
+      // }
+      // else{
+      //   SmartDashboard.putString("limit", "false");
+      // }
+      // // SmartDashboard.putNumber("Yaw", Robot.driveTrain.pigeon.getYaw());
+    
+      // RobotContainer container = Robot.m_robotContainer;
+      // if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
+      //   // Robot.driveTrain.pidAlign();
+      //   Robot.driveTrain.balance();
+      //   // Robot.driveTrain.Align();
+      // }
+      // else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
+        
+      //   Robot.driveTrain.pigeonAlign();
+      //   SmartDashboard.putString("pigeonAligning", "true");
+      //   // Robot.driveTrain.ManualDrive(0.1, 0.1);
+  
+      // }
+      // // else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == true){
+        
+      // //   Robot.driveTrain.pigeonAlign();
+      // //   Robot.driveTrain.balance();
+      // //   SmartDashboard.putString("both align", "true");
+
+      // //   // Robot.driveTrain.ManualDrive(0.1, 0.1);
+  
+      // // }
+      // else if(container.driverL.getRawButton(3) == true){
+      //   // Robot.driveTrain.gyro.reset();
+      //   Robot.driveTrain.pigeon.setYaw(0);
+      //   // Robot.driveTrain.pigeon.setAccumZAngle(0);
+      //   // Robot.driveTrain.pigeon.setYaw(0);
+
+      // }
+      // else{
+
+      //   Robot.driveTrain.ManualDrive(0, 0);
+      //   SmartDashboard.putString("pigeonAligning", "false");
+      //   SmartDashboard.putString("both align", "falae");
+
+
+      // }
   }
 }

@@ -4,12 +4,22 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.PIDConstants;
+import frc.robot.Robot;
 
 public class TelescopeDrive extends CommandBase {
   /** Creates a new TelescopeDrive. */
-  public TelescopeDrive() {
+  boolean isFinished;
+  double armcase[];
+  public TelescopeDrive(double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.arm);
+    isFinished = false;
+    armcase = ac;
   }
 
   // Called when the command is initially scheduled.
@@ -22,11 +32,23 @@ public class TelescopeDrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    double extendPotReadout = Robot.arm.extendPot.get();
+    // double extendPotReadout = 15;
+
+    double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[2]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
+    extendspeed = extendspeed / 100;
+    Robot.arm.ExtendDrive(extendspeed);
+    // SmartDashboard.putNumber("Extend Speed",extendspeed);
+
+    if (Math.abs(extendPotReadout-armcase[2])<Constants.telescopeError){
+      isFinished = true;
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

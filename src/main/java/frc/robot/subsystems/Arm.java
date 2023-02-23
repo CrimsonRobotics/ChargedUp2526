@@ -23,21 +23,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
-  CANSparkMax pivot;
+  CANSparkMax pivot1;
+  CANSparkMax pivot2;
   CANSparkMax extension;
   CANSparkMax wrist;
-  AnalogPotentiometer pivotPot;
-  AnalogPotentiometer extendPot;
-  AnalogPotentiometer wristPot;
-  PIDController pivotPID;
-  PIDController wristPID;
-  PIDController extendPID;
+  public AnalogPotentiometer pivotPot;
+  public AnalogPotentiometer extendPot;
+  public AnalogPotentiometer wristPot;
+  public PIDController pivotPID;
+  public PIDController wristPID;
+  public PIDController extendPID;
   DoubleSolenoid intakeSolenoid;
 
 
 
   public Arm() {
-    pivot = new CANSparkMax(Constants.pivotID, MotorType.kBrushless);
+    pivot1 = new CANSparkMax(Constants.pivotIDs[0], MotorType.kBrushless);
+    pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
 
@@ -66,7 +68,8 @@ public class Arm extends SubsystemBase {
   }
 
   public void PivotDrive(double moveSpeed) {
-    pivot.set(moveSpeed);
+    pivot1.set(moveSpeed);
+    pivot2.set(moveSpeed);
   }
 
   public void ExtendDrive(double moveSpeed) {
@@ -77,41 +80,41 @@ public class Arm extends SubsystemBase {
     wrist.set(moveSpeed);
   }
 
-  public void MoveArm(double armcase[]) {
-    SmartDashboard.putNumber("Arm Case",armcase[0]);
+  // public void MoveArm(double armcase[]) {
+  //   SmartDashboard.putNumber("Arm Case",armcase[0]);
 
-    double pivotPotReadout = Robot.arm.pivotPot.get();
-    // double armPotReadout = 120;
+  //   double pivotPotReadout = Robot.arm.pivotPot.get();
+  //   // double armPotReadout = 120;
 
-    double pivotspeed = MathUtil.clamp(pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
-    pivotspeed = pivotspeed / 100;
-    Robot.arm.PivotDrive(pivotspeed);
-    SmartDashboard.putNumber("Arm Speed",pivotspeed);
+  //   double pivotspeed = MathUtil.clamp(pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+  //   pivotspeed = pivotspeed / 100;
+  //   Robot.arm.PivotDrive(pivotspeed);
+  //   SmartDashboard.putNumber("Arm Speed",pivotspeed);
 
-    double wristPotReadout = Robot.arm.wristPot.get();
-    // double wristPotReadout = 100;
-    double wristspeed = MathUtil.clamp(wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
-    wristspeed = wristspeed / 100;
-    Robot.arm.WristDrive(wristspeed);
-    SmartDashboard.putNumber("Wrist Speed",wristspeed);
+  //   double wristPotReadout = Robot.arm.wristPot.get();
+  //   // double wristPotReadout = 100;
+  //   double wristspeed = MathUtil.clamp(wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+  //   wristspeed = wristspeed / 100;
+  //   Robot.arm.WristDrive(wristspeed);
+  //   SmartDashboard.putNumber("Wrist Speed",wristspeed);
 
-    double extendPotReadout = Robot.arm.extendPot.get();
-    // double extendPotReadout = 15;
+  //   double extendPotReadout = Robot.arm.extendPot.get();
+  //   // double extendPotReadout = 15;
 
-    double extendspeed = MathUtil.clamp(extendPID.calculate(extendPotReadout, armcase[2]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
-    extendspeed = extendspeed / 100;
-    Robot.arm.ExtendDrive(extendspeed);
-    SmartDashboard.putNumber("Extend Speed",extendspeed);
+  //   double extendspeed = MathUtil.clamp(extendPID.calculate(extendPotReadout, armcase[2]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
+  //   extendspeed = extendspeed / 100;
+  //   Robot.arm.ExtendDrive(extendspeed);
+  //   SmartDashboard.putNumber("Extend Speed",extendspeed);
 
-    if (armcase[3] == 0) {
-      intakeSolenoid.set(Value.kForward);
-      SmartDashboard.putString("Intake State", "Cone");
+  //   if (armcase[3] == 0) {
+  //     intakeSolenoid.set(Value.kForward);
+  //     SmartDashboard.putString("Intake State", "Cone");
 
-    } else if(armcase[3] == 1) {
-      SmartDashboard.putString("Intake State", "Cube");
-    }
+  //   } else if(armcase[3] == 1) {
+  //     SmartDashboard.putString("Intake State", "Cube");
+  //   }
 
-  }
+  // }
 
   @Override
   public void periodic() {
@@ -121,21 +124,21 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("ExtendPot readout", Robot.arm.extendPot.get());
 
     // This method will be called once per scheduler run
-    if(container.driverR.getRawButton(1) == true){
-      MoveArm(Constants.coneIntake);
-      SmartDashboard.putBoolean("Arm On", true);
+    // if(container.driverR.getRawButton(1) == true){
+    //   MoveArm(Constants.coneIntake);
+    //   SmartDashboard.putBoolean("Arm On", true);
 
-    }
-    else if(container.driverR.getRawButton(2) == true){
-      MoveArm(Constants.cubeIntake);
-      SmartDashboard.putBoolean("Arm On", true);
+    // }
+    // else if(container.driverR.getRawButton(2) == true){
+    //   MoveArm(Constants.cubeIntake);
+    //   SmartDashboard.putBoolean("Arm On", true);
 
 
-    }
-    else{
-      SmartDashboard.putBoolean("Arm On", false);
+    // }
+    // else{
+    //   SmartDashboard.putBoolean("Arm On", false);
 
-    }
+    // }
 
 
   

@@ -4,12 +4,24 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.PIDConstants;
+import frc.robot.Robot;
 
 public class WristDrive extends CommandBase {
   /** Creates a new WristDrive. */
-  public WristDrive() {
+  boolean isFinished;
+  double armcase[];
+
+  public WristDrive(double ac[]) {
+    
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.arm);
+    isFinished = false;
+    armcase = ac;
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +30,18 @@ public class WristDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double wristPotReadout = Robot.arm.wristPot.get();
+    // double wristPotReadout = 100;
+    double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+    wristspeed = wristspeed / 100;
+    Robot.arm.WristDrive(wristspeed);
+    // SmartDashboard.putNumber("Wrist Speed",wristspeed);
+
+    if (Math.abs(wristPotReadout-armcase[2])<Constants.wristError){
+      isFinished = true;
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -27,6 +50,6 @@ public class WristDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

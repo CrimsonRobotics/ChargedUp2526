@@ -38,8 +38,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     led = new LED();
     arm = new Arm();
-    driveTrain.gyro.calibrate();
-    // driveTrain.pigeon.setYaw(0);
+    // driveTrain.gyro.calibrate();
+    driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     // driveTrain.pigeon.setYaw(0);
 

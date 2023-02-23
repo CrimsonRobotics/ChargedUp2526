@@ -21,7 +21,7 @@ public final class Constants {
   public static int[] rightIDs = {41,42,43};
 
   //arm motors
-  public static int pivotID = 30;
+  public static int pivotIDs[] = {29, 30};
   public static int extensionID = 31;
   public static int wristID = 32;
 
@@ -33,6 +33,12 @@ public final class Constants {
 
   public static double[] coneIntake = {0, 80, 0, 0};
   public static double[] cubeIntake = {20, 20, 20, 1};
+
+  public static double alignError = 2;
+  public static double balanceError = 3;
+  public static double pivotError = 2;
+  public static double telescopeError = 2;
+  public static double wristError = 2;
 
 
   public static class OperatorConstants {
