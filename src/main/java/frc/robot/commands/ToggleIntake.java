@@ -4,21 +4,35 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
 public class ToggleIntake extends CommandBase {
   /** Creates a new ToggleIntake. */
-  public ToggleIntake() {
+  boolean intakeState;
+  public ToggleIntake(boolean state) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.arm);
+    intakeState = state;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (intakeState == true){
+      Robot.arm.intakeSolenoid.set(Value.kForward);
+    }
+    else {
+      Robot.arm.intakeSolenoid.set(Value.kReverse);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -27,6 +41,6 @@ public class ToggleIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

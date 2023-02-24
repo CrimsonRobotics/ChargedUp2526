@@ -38,7 +38,7 @@ public class WristDrive extends CommandBase {
     Robot.arm.WristDrive(wristspeed);
     // SmartDashboard.putNumber("Wrist Speed",wristspeed);
 
-    if (Math.abs(wristPotReadout-armcase[2])<Constants.wristError){
+    if (Math.abs(wristPotReadout-armcase[1])<Constants.wristError){
       isFinished = true;
     }
   }

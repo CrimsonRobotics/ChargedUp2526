@@ -33,9 +33,9 @@ public class Arm extends SubsystemBase {
   public PIDController pivotPID;
   public PIDController wristPID;
   public PIDController extendPID;
-  DoubleSolenoid intakeSolenoid;
+  public DoubleSolenoid intakeSolenoid;
 
-
+  public boolean armState;
 
   public Arm() {
     pivot1 = new CANSparkMax(Constants.pivotIDs[0], MotorType.kBrushless);
@@ -80,6 +80,15 @@ public class Arm extends SubsystemBase {
     wrist.set(moveSpeed);
   }
 
+  public void ToggleIntake(boolean state){
+    if (state == true){
+      intakeSolenoid.set(Value.kForward);
+    }
+    else {
+      intakeSolenoid.set(Value.kReverse);
+    }
+  }
+
   // public void MoveArm(double armcase[]) {
   //   SmartDashboard.putNumber("Arm Case",armcase[0]);
 
@@ -122,6 +131,17 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("ArmPot readout", Robot.arm.pivotPot.get());
     SmartDashboard.putNumber("WristPot readout", Robot.arm.wristPot.get());
     SmartDashboard.putNumber("ExtendPot readout", Robot.arm.extendPot.get());
+    SmartDashboard.putBoolean("Arm State", armState);
+
+
+    if(container.operatorR.getRawButton(0)&&container.operatorR.getRawButton(1)&&container.operatorR.getRawButton(2)==true){
+      armState = true;
+    }
+    else if(container.operatorR.getRawButton(3)&&container.operatorR.getRawButton(4)&&container.operatorR.getRawButton(5)==false){
+      armState = false;
+    }
+
+    ToggleIntake(armState);
 
     // This method will be called once per scheduler run
     // if(container.driverR.getRawButton(1) == true){

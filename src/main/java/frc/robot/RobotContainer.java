@@ -5,13 +5,17 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmDrive;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Balance;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -29,6 +33,8 @@ public class RobotContainer {
   public static Joystick driverR = new Joystick(1);
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
+
+  public static JoystickButton lowIntake = new JoystickButton(operatorL, 1);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -57,6 +63,13 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    if(Robot.arm.armState == true){
+      lowIntake.onTrue(new ArmDrive(Constants.coneIntake));
+    }
+    else{
+      lowIntake.onTrue(new Balance());
+
+    }
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 

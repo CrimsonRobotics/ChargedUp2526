@@ -35,7 +35,7 @@ public class PivotDrive extends CommandBase {
     pivotspeed = pivotspeed / 100;
     Robot.arm.PivotDrive(pivotspeed);
     // SmartDashboard.putNumber("Arm Speed",pivotspeed);
-    if (Math.abs(pivotPotReadout-armcase[2])<Constants.pivotError){
+    if (Math.abs(pivotPotReadout-armcase[0])<Constants.pivotError){
       isFinished = true;
     }
   }

@@ -36,14 +36,14 @@ public class DriveStraight extends CommandBase {
     SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
     SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(pigeonReadout, originalYaw), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+    double speed = MathUtil.clamp(Robot.driveTrain.straightPID.calculate(pigeonReadout, originalYaw), -PIDConstants.straightMaxPercent, PIDConstants.straightMaxPercent);
     speed = speed / 100;
     // Robot.driveTrain.TeleopDrive(0, -speed);
     Robot.driveTrain.TeleopDrive(driveSpeed, -speed);
 
     // Robot.driveTrain.ManualDrive(-speed, speed);
 
-    SmartDashboard.putNumber("pigeonAlignSpeed", speed);
+    // SmartDashboard.putNumber("pigeonAlignSpeed", speed);
 
 
   }
@@ -55,6 +55,6 @@ public class DriveStraight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
