@@ -27,6 +27,7 @@ public class Arm extends SubsystemBase {
   CANSparkMax pivot2;
   CANSparkMax extension;
   CANSparkMax wrist;
+  CANSparkMax intakeMotor;
   public AnalogPotentiometer pivotPot;
   public AnalogPotentiometer extendPot;
   public AnalogPotentiometer wristPot;
@@ -42,6 +43,7 @@ public class Arm extends SubsystemBase {
     pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(Constants.intakeID, Motortype.kBrushless);
 
 
     pivotPot = new AnalogPotentiometer(1, 360, 0);
@@ -78,6 +80,10 @@ public class Arm extends SubsystemBase {
 
   public void WristDrive(double moveSpeed) {
     wrist.set(moveSpeed);
+  }
+
+  public void IntakeDrive(double moveSpeed) {
+    intakeMotor.set(moveSpeed);
   }
 
   public void ToggleIntake(boolean state){
@@ -142,6 +148,14 @@ public class Arm extends SubsystemBase {
     }
 
     ToggleIntake(armState);
+
+    if(container.driverL.getRawButton(1)==true){
+      Robot.arm.IntakeDrive(0.3);
+    }
+    else{
+      Robot.arm.IntakeDrive(0);
+    }
+
 
     // This method will be called once per scheduler run
     // if(container.driverR.getRawButton(1) == true){
