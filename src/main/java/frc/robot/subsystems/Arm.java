@@ -43,7 +43,7 @@ public class Arm extends SubsystemBase {
     pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
-    intakeMotor = new CANSparkMax(Constants.intakeID, Motortype.kBrushless);
+    intakeMotor = new CANSparkMax(Constants.intakeID, MotorType.kBrushless);
 
 
     pivotPot = new AnalogPotentiometer(1, 360, 0);
