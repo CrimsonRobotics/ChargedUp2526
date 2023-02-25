@@ -7,13 +7,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.subsystems.Claw;
 
 public class ToggleIntake extends CommandBase {
   /** Creates a new ToggleIntake. */
+  private Claw claw;
   boolean intakeState;
-  public ToggleIntake(boolean state) {
+  public ToggleIntake(Claw c, boolean state) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.arm);
+    claw = c;
+    addRequirements(c);
     intakeState = state;
   }
 
@@ -27,10 +30,10 @@ public class ToggleIntake extends CommandBase {
   @Override
   public void execute() {
     if (intakeState == true){
-      Robot.arm.intakeSolenoid.set(Value.kForward);
+      this.claw.intakeSolenoid.set(Value.kForward);
     }
     else {
-      Robot.arm.intakeSolenoid.set(Value.kReverse);
+      this.claw.intakeSolenoid.set(Value.kReverse);
     }
   }
 

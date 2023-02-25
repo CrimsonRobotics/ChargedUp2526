@@ -10,14 +10,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 public class AbsoluteTurn extends CommandBase {
   /** Creates a new Align. */
+  private Drivetrain driveTrain;
   double turnPoint;
   boolean isFinished;
-  public AbsoluteTurn(double tp) {
+  public AbsoluteTurn(Drivetrain d, double tp) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    driveTrain = d;
+    addRequirements(this.driveTrain);
     turnPoint = tp;
     isFinished = false;
   }
@@ -30,10 +33,10 @@ public class AbsoluteTurn extends CommandBase {
   @Override
   public void execute() {
 
-    double yawReadout = Robot.driveTrain.pigeon.getYaw() % 360;
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(yawReadout, turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+    double yawReadout = this.driveTrain.pigeon.getYaw() % 360;
+    double speed = MathUtil.clamp(this.driveTrain.turnPID.calculate(yawReadout, turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
     speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(0, -speed);
+    this.driveTrain.TeleopDrive(0, -speed);
 
     if (Math.abs(yawReadout-turnPoint)<Constants.alignError){
       isFinished = true;

@@ -36,9 +36,9 @@ public final class PIDConstants {
     public static double wristMaxPercent = 70;
 
   
-    public static double extendkP = 0.7; //1
-    public static double extendkI = 0;
-    public static double extendkD = 0;
-    public static double extendMaxPercent = 70;
+    public static double telescopekP = 0.7; //1
+    public static double telescopekI = 0;
+    public static double telescopekD = 0;
+    public static double telescopeMaxPercent = 70;
 
 }

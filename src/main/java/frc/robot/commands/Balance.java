@@ -10,13 +10,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 public class Balance extends CommandBase {
+  private Drivetrain driveTrain;
   /** Creates a new Balance. */
   boolean isFinished;
-  public Balance() {
+  public Balance(Drivetrain dt) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    driveTrain = dt;
+    addRequirements(this.driveTrain);
     isFinished = false;
   }
 
@@ -27,11 +30,11 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rollReadout = Robot.driveTrain.pigeon.getRoll() % 360;
+    double rollReadout = this.driveTrain.pigeon.getRoll() % 360;
 
-    double speed = MathUtil.clamp(Robot.driveTrain.balancePID.calculate(rollReadout, PIDConstants.balanceSetpoint), -PIDConstants.balanceMaxPercent, PIDConstants.balanceMaxPercent);
+    double speed = MathUtil.clamp(this.driveTrain.balancePID.calculate(rollReadout, PIDConstants.balanceSetpoint), -PIDConstants.balanceMaxPercent, PIDConstants.balanceMaxPercent);
     speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(speed, 0);
+    this.driveTrain.TeleopDrive(speed, 0);
     
     if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
       isFinished = true;

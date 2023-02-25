@@ -128,15 +128,15 @@ public class Drivetrain extends SubsystemBase {
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
-    shifter = new DoubleSolenoid(
-      Constants.PCM, 
-      PneumaticsModuleType.CTREPCM, 
-      Constants.intakeSolenoidIDS[2], Constants.intakeSolenoidIDS[3]);
+    // shifter = new DoubleSolenoid(
+    //   Constants.PCM, 
+    //   PneumaticsModuleType.CTREPCM, 
+    //   Constants.intakeSolenoidIDS[2], Constants.intakeSolenoidIDS[3]);
 
-    parkingBrake = new DoubleSolenoid(
-      Constants.PCM, 
-      PneumaticsModuleType.CTREPCM, 
-      Constants.intakeSolenoidIDS[4], Constants.intakeSolenoidIDS[5]);
+    // parkingBrake = new DoubleSolenoid(
+    //   Constants.PCM, 
+    //   PneumaticsModuleType.CTREPCM, 
+    //   Constants.intakeSolenoidIDS[4], Constants.intakeSolenoidIDS[5]);
 
   }
 
@@ -262,7 +262,7 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Right 2 Current", right2.getOutputCurrent());
       SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
 
-      shift(container.driverL);
+      // shift(container.driverL);
 
       // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());

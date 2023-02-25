@@ -10,16 +10,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Wrist;
 
 public class WristDrive extends CommandBase {
   /** Creates a new WristDrive. */
   boolean isFinished;
+  private Wrist wrist;
   double armcase[];
 
-  public WristDrive(double ac[]) {
+  public WristDrive(Wrist w, double ac[]) {
     
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(Robot.arm);
+    addRequirements(w);
+    wrist = w;
     isFinished = false;
     armcase = ac;
   }
@@ -31,25 +35,21 @@ public class WristDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double wristPotReadout = Robot.arm.wristPot.get();
+    System.out.printf("Wrist Drive Command Executing");
 
-    if(Robot.arm.armState == true){
-      double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+    double wristPotReadout = this.wrist.wristPot.get();
+
+    if(Pivot.armState == true){
+      double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
-      Robot.arm.WristDrive(wristspeed);
+      this.wrist.WristDrive(wristspeed);
       SmartDashboard.putNumber("Wrist Speed",wristspeed);
-      if (Math.abs(wristPotReadout-armcase[1])<Constants.wristError){
-      isFinished = true;
-      }
     }
-    else if(Robot.arm.armState == false){
-      double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[4]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+    else if(Pivot.armState == false){
+      double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[4]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
-      Robot.arm.WristDrive(wristspeed);
+      this.wrist.WristDrive(wristspeed);
       SmartDashboard.putNumber("Wrist Speed",wristspeed);
-      if (Math.abs(wristPotReadout-armcase[4])<Constants.wristError){
-      isFinished = true;
-      }
     }
     // double wristPotReadout = 100;
     // SmartDashboard.putNumber("Wrist Speed",wristspeed);
@@ -62,6 +62,6 @@ public class WristDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return false;
   }
 }

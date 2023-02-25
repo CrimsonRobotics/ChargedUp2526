@@ -12,15 +12,18 @@ import frc.robot.Constants;
 import frc.robot.Helpers;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 public class RelativeTurn extends CommandBase {
   /** Creates a new TurnPrecise. */
+  private Drivetrain driveTrain;
   double turnPoint;
   boolean isFinished;
   double originalYaw;
-  public RelativeTurn(double tp) {
+  public RelativeTurn(Drivetrain d, double tp) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    driveTrain = d;
+    addRequirements(this.driveTrain);
     turnPoint = tp;
     isFinished = false;
   }
@@ -28,29 +31,29 @@ public class RelativeTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    originalYaw = Robot.driveTrain.pigeon.getYaw() % 360;
+    originalYaw = this.driveTrain.pigeon.getYaw() % 360;
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double yawReadout = Robot.driveTrain.pigeon.getYaw() % 360;
+    double yawReadout = this.driveTrain.pigeon.getYaw() % 360;
     // SmartDashboard.putNumber("Gyro Heading", gyroReadout);
     // SmartDashboard.putNumber("original Heading", originalYaw);
 
-    double speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(yawReadout, originalYaw + turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
+    double speed = MathUtil.clamp(this.driveTrain.turnPID.calculate(yawReadout, originalYaw + turnPoint), -PIDConstants.pidMaxPercent, PIDConstants.pidMaxPercent);
     speed = speed / 100;
-    Robot.driveTrain.TeleopDrive(0, -speed);
+    this.driveTrain.TeleopDrive(0, -speed);
     // if(Helpers.isTurnCCW(originalYaw, originalYaw+turnPoint)){
     //   double newPoint = Helpers.hdgDiff(originalYaw, turnPoint);
-    //   speed = MathUtil.clamp(Robot.driveTrain.turnPID.calculate(gyroReadout, originalYaw + newPoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    //   speed = MathUtil.clamp(this.driveTrain.turnPID.calculate(gyroReadout, originalYaw + newPoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
     //   speed = speed / 100;
-    //   Robot.driveTrain.TeleopDrive(0, speed);
+    //   this.driveTrain.TeleopDrive(0, speed);
 
     // }
     // else {
-    //   Robot.driveTrain.TeleopDrive(0, -speed);
+    //   this.driveTrain.TeleopDrive(0, -speed);
     // }
 
     if (Math.abs(yawReadout-turnPoint)<Constants.alignError){

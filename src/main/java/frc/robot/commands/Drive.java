@@ -7,12 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 public class Drive extends CommandBase {
   /** Creates a new Drive. */
-  public Drive() {
+  private Drivetrain driveTrain;
+  public Drive(Drivetrain d) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    driveTrain = d;
+    addRequirements(this.driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +43,7 @@ public class Drive extends CommandBase {
       trnSpeed = -Math.pow(Math.abs(ySpeed), Constants.turnExpo);
     }
 
-      Robot.driveTrain.TeleopDrive(driveSpeed, trnSpeed);
+      this.driveTrain.TeleopDrive(driveSpeed, trnSpeed);
   }
 
   // Called once the command ends or is interrupted.

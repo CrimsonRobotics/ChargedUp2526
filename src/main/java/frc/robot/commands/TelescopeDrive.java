@@ -10,14 +10,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Telescope;
 
 public class TelescopeDrive extends CommandBase {
   /** Creates a new TelescopeDrive. */
+  private Telescope telescope;
   boolean isFinished;
   double armcase[];
-  public TelescopeDrive(double ac[]) {
+  public TelescopeDrive(Telescope t, double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(Robot.arm);
+    addRequirements(t);
+    telescope = t;
     isFinished = false;
     armcase = ac;
   }
@@ -28,39 +32,37 @@ public class TelescopeDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    System.out.printf("Telescope Drive Command Executing");
+
+    double telescopePotReadout = this.telescope.telescopePot.get();
+    // double telescopePotReadout = 15;
+    if(Pivot.armState == true){
+      double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[3]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+      telescopespeed = telescopespeed / 100;
+      this.telescope.telescopeDrive(telescopespeed);
+      // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+      SmartDashboard.putNumber("telescope Speed", telescopespeed);
+      }
+    else if(Pivot.armState == false){
+      double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+      telescopespeed = telescopespeed / 100;
+      this.telescope.telescopeDrive(telescopespeed);
+      // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+      SmartDashboard.putNumber("telescope Speed",telescopespeed);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    double extendPotReadout = Robot.arm.extendPot.get();
-    // double extendPotReadout = 15;
-    if(Robot.arm.armState == true){
-      double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[3]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
-      extendspeed = extendspeed / 100;
-      Robot.arm.ExtendDrive(extendspeed);
-      // SmartDashboard.putNumber("Extend Speed",extendspeed);
-      SmartDashboard.putNumber("Extend Speed", extendspeed);
-        if (Math.abs(extendPotReadout-armcase[3])<Constants.telescopeError){
-        isFinished = true;
-        }
-      }
-      else if(Robot.arm.armState == false){
-        double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[5]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
-        extendspeed = extendspeed / 100;
-        Robot.arm.ExtendDrive(extendspeed);
-        // SmartDashboard.putNumber("Extend Speed",extendspeed);
-        SmartDashboard.putNumber("Extend Speed",extendspeed);
-        if (Math.abs(extendPotReadout-armcase[5])<Constants.telescopeError){
-        isFinished = true;
-        }
-      }
+    
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return false;
   }
 }

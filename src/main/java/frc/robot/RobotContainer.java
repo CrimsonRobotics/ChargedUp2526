@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteTurn;
-import frc.robot.commands.ArmDrive;
+import frc.robot.commands.ArmCancelCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Balance;
 import frc.robot.commands.Drive;
@@ -15,7 +15,13 @@ import frc.robot.commands.PivotDrive;
 import frc.robot.commands.TelescopeDrive;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.WristDrive;
+// import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Telescope;
+import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,6 +37,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Drivetrain driveTrain = new Drivetrain();
+  // private final Arm arm = new Arm();
+  private final Wrist wrist = new Wrist();
+  private final Telescope telescope = new Telescope();
+  private final Pivot pivot = new Pivot();
+  private final Claw claw = new Claw();
+
+
+
 
   //Joysticks
   public static Joystick driverL = new Joystick(0);
@@ -38,10 +53,12 @@ public class RobotContainer {
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
 
-  public static JoystickButton lowOuttake = new JoystickButton(operatorL, 1);
-  public static JoystickButton midOuttake = new JoystickButton(operatorL, 2);
-  public static JoystickButton highOuttake = new JoystickButton(operatorL, 3);
-  public static JoystickButton lowIntake = new JoystickButton(operatorL, 4);
+  public static JoystickButton lowOuttake = new JoystickButton(operatorR, 1);
+  public static JoystickButton midOuttake = new JoystickButton(operatorR, 2);
+  public static JoystickButton highOuttake = new JoystickButton(operatorR, 3);
+  public static JoystickButton lowIntake = new JoystickButton(operatorR, 4);
+  public static JoystickButton killArm = new JoystickButton(operatorR, 7);
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -51,7 +68,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    Robot.driveTrain.setDefaultCommand(new Drive());
+    this.driveTrain.setDefaultCommand(new Drive(this.driveTrain));
     configureBindings();
   }
 
@@ -68,11 +85,15 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    lowOuttake.onTrue(new PivotDrive(Constants.intakeLow));
-    midOuttake.onTrue(new WristDrive(Constants.intakeLow));
-    highOuttake.onTrue(new TelescopeDrive(Constants.intakeLow));
-    lowIntake.onTrue(new ArmDrive(Constants.intakeLow));
+    lowOuttake.onTrue(new PivotDrive(this.pivot, Constants.intakeLow));
+    // midOuttake.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
+    midOuttake.onTrue(new WristDrive(this.wrist, Constants.intakeLow));
+    highOuttake.onTrue(new TelescopeDrive(this.telescope, Constants.intakeLow));
+    // lowIntake.onTrue(new ArmDrive(this.arm, Constants.intakeLow));
+    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotDrive(pivot, Constants.intakeLow)));
+
+    killArm.onTrue(new ArmCancelCommand(pivot, telescope, wrist));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // if(Robot.arm.armState == true){

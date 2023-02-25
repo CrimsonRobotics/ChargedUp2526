@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LED;
 
@@ -22,9 +21,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   public static RobotContainer m_robotContainer;
-  public static Drivetrain driveTrain;
+  // public static Drivetrain driveTrain;
   public static LED led;
-  public static Arm arm;
+  // public static Arm arm;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,12 +33,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    driveTrain = new Drivetrain();
+    // driveTrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
     led = new LED();
-    arm = new Arm();
+    // arm = new Arm();
     // driveTrain.gyro.calibrate();
-    driveTrain.pigeon.setYaw(0);
+    // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     // driveTrain.pigeon.setYaw(0);
 
@@ -58,9 +57,9 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    SmartDashboard.putNumber("Yaw Heading", driveTrain.pigeon.getYaw());
-    SmartDashboard.putNumber("Pitch Heading", driveTrain.pigeon.getPitch());
-    SmartDashboard.putNumber("Roll Heading", driveTrain.pigeon.getRoll());
+    // SmartDashboard.putNumber("Yaw Heading", driveTrain.pigeon.getYaw());
+    // SmartDashboard.putNumber("Pitch Heading", driveTrain.pigeon.getPitch());
+    // SmartDashboard.putNumber("Roll Heading", driveTrain.pigeon.getRoll());
 
 
     CommandScheduler.getInstance().run();
