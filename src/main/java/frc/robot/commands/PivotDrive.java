@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -17,9 +18,11 @@ public class PivotDrive extends CommandBase {
   private Pivot pivot;
   double armcase[];
   boolean isFinished;
-  public PivotDrive(Pivot p, double ac[]) {
+  private Joystick joystick;
+  public PivotDrive(Joystick j, Pivot p, double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
+    joystick = j;
     pivot = p;
     armcase = ac;
     isFinished = false;
@@ -33,19 +36,20 @@ public class PivotDrive extends CommandBase {
   @Override
   public void execute() {
     System.out.printf("Pivot Drive Command Executing");
+    double adjust = joystick.getY()*5;
 
     double pivotPotReadout = this.pivot.pivotPot.get();
 
     if(Pivot.armState == true){
 
-      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",pivotspeed);
     }
     else if(Pivot.armState == false){
 
-      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[3]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",pivotspeed);

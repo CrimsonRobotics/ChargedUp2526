@@ -53,12 +53,11 @@ public class RobotContainer {
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
 
-  public static JoystickButton lowOuttake = new JoystickButton(operatorR, 1);
+  public static JoystickButton operatorR1 = new JoystickButton(operatorR, 1);
   public static JoystickButton midOuttake = new JoystickButton(operatorR, 2);
   public static JoystickButton highOuttake = new JoystickButton(operatorR, 3);
   public static JoystickButton lowIntake = new JoystickButton(operatorR, 4);
   public static JoystickButton killArm = new JoystickButton(operatorR, 7);
-
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -71,7 +70,7 @@ public class RobotContainer {
     this.driveTrain.setDefaultCommand(new Drive(this.driveTrain));
     configureBindings();
   }
-
+ 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -85,13 +84,13 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    lowOuttake.onTrue(new PivotDrive(this.pivot, Constants.intakeLow));
+    operatorR1.onTrue(new PivotDrive(operatorR, this.pivot, Constants.intakeLow));
     // midOuttake.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
     midOuttake.onTrue(new WristDrive(this.wrist, Constants.intakeLow));
     highOuttake.onTrue(new TelescopeDrive(this.telescope, Constants.intakeLow));
     // lowIntake.onTrue(new ArmDrive(this.arm, Constants.intakeLow));
-    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotDrive(pivot, Constants.intakeLow)));
+    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotDrive(operatorR, pivot, Constants.intakeLow)));
 
     killArm.onTrue(new ArmCancelCommand(pivot, telescope, wrist));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

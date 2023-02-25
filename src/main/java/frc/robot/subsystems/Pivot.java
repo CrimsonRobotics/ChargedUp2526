@@ -29,6 +29,7 @@ public class Pivot extends SubsystemBase {
   public Pivot() {
     pivot1 = new CANSparkMax(Constants.pivotIDs[0], MotorType.kBrushless);
     pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
+
     
     pivotPot = new AnalogPotentiometer(1, 360, 0);
 

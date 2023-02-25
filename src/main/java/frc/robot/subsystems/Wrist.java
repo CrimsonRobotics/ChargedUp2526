@@ -22,7 +22,7 @@ public class Wrist extends SubsystemBase {
   public PIDController wristPID;
   /** Creates a new Wrist. */
   public Wrist() {
-    wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
+    wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushed);
     
     wristPot = new AnalogPotentiometer(3, 360, 0);
 
