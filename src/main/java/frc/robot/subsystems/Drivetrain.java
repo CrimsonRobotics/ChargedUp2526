@@ -25,7 +25,11 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -57,7 +61,8 @@ public class Drivetrain extends SubsystemBase {
   // public DigitalInput limitSwitch;
   // public SparkMaxAnalogSensor thePot;
   // public SparkMaxLimitSwitch theLimit;
-
+  public DoubleSolenoid shifter;
+  public DoubleSolenoid parkingBrake;
 
 
   public Drivetrain() {
@@ -109,7 +114,7 @@ public class Drivetrain extends SubsystemBase {
 
     straightPID = new PIDController(PIDConstants.straightkP, PIDConstants.straightkI, PIDConstants.straightkD);
     straightPID.setIntegratorRange(-PIDConstants.straightMaxPercent, PIDConstants.straightMaxPercent);
-
+          
     // limitSwitch = new DigitalInput(0);
     // thePot = right1.getAnalog(Mode.kAbsolute);
     
@@ -122,6 +127,16 @@ public class Drivetrain extends SubsystemBase {
     encoderLeft.setPositionConversionFactor(0.04);
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
+
+    shifter = new DoubleSolenoid(
+      Constants.PCM, 
+      PneumaticsModuleType.CTREPCM, 
+      Constants.intakeSolenoidIDS[2], Constants.intakeSolenoidIDS[3]);
+
+    parkingBrake = new DoubleSolenoid(
+      Constants.PCM, 
+      PneumaticsModuleType.CTREPCM, 
+      Constants.intakeSolenoidIDS[4], Constants.intakeSolenoidIDS[5]);
 
   }
 
@@ -147,6 +162,22 @@ public class Drivetrain extends SubsystemBase {
     right3.set(forwardSpeed + turnSpeed);
 
 
+  }
+
+  public void shift(Joystick driverL) {
+    if (driverL.getRawButton(11) ||
+        driverL.getRawButton(12) ||
+        driverL.getRawButton(13) ||
+        driverL.getRawButton(14) ||
+        driverL.getRawButton(15) ||
+        driverL.getRawButton(16)) {
+      shifter.set(Value.kForward);
+      // Robot.currentState = "Shifting";
+    }
+
+    else {
+      shifter.set(Value.kReverse);
+    }
   }
 
   public void ManualDrive(double leftSpeed, double rightSpeed) {
@@ -217,6 +248,8 @@ public class Drivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
+      RobotContainer container = Robot.m_robotContainer;
+
       // This method will be called once per scheduler run
       // double[] ypr = new double [3];
       // Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
@@ -228,6 +261,8 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Right 1 Current", right1.getOutputCurrent());
       SmartDashboard.putNumber("Right 2 Current", right2.getOutputCurrent());
       SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
+
+      shift(container.driverL);
 
       // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
@@ -262,7 +297,6 @@ public class Drivetrain extends SubsystemBase {
       // }
       // // SmartDashboard.putNumber("Yaw", Robot.driveTrain.pigeon.getYaw());
     
-      // RobotContainer container = Robot.m_robotContainer;
       // if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
       //   // Robot.driveTrain.pidAlign();
       //   Robot.driveTrain.balance();

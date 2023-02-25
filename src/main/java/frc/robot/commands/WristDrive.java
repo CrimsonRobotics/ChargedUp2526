@@ -19,7 +19,7 @@ public class WristDrive extends CommandBase {
   public WristDrive(double ac[]) {
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.arm);
+    // addRequirements(Robot.arm);
     isFinished = false;
     armcase = ac;
   }
@@ -32,15 +32,27 @@ public class WristDrive extends CommandBase {
   @Override
   public void execute() {
     double wristPotReadout = Robot.arm.wristPot.get();
-    // double wristPotReadout = 100;
-    double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
-    wristspeed = wristspeed / 100;
-    Robot.arm.WristDrive(wristspeed);
-    // SmartDashboard.putNumber("Wrist Speed",wristspeed);
 
-    if (Math.abs(wristPotReadout-armcase[1])<Constants.wristError){
+    if(Robot.arm.armState == true){
+      double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+      wristspeed = wristspeed / 100;
+      Robot.arm.WristDrive(wristspeed);
+      SmartDashboard.putNumber("Wrist Speed",wristspeed);
+      if (Math.abs(wristPotReadout-armcase[1])<Constants.wristError){
       isFinished = true;
+      }
     }
+    else if(Robot.arm.armState == false){
+      double wristspeed = MathUtil.clamp(Robot.arm.wristPID.calculate(wristPotReadout, armcase[4]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
+      wristspeed = wristspeed / 100;
+      Robot.arm.WristDrive(wristspeed);
+      SmartDashboard.putNumber("Wrist Speed",wristspeed);
+      if (Math.abs(wristPotReadout-armcase[4])<Constants.wristError){
+      isFinished = true;
+      }
+    }
+    // double wristPotReadout = 100;
+    // SmartDashboard.putNumber("Wrist Speed",wristspeed);
   }
 
   // Called once the command ends or is interrupted.

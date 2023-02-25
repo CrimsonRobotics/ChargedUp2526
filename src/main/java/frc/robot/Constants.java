@@ -28,13 +28,18 @@ public final class Constants {
 
 
   public final static int PCM = 0;
-  public final static int[] intakeSolenodIDS = {4,2};
+  public final static int[] intakeSolenoidIDS = {4,2};
 
   public static double driveExpo = 1;
   public static double turnExpo = 1;
 
-  public static double[] coneIntake = {0, 80, 0, 0};
-  public static double[] cubeIntake = {20, 20, 20, 1};
+  public static double[] intakeLow = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+  public static double[] intakeHigh = {/*Cone*/30, 30, 30,/*Cube */ 40,40,40};
+  public static double[] outtakeLow = {/*Cone*/0, 0, 0,/*Cube */ 10,10,10};
+  public static double[] outtakeMid = {/*Cone*/40, 40, 40,/*Cube */ 20,20,20};
+  public static double[] outtakeHigh = {/*Cone*/60, 60, 60,/*Cube */ 30,30,30};
+
+  // public static double[] cubeIntake = {20, 20, 20, 1};
 
   public static double alignError = 2;
   public static double balanceError = 3;

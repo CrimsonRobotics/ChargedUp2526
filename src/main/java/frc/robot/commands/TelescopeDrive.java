@@ -17,7 +17,7 @@ public class TelescopeDrive extends CommandBase {
   double armcase[];
   public TelescopeDrive(double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.arm);
+    // addRequirements(Robot.arm);
     isFinished = false;
     armcase = ac;
   }
@@ -35,15 +35,27 @@ public class TelescopeDrive extends CommandBase {
   public void end(boolean interrupted) {
     double extendPotReadout = Robot.arm.extendPot.get();
     // double extendPotReadout = 15;
+    if(Robot.arm.armState == true){
+      double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[3]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
+      extendspeed = extendspeed / 100;
+      Robot.arm.ExtendDrive(extendspeed);
+      // SmartDashboard.putNumber("Extend Speed",extendspeed);
+      SmartDashboard.putNumber("Extend Speed", extendspeed);
+        if (Math.abs(extendPotReadout-armcase[3])<Constants.telescopeError){
+        isFinished = true;
+        }
+      }
+      else if(Robot.arm.armState == false){
+        double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[5]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
+        extendspeed = extendspeed / 100;
+        Robot.arm.ExtendDrive(extendspeed);
+        // SmartDashboard.putNumber("Extend Speed",extendspeed);
+        SmartDashboard.putNumber("Extend Speed",extendspeed);
+        if (Math.abs(extendPotReadout-armcase[5])<Constants.telescopeError){
+        isFinished = true;
+        }
+      }
 
-    double extendspeed = MathUtil.clamp(Robot.arm.extendPID.calculate(extendPotReadout, armcase[2]), -PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
-    extendspeed = extendspeed / 100;
-    Robot.arm.ExtendDrive(extendspeed);
-    // SmartDashboard.putNumber("Extend Speed",extendspeed);
-
-    if (Math.abs(extendPotReadout-armcase[2])<Constants.telescopeError){
-      isFinished = true;
-    }
   }
 
   // Returns true when the command should end.

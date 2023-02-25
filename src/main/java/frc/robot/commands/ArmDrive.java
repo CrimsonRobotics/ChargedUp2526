@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -18,7 +19,7 @@ public class ArmDrive extends CommandBase {
   boolean isFinished;
   public ArmDrive(double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.arm);
+    // addRequirements(Robot.arm);
     armState = ac;
     isFinished = false;
   }
@@ -33,22 +34,53 @@ public class ArmDrive extends CommandBase {
   @Override
   public void execute() {
     extensionPos = Robot.arm.extendPot.get();
-    if(Math.abs(originalPivot-armState[0])<30){
-      new ParallelCommandGroup(
-        new PivotDrive(armState),
-        new TelescopeDrive(armState),
-        new WristDrive(armState)
-        
-    );
-    }
-    else{
-      new SequentialCommandGroup(
+    if(Robot.arm.armState == true){
+      SmartDashboard.putString("Game Piece", "Cone");
+      if(Math.abs(originalPivot-armState[0])<30){
+        SmartDashboard.putString("extending", "yes");
         new ParallelCommandGroup(
           new PivotDrive(armState),
+          new TelescopeDrive(armState),
           new WristDrive(armState)
-        ),
-        new TelescopeDrive(armState)
-      );
+        );
+        // new PivotDrive(armState);
+        // new TelescopeDrive(armState);
+        // new WristDrive(armState);
+      }
+      else{
+        SmartDashboard.putString("extending", "no");
+
+        new SequentialCommandGroup(
+          new ParallelCommandGroup(
+            new PivotDrive(armState),
+            new WristDrive(armState)
+          ),
+          new TelescopeDrive(armState)
+        );
+      }
+    }
+    else{
+      SmartDashboard.putString("Game Piece", "Cube");
+
+      if(Math.abs(originalPivot-armState[3])<30){
+        SmartDashboard.putString("arm moving", "yes");
+        new ParallelCommandGroup(
+          new PivotDrive(armState),
+          new TelescopeDrive(armState),
+          new WristDrive(armState)
+        );
+      }
+      else{
+        SmartDashboard.putString("arm moving", "no");
+
+        new SequentialCommandGroup(
+          new ParallelCommandGroup(
+            new PivotDrive(armState),
+            new WristDrive(armState)
+          ),
+          new TelescopeDrive(armState)
+        );
+      }
     }
     if(Math.abs(extensionPos-armState[1])<2){
       isFinished = true;

@@ -61,10 +61,12 @@ public class Arm extends SubsystemBase {
     extendPID = new PIDController(PIDConstants.extendkP, PIDConstants.extendkI, PIDConstants.extendkD);
     extendPID.setIntegratorRange(-PIDConstants.extendMaxPercent, PIDConstants.extendMaxPercent);
 
+    armState = true;
+
     intakeSolenoid = new DoubleSolenoid(
       Constants.PCM, 
       PneumaticsModuleType.CTREPCM, 
-      Constants.intakeSolenodIDS[0], Constants.intakeSolenodIDS[1]);
+      Constants.intakeSolenoidIDS[0], Constants.intakeSolenoidIDS[1]);
       
 
   }
@@ -88,9 +90,11 @@ public class Arm extends SubsystemBase {
 
   public void ToggleIntake(boolean state){
     if (state == true){
+      SmartDashboard.putString("Game Piece", "Cone");
       intakeSolenoid.set(Value.kForward);
     }
     else {
+      SmartDashboard.putString("Game Piece", "Cube");
       intakeSolenoid.set(Value.kReverse);
     }
   }
@@ -140,21 +144,27 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putBoolean("Arm State", armState);
 
 
-    if(container.operatorR.getRawButton(0)&&container.operatorR.getRawButton(1)&&container.operatorR.getRawButton(2)==true){
+    if(container.operatorL.getRawButton(1)&&container.operatorL.getRawButton(2)&&container.operatorL.getRawButton(3)==true){
       armState = true;
     }
-    else if(container.operatorR.getRawButton(3)&&container.operatorR.getRawButton(4)&&container.operatorR.getRawButton(5)==false){
+    else if(container.operatorL.getRawButton(4)&&container.operatorL.getRawButton(5)&&container.operatorL.getRawButton(6)==true){
       armState = false;
     }
 
     ToggleIntake(armState);
 
-    if(container.driverL.getRawButton(1)==true){
-      Robot.arm.IntakeDrive(0.3);
-    }
-    else{
-      Robot.arm.IntakeDrive(0);
-    }
+    // if(container.driverL.getRawButton(1)==true){
+    //   intakeMotor.setSmartCurrentLimit(10);
+    //   IntakeDrive(0.3);
+    // }
+    // else if(container.driverL.getRawButton(2)==true){
+    //   intakeMotor.setSmartCurrentLimit(30);
+    //   IntakeDrive(0);
+    // }
+    // else{
+      
+    //   IntakeDrive(0);
+    // }
 
 
     // This method will be called once per scheduler run

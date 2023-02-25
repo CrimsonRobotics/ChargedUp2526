@@ -17,7 +17,7 @@ public class PivotDrive extends CommandBase {
   boolean isFinished;
   public PivotDrive(double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.arm);
+    // addRequirements(Robot.arm);
     armcase = ac;
     isFinished = false;
   }
@@ -31,13 +31,35 @@ public class PivotDrive extends CommandBase {
   public void execute() {
     double pivotPotReadout = Robot.arm.pivotPot.get();
 
-    double pivotspeed = MathUtil.clamp(Robot.arm.pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
-    pivotspeed = pivotspeed / 100;
-    Robot.arm.PivotDrive(pivotspeed);
-    // SmartDashboard.putNumber("Arm Speed",pivotspeed);
-    if (Math.abs(pivotPotReadout-armcase[0])<Constants.pivotError){
+    if(Robot.arm.armState == true){
+
+      double pivotspeed = MathUtil.clamp(Robot.arm.pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      pivotspeed = pivotspeed / 100;
+      Robot.arm.PivotDrive(pivotspeed);
+      SmartDashboard.putNumber("Pivot Speed",pivotspeed);
+      if (Math.abs(pivotPotReadout-armcase[0])<Constants.pivotError){
       isFinished = true;
+      }
     }
+    else if(Robot.arm.armState == false){
+
+      double pivotspeed = MathUtil.clamp(Robot.arm.pivotPID.calculate(pivotPotReadout, armcase[3]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      pivotspeed = pivotspeed / 100;
+      Robot.arm.PivotDrive(pivotspeed);
+      SmartDashboard.putNumber("Pivot Speed",pivotspeed);
+      if (Math.abs(pivotPotReadout-armcase[0])<Constants.pivotError){
+      isFinished = true;
+      }
+    }
+    // double pivotPotReadout = Robot.arm.pivotPot.get();
+
+    // double pivotspeed = MathUtil.clamp(Robot.arm.pivotPID.calculate(pivotPotReadout, armcase[0]), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+    // pivotspeed = pivotspeed / 100;
+    // Robot.arm.PivotDrive(pivotspeed);
+    // // SmartDashboard.putNumber("Arm Speed",pivotspeed);
+    // if (Math.abs(pivotPotReadout-armcase[0])<Constants.pivotError){
+    //   isFinished = true;
+    // }
   }
 
   // Called once the command ends or is interrupted.

@@ -5,12 +5,16 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AbsoluteTurn;
 import frc.robot.commands.ArmDrive;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Balance;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PivotDrive;
+import frc.robot.commands.TelescopeDrive;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.WristDrive;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,7 +38,11 @@ public class RobotContainer {
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
 
-  public static JoystickButton lowIntake = new JoystickButton(operatorL, 1);
+  public static JoystickButton lowOuttake = new JoystickButton(operatorL, 1);
+  public static JoystickButton midOuttake = new JoystickButton(operatorL, 2);
+  public static JoystickButton highOuttake = new JoystickButton(operatorL, 3);
+  public static JoystickButton lowIntake = new JoystickButton(operatorL, 4);
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -60,16 +68,20 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+    lowOuttake.onTrue(new PivotDrive(Constants.intakeLow));
+    midOuttake.onTrue(new WristDrive(Constants.intakeLow));
+    highOuttake.onTrue(new TelescopeDrive(Constants.intakeLow));
+    lowIntake.onTrue(new ArmDrive(Constants.intakeLow));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    if(Robot.arm.armState == true){
-      lowIntake.onTrue(new ArmDrive(Constants.coneIntake));
-    }
-    else{
-      lowIntake.onTrue(new Balance());
+    // if(Robot.arm.armState == true){
+    //   lowIntake.onTrue(new PivotDrive(Constants.coneIntake));
+    // }
+    // else{
+    //   lowIntake.onTrue(new Balance());
 
-    }
+    // }
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
