@@ -8,6 +8,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
+import java.net.CacheRequest;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -32,13 +34,15 @@ public class Arm extends SubsystemBase {
   PIDController wristPID;
   PIDController extendPID;
   DoubleSolenoid intakeSolenoid;
-
+  CANSparkMax intakeMotor;
 
 
   public Arm() {
     arm = new CANSparkMax(Constants.armID, MotorType.kBrushless);
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushless);
     extension = new CANSparkMax(Constants.extensionID, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(Constants.intakeID, MotorType.kBrushless);
+
 
 
     armPot = new AnalogPotentiometer(1, 360, 0);
@@ -74,6 +78,10 @@ public class Arm extends SubsystemBase {
 
   public void WristDrive(double moveSpeed) {
     wrist.set(moveSpeed);
+  }
+
+  public void IntakeDrive(double moveSpeed) {
+    intakeMotor.set(moveSpeed);
   }
 
   public void MoveArm(double armcase[]) {
@@ -118,22 +126,27 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("ArmPot readout", Robot.arm.armPot.get());
     SmartDashboard.putNumber("WristPot readout", Robot.arm.wristPot.get());
     SmartDashboard.putNumber("ExtendPot readout", Robot.arm.extendPot.get());
-
+    SmartDashboard.putNumber("Intake current", intakeMotor.getOutputCurrent());
     // This method will be called once per scheduler run
     if(container.driverR.getRawButton(1) == true){
-      MoveArm(Constants.coneIntake);
-      SmartDashboard.putBoolean("Arm On", true);
+      // MoveArm(Constants.coneIntake);
+      // SmartDashboard.putBoolean("Arm On", true);
+      intakeMotor.setSmartCurrentLimit(15);
+
+      IntakeDrive(-0.6);
 
     }
     else if(container.driverR.getRawButton(2) == true){
-      MoveArm(Constants.cubeIntake);
+      intakeMotor.setSmartCurrentLimit(30);
+
+      IntakeDrive(0.5);
       SmartDashboard.putBoolean("Arm On", true);
 
 
     }
     else{
       SmartDashboard.putBoolean("Arm On", false);
-
+      IntakeDrive(0);
     }
 
 
