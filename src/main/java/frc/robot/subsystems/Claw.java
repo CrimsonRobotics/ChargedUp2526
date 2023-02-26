@@ -25,7 +25,7 @@ public class Claw extends SubsystemBase {
     intakeSolenoid = new DoubleSolenoid(
       Constants.PCM, 
       PneumaticsModuleType.CTREPCM, 
-      Constants.intakeSolenoidIDS[0], Constants.intakeSolenoidIDS[1]);
+      Constants.clawSolenoidIDs[0], Constants.clawSolenoidIDs[1]);
   }
 
   public void IntakeDrive(double moveSpeed) {

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -23,6 +24,8 @@ public class Wrist extends SubsystemBase {
   /** Creates a new Wrist. */
   public Wrist() {
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushed);
+
+    wrist.setIdleMode(IdleMode.kBrake);
     
     wristPot = new AnalogPotentiometer(3, 360, 0);
 

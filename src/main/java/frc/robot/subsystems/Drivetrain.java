@@ -128,15 +128,15 @@ public class Drivetrain extends SubsystemBase {
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
-    // shifter = new DoubleSolenoid(
-    //   Constants.PCM, 
-    //   PneumaticsModuleType.CTREPCM, 
-    //   Constants.intakeSolenoidIDS[2], Constants.intakeSolenoidIDS[3]);
+    shifter = new DoubleSolenoid(
+      Constants.PCM, 
+      PneumaticsModuleType.CTREPCM, 
+      Constants.shiftSolenoidIDs[0], Constants.shiftSolenoidIDs[1]);
 
-    // parkingBrake = new DoubleSolenoid(
-    //   Constants.PCM, 
-    //   PneumaticsModuleType.CTREPCM, 
-    //   Constants.intakeSolenoidIDS[4], Constants.intakeSolenoidIDS[5]);
+    parkingBrake = new DoubleSolenoid(
+      Constants.PCM, 
+      PneumaticsModuleType.CTREPCM, 
+      Constants.brakeSolenoidIDs[0], Constants.brakeSolenoidIDs[1]);
 
   }
 
@@ -164,21 +164,33 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  public void shift(Joystick driverL) {
-    if (driverL.getRawButton(11) ||
-        driverL.getRawButton(12) ||
-        driverL.getRawButton(13) ||
-        driverL.getRawButton(14) ||
-        driverL.getRawButton(15) ||
-        driverL.getRawButton(16)) {
-      shifter.set(Value.kForward);
-      // Robot.currentState = "Shifting";
-    }
+  // public void shift(Joystick driverL) {
+  //   if (driverL.getRawButton(11) ||
+  //       driverL.getRawButton(12) ||
+  //       driverL.getRawButton(13) ||
+  //       driverL.getRawButton(14) ||
+  //       driverL.getRawButton(15) ||
+  //       driverL.getRawButton(16)) {
+  //     shifter.set(Value.kForward);
+  //     // Robot.currentState = "Shifting";
+  //   }
 
-    else {
-      shifter.set(Value.kReverse);
-    }
-  }
+  //   else {
+  //     shifter.set(Value.kReverse);
+  //   }
+  // }
+
+  // public void park(Joystick l, Joystick r){
+  //   if(l.getRawButton(8)&&l.getRawButton(14)){
+  //     parkingBrake.set(Value.kForward);
+  //     SmartDashboard.putString("parking", "parked");
+  //   }
+  //   else if(r.getRawButton(8)&&r.getRawButton(14)){
+  //     parkingBrake.set(Value.kReverse);
+  //     SmartDashboard.putString("parking", "not parked");
+
+  //   }
+  // }
 
   public void ManualDrive(double leftSpeed, double rightSpeed) {
     left1.set(leftSpeed);
@@ -263,6 +275,35 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
 
       // shift(container.driverL);
+      // park(container.driverL, container.driverR);
+      if(container.driverL.getRawButton(8)&&container.driverL.getRawButton(14)){
+        parkingBrake.set(Value.kForward);
+        SmartDashboard.putString("parking", "parked");
+      }
+      else if(container.driverR.getRawButton(8)&&container.driverR.getRawButton(14)){
+        parkingBrake.set(Value.kReverse);
+        SmartDashboard.putString("parking", "not parked");
+  
+      }
+
+      if (container.driverL.getRawButton(11) ||
+        container.driverL.getRawButton(12) ||
+        container.driverL.getRawButton(13) ||
+        container.driverL.getRawButton(14) ||
+        container.driverL.getRawButton(15) ||
+        container.driverL.getRawButton(16)) {
+      shifter.set(Value.kForward);
+      SmartDashboard.putString("shift state", "low gear");
+
+      // Robot.currentState = "Shifting";
+    }
+
+    else {
+      shifter.set(Value.kReverse);
+      SmartDashboard.putString("shift state", "high gear");
+
+    }
+    System.out.print(shifter.get()); //shifter.get();
 
       // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());

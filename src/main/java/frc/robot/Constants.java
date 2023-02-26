@@ -28,7 +28,11 @@ public final class Constants {
 
 
   public final static int PCM = 0;
-  public final static int[] intakeSolenoidIDS = {4,2};
+  public final static int[] clawSolenoidIDs = {1,2};
+  public final static int[] shiftSolenoidIDs = {3,4};
+  public final static int[] brakeSolenoidIDs = {5,6};
+
+
 
   public static double driveExpo = 1;
   public static double turnExpo = 1;

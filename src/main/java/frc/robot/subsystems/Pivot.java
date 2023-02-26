@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -30,6 +31,8 @@ public class Pivot extends SubsystemBase {
     pivot1 = new CANSparkMax(Constants.pivotIDs[0], MotorType.kBrushless);
     pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
 
+    pivot1.setIdleMode(IdleMode.kBrake);
+    pivot2.setIdleMode(IdleMode.kBrake);
     
     pivotPot = new AnalogPotentiometer(1, 360, 0);
 

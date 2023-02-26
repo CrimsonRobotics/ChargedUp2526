@@ -10,6 +10,7 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -26,6 +27,8 @@ public class Telescope extends SubsystemBase {
   public Telescope() {
     telescope = new CANSparkMax(Constants.telescopeID, MotorType.kBrushless);
     telescopePot = new AnalogPotentiometer(2, 33.1, 0);
+
+    telescope.setIdleMode(IdleMode.kBrake);
 
     telescopePID = new PIDController(PIDConstants.telescopekP, PIDConstants.telescopekI, PIDConstants.telescopekD);
     telescopePID.setIntegratorRange(-PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
