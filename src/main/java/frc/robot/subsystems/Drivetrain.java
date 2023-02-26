@@ -305,6 +305,9 @@ public class Drivetrain extends SubsystemBase {
     }
     System.out.print(shifter.get()); //shifter.get();
 
+
+    SmartDashboard.putNumber("pov button", container.operatorL.getPOV());
+
       // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
       // SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());

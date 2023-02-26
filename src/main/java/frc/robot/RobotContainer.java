@@ -11,7 +11,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Balance;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.PivotDrive;
+import frc.robot.commands.ManualTelescopeCommand;
+import frc.robot.commands.PivotHoldCommand;
 import frc.robot.commands.TelescopeDrive;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.WristDrive;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -57,7 +59,13 @@ public class RobotContainer {
   public static JoystickButton midOuttake = new JoystickButton(operatorR, 2);
   public static JoystickButton highOuttake = new JoystickButton(operatorR, 3);
   public static JoystickButton lowIntake = new JoystickButton(operatorR, 4);
-  public static JoystickButton killArm = new JoystickButton(operatorR, 7);
+  public static JoystickButton killArm = new JoystickButton(operatorR, 8);
+
+  public static JoystickButton manualArmButton = new JoystickButton(operatorL, 8);
+
+  public static POVButton operatorLPovUpButton = new POVButton(operatorL, 0);
+  public static POVButton operatorLPovDownButton = new POVButton(operatorL, 180);
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -84,15 +92,17 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    operatorR1.onTrue(new PivotDrive(operatorR, this.pivot, Constants.intakeLow));
+    operatorR1.onTrue(new PivotHoldCommand(operatorR, this.pivot, Constants.intakeLow));
     // midOuttake.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
     midOuttake.onTrue(new WristDrive(this.wrist, Constants.intakeLow));
     highOuttake.onTrue(new TelescopeDrive(this.telescope, Constants.intakeLow));
     // lowIntake.onTrue(new ArmDrive(this.arm, Constants.intakeLow));
-    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotDrive(operatorR, pivot, Constants.intakeLow)));
+    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)));
 
     killArm.onTrue(new ArmCancelCommand(pivot, telescope, wrist));
+
+    manualArmButton.whileTrue(new ManualTelescopeCommand(operatorL, telescope));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // if(Robot.arm.armState == true){

@@ -13,13 +13,13 @@ import frc.robot.PIDConstants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Pivot;
 
-public class PivotDrive extends CommandBase {
+public class PivotHoldCommand extends CommandBase {
   /** Creates a new PivotDrive. */
   private Pivot pivot;
   double armcase[];
   boolean isFinished;
   private Joystick joystick;
-  public PivotDrive(Joystick j, Pivot p, double ac[]) {
+  public PivotHoldCommand(Joystick j, Pivot p, double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
     joystick = j;

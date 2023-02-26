@@ -43,6 +43,7 @@ public class Telescope extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
     SmartDashboard.putNumber("telescopePot readout", telescopePot.get());
+    
 
   }
 }
