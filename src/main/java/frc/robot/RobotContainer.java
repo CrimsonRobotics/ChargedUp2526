@@ -177,7 +177,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     
-    return Autos.oneScoreEngageAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
-    // return Autos.exampleAuto(m_exampleSubsystem);
+    // return Autos.oneScoreEngageAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
+    return Autos.exampleAuto(m_exampleSubsystem);
   }
 }
