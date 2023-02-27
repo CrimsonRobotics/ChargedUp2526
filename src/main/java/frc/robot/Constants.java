@@ -32,16 +32,21 @@ public final class Constants {
   public final static int[] shiftSolenoidIDs = {3,4};
   public final static int[] brakeSolenoidIDs = {5,6};
 
-
+  public static double intakeSpeed = 0.6;
+  public static double outtakeSpeed = -0.5;
 
   public static double driveExpo = 1;
   public static double turnExpo = 1;
 
   public static double[] intakeLow = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+  public static double[] intakeSide = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+  public static double[] intakeShelf = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeHigh = {/*Cone*/30, 30, 30,/*Cube */ 40,40,40};
   public static double[] outtakeLow = {/*Cone*/0, 0, 0,/*Cube */ 10,10,10};
   public static double[] outtakeMid = {/*Cone*/40, 40, 40,/*Cube */ 20,20,20};
   public static double[] outtakeHigh = {/*Cone*/60, 60, 60,/*Cube */ 30,30,30};
+  public static double[] travel = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+
 
   // public static double[] cubeIntake = {20, 20, 20, 1};
 
@@ -51,6 +56,7 @@ public final class Constants {
   public static double telescopeError = 2;
   public static double wristError = 2;
 
+  public static double extendStopDistance = 30;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

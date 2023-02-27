@@ -4,41 +4,34 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drivetrain;
+import javax.swing.text.StyleContext.SmallAttributeSet;
 
-public class ParkCommand extends CommandBase {
-  /** Creates a new ParkCommand. */
-  boolean park;
-  Drivetrain drivetrain;
-  public ParkCommand(Drivetrain dt, boolean p) {
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Pivot;
+
+public class ManualPivotCommand extends CommandBase {
+  /** Creates a new ManualPivotCommand. */
+  private Pivot pivot;
+  private Joystick joystick;
+  public ManualPivotCommand(Joystick j, Pivot p) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(dt);
-    dt = drivetrain;
-    park = p;
+    addRequirements(p);
+    pivot = p;
+    joystick = j;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(park){
-      this.drivetrain.parkingBrake.set(Value.kForward);
-    }
-    else if(park == false){
-      this.drivetrain.parkingBrake.set(Value.kReverse);
-    }
-
+    double pivotSpeed = joystick.getY();
+    this.pivot.PivotDrive(pivotSpeed);
+    SmartDashboard.putNumber("Manual Pivot", pivotSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +41,6 @@ public class ParkCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

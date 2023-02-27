@@ -4,41 +4,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.Constants;
+import frc.robot.subsystems.Claw;
 
-public class ParkCommand extends CommandBase {
-  /** Creates a new ParkCommand. */
-  boolean park;
-  Drivetrain drivetrain;
-  public ParkCommand(Drivetrain dt, boolean p) {
+public class IntakeCommand extends CommandBase {
+  /** Creates a new IntakeCommand. */
+  private Claw claw;
+  private double speed;
+  public IntakeCommand(Claw c, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(dt);
-    dt = drivetrain;
-    park = p;
+    addRequirements(c);
+    claw = c;
+    speed = s;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(park){
-      this.drivetrain.parkingBrake.set(Value.kForward);
-    }
-    else if(park == false){
-      this.drivetrain.parkingBrake.set(Value.kReverse);
-    }
-
+    this.claw.IntakeDrive(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +36,6 @@ public class ParkCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

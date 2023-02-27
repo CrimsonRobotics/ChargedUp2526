@@ -11,7 +11,11 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Balance;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ManualPivotCommand;
 import frc.robot.commands.ManualTelescopeCommand;
+import frc.robot.commands.ManualWristCommand;
+import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.PivotHoldCommand;
 import frc.robot.commands.TelescopeDrive;
 import frc.robot.commands.ToggleIntake;
@@ -25,6 +29,7 @@ import frc.robot.subsystems.Telescope;
 import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -39,11 +44,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain driveTrain = new Drivetrain();
+  public final static Drivetrain driveTrain = new Drivetrain();
   // private final Arm arm = new Arm();
   private final Wrist wrist = new Wrist();
-  private final Telescope telescope = new Telescope();
-  private final Pivot pivot = new Pivot();
+  public final static Telescope telescope = new Telescope();
+  public final static Pivot pivot = new Pivot();
   private final Claw claw = new Claw();
 
 
@@ -55,18 +60,43 @@ public class RobotContainer {
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
 
-  public static JoystickButton operatorR1 = new JoystickButton(operatorR, 1);
-  public static JoystickButton midOuttake = new JoystickButton(operatorR, 2);
-  public static JoystickButton highOuttake = new JoystickButton(operatorR, 3);
-  public static JoystickButton lowIntake = new JoystickButton(operatorR, 4);
-  public static JoystickButton killArm = new JoystickButton(operatorR, 8);
+  public static JoystickButton operatorL1 = new JoystickButton(operatorL, 1);
+  public static JoystickButton operatorL2 = new JoystickButton(operatorL, 2);
+  public static JoystickButton operatorL3 = new JoystickButton(operatorL, 3);
+  public static JoystickButton operatorL4 = new JoystickButton(operatorL, 4);
 
-  public static JoystickButton manualArmButton = new JoystickButton(operatorL, 8);
+  public static JoystickButton operatorL5 = new JoystickButton(operatorL, 5);
+  public static JoystickButton operatorL6 = new JoystickButton(operatorL, 6);
+  public static JoystickButton operatorL7 = new JoystickButton(operatorL, 7);
+  public static JoystickButton operatorL8 = new JoystickButton(operatorL, 8);
+  public static JoystickButton operatorL9 = new JoystickButton(operatorL, 9);
+  public static JoystickButton operatorL10 = new JoystickButton(operatorL, 10);
+
+  public static JoystickButton operatorL11 = new JoystickButton(operatorL, 11);
+  public static JoystickButton operatorL12 = new JoystickButton(operatorL, 12);
+  public static JoystickButton operatorL13 = new JoystickButton(operatorL, 13);
+  public static JoystickButton operatorL14 = new JoystickButton(operatorL, 14);
+  public static JoystickButton operatorL15 = new JoystickButton(operatorL, 15);
+  public static JoystickButton operatorL16 = new JoystickButton(operatorL, 16);
+
+
+  public static JoystickButton operatorR1 = new JoystickButton(operatorR, 1);
+  public static JoystickButton operatorR2 = new JoystickButton(operatorR, 2);
+  public static JoystickButton operatorR3 = new JoystickButton(operatorR, 3);
+  public static JoystickButton operatorR4 = new JoystickButton(operatorR, 4);
+  public static JoystickButton operatorR8 = new JoystickButton(operatorR, 8);
+
 
   public static POVButton operatorLPovUpButton = new POVButton(operatorL, 0);
   public static POVButton operatorLPovDownButton = new POVButton(operatorL, 180);
 
 
+  public static JoystickButton driverR5 = new JoystickButton(driverR, 5);
+  public static JoystickButton driverR6 = new JoystickButton(driverR, 6);
+  public static JoystickButton driverR7 = new JoystickButton(driverR, 7);
+  public static JoystickButton driverR8 = new JoystickButton(driverR, 8);
+  public static JoystickButton driverR9 = new JoystickButton(driverR, 9);
+  public static JoystickButton driverR10 = new JoystickButton(driverR, 10);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -92,24 +122,48 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    operatorR1.onTrue(new PivotHoldCommand(operatorR, this.pivot, Constants.intakeLow));
-    // midOuttake.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
-    midOuttake.onTrue(new WristDrive(this.wrist, Constants.intakeLow));
-    highOuttake.onTrue(new TelescopeDrive(this.telescope, Constants.intakeLow));
-    // lowIntake.onTrue(new ArmDrive(this.arm, Constants.intakeLow));
-    lowIntake.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)));
+    // operatorR2.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
-    killArm.onTrue(new ArmCancelCommand(pivot, telescope, wrist));
+    //Outtake
+    operatorR1.onTrue(new OuttakeCommand(claw, 0.5));
+    operatorR2.onTrue(new WristDrive(wrist, Constants.outtakeMid).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid)).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)));
+    operatorR3.onTrue(new WristDrive(wrist, Constants.outtakeHigh).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh)).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh)));
+    operatorR4.onTrue(new WristDrive(wrist, Constants.outtakeLow).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(telescope, Constants.outtakeLow)));
 
-    manualArmButton.whileTrue(new ManualTelescopeCommand(operatorL, telescope));
+    //Intake
+    operatorL1.onTrue(new IntakeCommand(claw, 0.5));
+    operatorL3.onTrue(new WristDrive(wrist, Constants.intakeLow).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)));
+    operatorL2.onTrue(new WristDrive(wrist, Constants.intakeSide).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide)).alongWith(new TelescopeDrive(telescope, Constants.intakeSide)));
+    operatorL4.onTrue(new WristDrive(wrist, Constants.intakeHigh).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh)).alongWith(new TelescopeDrive(telescope, Constants.intakeHigh)));
+
+    //Travel
+    operatorL11.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+    operatorL12.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+    operatorL13.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+    operatorL14.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+    operatorL15.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+    operatorL16.onTrue(new WristDrive(wrist, Constants.travel).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
+
+    //Manual Mode
+    operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));
+    
+    //Balance
+    driverR5.whileTrue(new Balance(driveTrain));
+    driverR6.whileTrue(new Balance(driveTrain));
+    driverR7.whileTrue(new Balance(driveTrain));
+    driverR8.whileTrue(new Balance(driveTrain));
+    driverR9.whileTrue(new Balance(driveTrain));
+    driverR10.whileTrue(new Balance(driveTrain));
+
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // if(Robot.arm.armState == true){
-    //   lowIntake.onTrue(new PivotDrive(Constants.coneIntake));
+    //   opertorR8.onTrue(new PivotDrive(Constants.coneIntake));
     // }
     // else{
-    //   lowIntake.onTrue(new Balance());
+    //   opertorR8.onTrue(new Balance());
 
     // }
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
@@ -122,6 +176,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    
+    return Autos.oneScoreEngageAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
+    // return Autos.exampleAuto(m_exampleSubsystem);
   }
 }

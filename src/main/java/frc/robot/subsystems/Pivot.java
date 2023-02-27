@@ -21,7 +21,7 @@ import frc.robot.RobotContainer;
 public class Pivot extends SubsystemBase {
   CANSparkMax pivot1;
   CANSparkMax pivot2;
-  public AnalogPotentiometer pivotPot;
+  public static AnalogPotentiometer pivotPot;
   public PIDController pivotPID;
   public static boolean armState;
 
@@ -34,7 +34,7 @@ public class Pivot extends SubsystemBase {
     pivot1.setIdleMode(IdleMode.kBrake);
     pivot2.setIdleMode(IdleMode.kBrake);
     
-    pivotPot = new AnalogPotentiometer(1, 360, 0);
+    pivotPot = new AnalogPotentiometer(0, 360, 0);
 
     pivotPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     pivotPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
@@ -52,7 +52,7 @@ public class Pivot extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
-    SmartDashboard.putNumber("ArmPot readout", pivotPot.get());
+    SmartDashboard.putNumber("PivotPot readout", pivotPot.get());
     // if(container.operatorR.getRawButton(7)){
     //   PivotDrive(0.3);
     // }
@@ -60,10 +60,10 @@ public class Pivot extends SubsystemBase {
     //   PivotDrive(0);
     // }
 
-    if(container.operatorL.getRawButton(1)&&container.operatorL.getRawButton(2)&&container.operatorL.getRawButton(3)==true){
+    if(container.operatorR.getRawButton(8)||container.operatorR.getRawButton(9)||container.operatorR.getRawButton(10)==true){
       armState = true;
     }
-    else if(container.operatorL.getRawButton(4)&&container.operatorL.getRawButton(5)&&container.operatorL.getRawButton(6)==true){
+    else if(container.operatorR.getRawButton(6)||container.operatorR.getRawButton(7)||container.operatorR.getRawButton(5)==true){
       armState = false;
     }
   }

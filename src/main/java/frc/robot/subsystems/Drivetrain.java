@@ -276,11 +276,23 @@ public class Drivetrain extends SubsystemBase {
 
       // shift(container.driverL);
       // park(container.driverL, container.driverR);
-      if(container.driverL.getRawButton(8)&&container.driverL.getRawButton(14)){
+      if(container.driverL.getRawButton(5) ||
+        container.driverL.getRawButton(6) ||
+        container.driverL.getRawButton(7) ||
+        container.driverL.getRawButton(8) ||
+        container.driverL.getRawButton(9) ||
+        container.driverL.getRawButton(10)){
+          
         parkingBrake.set(Value.kForward);
         SmartDashboard.putString("parking", "parked");
       }
-      else if(container.driverR.getRawButton(8)&&container.driverR.getRawButton(14)){
+      else if(container.driverR.getRawButton(11) ||
+        container.driverR.getRawButton(12) ||
+        container.driverR.getRawButton(13) ||
+        container.driverR.getRawButton(14) ||
+        container.driverR.getRawButton(15) ||
+        container.driverR.getRawButton(16)){
+
         parkingBrake.set(Value.kReverse);
         SmartDashboard.putString("parking", "not parked");
   

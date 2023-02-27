@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Telescope;
 
@@ -36,20 +37,39 @@ public class TelescopeDrive extends CommandBase {
     System.out.printf("Telescope Drive Command Executing");
 
     double telescopePotReadout = this.telescope.telescopePot.get();
+    double pivotPotReadout = Pivot.pivotPot.get();
     // double telescopePotReadout = 15;
+    
     if(Pivot.armState == true){
-      double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[3]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
-      telescopespeed = telescopespeed / 100;
-      this.telescope.telescopeDrive(telescopespeed);
-      // SmartDashboard.putNumber("telescope Speed",telescopespeed);
-      SmartDashboard.putNumber("telescope Speed", telescopespeed);
+      if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
+        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[3]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+        telescopespeed = telescopespeed / 100;
+        this.telescope.telescopeDrive(telescopespeed);
+        // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+        SmartDashboard.putNumber("telescope Speed", telescopespeed);
+        SmartDashboard.putString("waiting for pivot", "No");
       }
+      else{
+        this.telescope.telescopeDrive(0);
+        SmartDashboard.putNumber("telescope Speed", 0);
+
+        SmartDashboard.putString("waiting for pivot", "Yes");
+
+      }
+    }
     else if(Pivot.armState == false){
-      double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
-      telescopespeed = telescopespeed / 100;
-      this.telescope.telescopeDrive(telescopespeed);
-      // SmartDashboard.putNumber("telescope Speed",telescopespeed);
-      SmartDashboard.putNumber("telescope Speed",telescopespeed);
+      if(Math.abs(pivotPotReadout-armcase[3])<Constants.extendStopDistance){
+        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+        telescopespeed = telescopespeed / 100;
+        this.telescope.telescopeDrive(telescopespeed);
+        // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+        SmartDashboard.putNumber("telescope Speed", telescopespeed);
+      }
+      else{
+        this.telescope.telescopeDrive(0);
+        SmartDashboard.putNumber("telescope Speed", 0);
+
+      }
     }
   }
 

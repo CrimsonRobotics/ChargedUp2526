@@ -39,8 +39,10 @@ public class PivotHoldCommand extends CommandBase {
     double adjust = joystick.getY()*5;
 
     double pivotPotReadout = this.pivot.pivotPot.get();
+    
 
     if(Pivot.armState == true){
+      
 
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;

@@ -4,41 +4,47 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drivetrain;
+import javax.swing.text.StyleContext.SmallAttributeSet;
 
-public class ParkCommand extends CommandBase {
-  /** Creates a new ParkCommand. */
-  boolean park;
-  Drivetrain drivetrain;
-  public ParkCommand(Drivetrain dt, boolean p) {
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Wrist;
+
+public class ManualWristCommand extends CommandBase {
+  /** Creates a new ManualWristCommand. */
+  private Wrist wrist;
+  private Joystick joystick;
+  
+  public ManualWristCommand(Joystick j, Wrist w) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(dt);
-    dt = drivetrain;
-    park = p;
+    addRequirements(w);
+    joystick = j;
+    wrist = w;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(park){
-      this.drivetrain.parkingBrake.set(Value.kForward);
-    }
-    else if(park == false){
-      this.drivetrain.parkingBrake.set(Value.kReverse);
-    }
 
+    if(joystick.getPOV() == 0){
+      this.wrist.WristDrive(0.5);
+      SmartDashboard.putString("Wrist", "Up");
+
+    }
+    else if(joystick.getPOV() == 180){
+      this.wrist.WristDrive(-0.3);
+      SmartDashboard.putString("Wrist", "Down");
+    }
+    else{
+      this.wrist.WristDrive(0);
+      SmartDashboard.putString("Wrist", "No");
+
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +54,6 @@ public class ParkCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
