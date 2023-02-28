@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -13,24 +14,32 @@ import frc.robot.PIDConstants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Pivot;
 
+
 public class PivotHoldCommand extends CommandBase {
   /** Creates a new PivotDrive. */
   private Pivot pivot;
   double armcase[];
   boolean isFinished;
   private Joystick joystick;
-  public PivotHoldCommand(Joystick j, Pivot p, double ac[], boolean f) {
+  Timer timer;
+  Boolean timed;
+  double time;
+  public PivotHoldCommand(Joystick j, Pivot p, double ac[], boolean t, double tr) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
     joystick = j;
     pivot = p;
     armcase = ac;
-    isFinished = f;
+    isFinished = false;
+    timed = t;
+    time = tr;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -55,6 +64,17 @@ public class PivotHoldCommand extends CommandBase {
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",pivotspeed);
+    }
+    if(timed == true){
+      if(timer.get()<time){
+        isFinished = true;
+      }
+      else{
+        isFinished = false;
+      }
+    }
+    else {
+      isFinished = false;
     }
   }
 

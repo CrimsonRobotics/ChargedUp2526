@@ -28,51 +28,51 @@ public final class Autos {
 
   public static CommandBase oneScoreLeftAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
-      new ParallelCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
-        new WristDrive(w, Constants.outtakeHigh, true),
-        new TelescopeDrive(t, Constants.outtakeHigh),
-        new SequentialCommandGroup(
-          new WaitCommand(3),
-          new OuttakeCommand(c, 0.5),
-          new WaitCommand(2),
-          new OuttakeCommand(c, 0),
-          new ParallelCommandGroup(
-            new PivotHoldCommand(j, p, Constants.travel, false),
-            new WristDrive(w, Constants.travel, true),
-            new TelescopeDrive(t, Constants.travel)
-          ),
-          new DriveStraight(d, 0.5),
-          new WaitCommand(5),
-          new DriveStraight(d, 0)
-        )
-      )
+      // new ParallelCommandGroup(
+      //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
+      //   new WristDrive(w, Constants.outtakeHigh, true),
+      //   new TelescopeDrive(t, Constants.outtakeHigh),
+      //   new SequentialCommandGroup(
+      //     new WaitCommand(3),
+      //     new OuttakeCommand(c, 0.5),
+      //     new WaitCommand(2),
+      //     new OuttakeCommand(c, 0),
+      //     new ParallelCommandGroup(
+      //       new PivotHoldCommand(j, p, Constants.travel, false),
+      //       new WristDrive(w, Constants.travel, true),
+      //       new TelescopeDrive(t, Constants.travel)
+      //     ),
+      //     new DriveStraight(d, 0.5),
+      //     new WaitCommand(5),
+      //     new DriveStraight(d, 0)
+      //   )
+      // )
     );
 
   }
 
   public static CommandBase oneScoreEngageAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
-      new ParallelCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
-        new WristDrive(w, Constants.outtakeHigh, true),
-        new TelescopeDrive(t, Constants.outtakeHigh),
-        new SequentialCommandGroup(
-          new WaitCommand(3),
-          new OuttakeCommand(c, 0.5),
-          new WaitCommand(2),
-          new OuttakeCommand(c, 0),
-          new ParallelCommandGroup(
-            new PivotHoldCommand(j, p, Constants.travel, true),
-            new WristDrive(w, Constants.travel, true),
-            new TelescopeDrive(t, Constants.travel)
-          ),
-          new DriveStraight(d, 0.5),
-          new WaitCommand(5),
-          new DriveStraight(d, 0),
-          new Balance(d)
-        )
-      ) 
+      // new ParallelCommandGroup(
+      //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
+      //   new WristDrive(w, Constants.outtakeHigh, true),
+      //   new TelescopeDrive(t, Constants.outtakeHigh),
+      //   new SequentialCommandGroup(
+      //     new WaitCommand(3),
+      //     new OuttakeCommand(c, 0.5),
+      //     new WaitCommand(2),
+      //     new OuttakeCommand(c, 0),
+      //     new ParallelCommandGroup(
+      //       new PivotHoldCommand(j, p, Constants.travel, true),
+      //       new WristDrive(w, Constants.travel, true),
+      //       new TelescopeDrive(t, Constants.travel)
+      //     ),
+      //     new DriveStraight(d, 0.5),
+      //     new WaitCommand(5),
+      //     new DriveStraight(d, 0),
+      //     new Balance(d)
+      //   )
+      // ) 
       
     );
   }
@@ -80,9 +80,8 @@ public final class Autos {
   public static CommandBase oneScoreRightAuto(Drivetrain d, Joystick j, Pivot p, Wrist w, Telescope t){
     return Commands.sequence(
       new SequentialCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeHigh, true).alongWith(new WristDrive(w, Constants.outtakeHigh, true)),
-        new WaitCommand(3),
-        new ArmCancelCommand(p, t, w)
+        new PivotHoldCommand(j, p, Constants.outtakeHigh, true, 5),
+        new PivotHoldCommand(j, p, Constants.travel, false, 0)
         // new PivotHoldCommand(j, p, Constants.travel, false).alongWith(new WristDrive(w, Constants.travel, false))
 
         // new DriveStraight(d, 0),
