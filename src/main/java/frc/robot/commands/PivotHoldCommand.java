@@ -19,13 +19,13 @@ public class PivotHoldCommand extends CommandBase {
   double armcase[];
   boolean isFinished;
   private Joystick joystick;
-  public PivotHoldCommand(Joystick j, Pivot p, double ac[]) {
+  public PivotHoldCommand(Joystick j, Pivot p, double ac[], boolean f) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
     joystick = j;
     pivot = p;
     armcase = ac;
-    isFinished = false;
+    isFinished = f;
   }
 
   // Called when the command is initially scheduled.
@@ -65,6 +65,6 @@ public class PivotHoldCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

@@ -19,12 +19,12 @@ public class WristDrive extends CommandBase {
   private Wrist wrist;
   double armcase[];
 
-  public WristDrive(Wrist w, double ac[]) {
+  public WristDrive(Wrist w, double ac[], boolean f) {
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(w);
     wrist = w;
-    isFinished = false;
+    isFinished = f;
     armcase = ac;
   }
 
@@ -62,6 +62,6 @@ public class WristDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished ;
   }
 }
