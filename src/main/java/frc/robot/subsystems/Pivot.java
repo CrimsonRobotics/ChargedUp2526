@@ -34,7 +34,7 @@ public class Pivot extends SubsystemBase {
     pivot1.setIdleMode(IdleMode.kBrake);
     pivot2.setIdleMode(IdleMode.kBrake);
     
-    pivotPot = new AnalogPotentiometer(0, 360, 0);
+    pivotPot = new AnalogPotentiometer(1, 360, 0);
 
     pivotPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     pivotPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);

@@ -26,7 +26,7 @@ public class Telescope extends SubsystemBase {
   
   public Telescope() {
     telescope = new CANSparkMax(Constants.telescopeID, MotorType.kBrushless);
-    telescopePot = new AnalogPotentiometer(2, 33.1, 0);
+    telescopePot = new AnalogPotentiometer(0, 33.1, 0);
 
     telescope.setIdleMode(IdleMode.kBrake);
 

@@ -37,7 +37,7 @@ public class WristDrive extends CommandBase {
   public void execute() {
     System.out.printf("Wrist Drive Command Executing");
 
-    double wristPotReadout = this.wrist.wristPot.get();
+    double wristPotReadout = this.wrist.wristPot.getVoltage();
 
     if(Pivot.armState == true){
       double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);

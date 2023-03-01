@@ -5,8 +5,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAnalogSensor.Mode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -19,7 +21,7 @@ import frc.robot.RobotContainer;
 
 public class Wrist extends SubsystemBase {
   CANSparkMax wrist;
-  public AnalogPotentiometer wristPot;
+  public SparkMaxAnalogSensor wristPot;
   public PIDController wristPID;
   /** Creates a new Wrist. */
   public Wrist() {
@@ -27,7 +29,8 @@ public class Wrist extends SubsystemBase {
 
     wrist.setIdleMode(IdleMode.kBrake);
     
-    wristPot = new AnalogPotentiometer(3, 360, 0);
+    // wristPot = new AnalogPotentiometer(3, 360, 0);
+    wristPot = wrist.getAnalog(Mode.kAbsolute);
 
     wristPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     wristPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
@@ -42,7 +45,7 @@ public class Wrist extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
 
-    SmartDashboard.putNumber("WristPot readout", wristPot.get());
+    SmartDashboard.putNumber("WristPot readout", wristPot.getVoltage());
 
   }
 }
