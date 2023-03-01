@@ -27,20 +27,20 @@ public class Drive extends CommandBase {
     double driveSpeed = 0;
     double trnSpeed = 0;
 
-    if (xSpeed>0) {
-      driveSpeed = Math.abs(Math.pow(xSpeed, Constants.driveExpo));
-    }
-    if (xSpeed<0) {
-      driveSpeed = -Math.pow(Math.abs(xSpeed), Constants.driveExpo);
-    }
-    if (ySpeed>0) {
-      trnSpeed = Math.abs(Math.pow(ySpeed, Constants.turnExpo));
-    }
-    if (ySpeed<0) {
-      trnSpeed = -Math.pow(Math.abs(ySpeed), Constants.turnExpo);
-    }
+    // if (xSpeed>0) {
+    //   driveSpeed = Math.abs(Math.pow(xSpeed, Constants.driveExpo));
+    // }
+    // if (xSpeed<0) {
+    //   driveSpeed = -Math.pow(Math.abs(xSpeed), Constants.driveExpo);
+    // }
+    // if (ySpeed>0) {
+    //   trnSpeed = Math.abs(Math.pow(ySpeed, Constants.turnExpo));
+    // }
+    // if (ySpeed<0) {
+    //   trnSpeed = -Math.pow(Math.abs(ySpeed), Constants.turnExpo);
+    // }
 
-      Robot.driveTrain.TeleopDrive(driveSpeed, trnSpeed);
+      Robot.driveTrain.TeleopDrive(xSpeed, ySpeed);
   }
 
   // Called once the command ends or is interrupted.
