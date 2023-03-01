@@ -47,5 +47,16 @@ public class Wrist extends SubsystemBase {
 
     SmartDashboard.putNumber("WristPot readout", wristPot.getVoltage());
 
+    // SmartDashboard.putNumber
+    // if(container.operatorL.getRawButton(1)==true){
+    //     WristDrive(0.8);
+    // }
+    // else if(container.operatorL.getRawButton(2)==true){
+    //   WristDrive(-0.2);
+    // }
+    // else{
+    //   WristDrive(0);
+    // }
+
   }
 }

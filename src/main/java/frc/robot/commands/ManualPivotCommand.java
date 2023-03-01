@@ -15,16 +15,21 @@ public class ManualPivotCommand extends CommandBase {
   /** Creates a new ManualPivotCommand. */
   private Pivot pivot;
   private Joystick joystick;
+  private boolean isFinished;
+
   public ManualPivotCommand(Joystick j, Pivot p) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
     pivot = p;
     joystick = j;
+    isFinished = false;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -36,11 +41,14 @@ public class ManualPivotCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.isFinished = false;
+    this.pivot.PivotDrive(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isFinished;
   }
 }

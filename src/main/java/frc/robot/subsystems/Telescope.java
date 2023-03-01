@@ -29,6 +29,7 @@ public class Telescope extends SubsystemBase {
     telescopePot = new AnalogPotentiometer(0, 33.1, 0);
 
     telescope.setIdleMode(IdleMode.kBrake);
+    telescope.setSmartCurrentLimit(60);
 
     telescopePID = new PIDController(PIDConstants.telescopekP, PIDConstants.telescopekI, PIDConstants.telescopekD);
     telescopePID.setIntegratorRange(-PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
@@ -43,6 +44,9 @@ public class Telescope extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
     SmartDashboard.putNumber("telescopePot readout", telescopePot.get());
+    SmartDashboard.putNumber("Telescope motor current", telescope.getOutputCurrent());
+    SmartDashboard.putNumber("Telescope motor voltage", telescope.getBusVoltage());
+
     
 
   }

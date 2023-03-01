@@ -22,6 +22,8 @@ public class Claw extends SubsystemBase {
   public Claw() {
     intakeMotor = new CANSparkMax(Constants.intakeID, MotorType.kBrushless);
 
+    intakeMotor.setSmartCurrentLimit(11);
+
     intakeSolenoid = new DoubleSolenoid(
       Constants.PCM, 
       PneumaticsModuleType.CTREPCM, 
@@ -48,6 +50,7 @@ public class Claw extends SubsystemBase {
     // This method will be called once per scheduler run
     ToggleIntake(Pivot.armState);
     SmartDashboard.putBoolean("Arm State", Pivot.armState);
+    SmartDashboard.putNumber("intake Current", intakeMotor.getOutputCurrent());
 
   }
 }

@@ -15,29 +15,34 @@ public class ManualWristCommand extends CommandBase {
   /** Creates a new ManualWristCommand. */
   private Wrist wrist;
   private Joystick joystick;
+  private boolean isFinished;
   
   public ManualWristCommand(Joystick j, Wrist w) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(w);
     joystick = j;
     wrist = w;
+    isFinished = false;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
     if(joystick.getPOV() == 0){
-      this.wrist.WristDrive(0.5);
+      this.wrist.WristDrive(0.8);
       SmartDashboard.putString("Wrist", "Up");
 
     }
     else if(joystick.getPOV() == 180){
-      this.wrist.WristDrive(-0.3);
+      this.wrist.WristDrive(-0.8);
       SmartDashboard.putString("Wrist", "Down");
     }
     else{
@@ -49,11 +54,13 @@ public class ManualWristCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.isFinished = true;
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isFinished;
   }
 }
