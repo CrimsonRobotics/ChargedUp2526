@@ -14,17 +14,17 @@ package frc.robot;
  */
 public final class Constants {
   //drivetrain motors
-  public static int fLID = 41; //60;
-  public static int fRID = 42;
+  // public static int fLID = 41; //60;
+  // public static int fRID = 42;
 
-  public static int[] leftIDs = {58,29,40};
-  public static int[] rightIDs = {44,45,46};
+  public static int[] leftIDs = {33,34,35};
+  public static int[] rightIDs = {30,31,32};
 
   //arm motors
-  public static int pivotIDs[] = {59, 60};
-  public static int telescopeID = 31;
-  public static int wristID = 32;
-  public static int intakeID = 61;
+  public static int pivotIDs[] = {36, 37};
+  public static int telescopeID = 38;
+  public static int wristID = 39;
+  public static int intakeID = 40;
 
 
   public final static int PCM = 0;
