@@ -26,6 +26,17 @@ public final class Autos {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
   }
 
+  public static CommandBase driveOutAuto(Drivetrain d) {
+    return Commands.sequence(
+      new DriveStraight(d, -0.5),
+      new WaitCommand(0.7),
+      new DriveStraight(d, 0.5),
+      new WaitCommand(3.7),
+      new DriveStraight(d, 0)
+      // new Balance(d)
+    );
+  }
+
   public static CommandBase oneScoreLeftAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
       // new ParallelCommandGroup(

@@ -42,7 +42,7 @@ public class TelescopeDrive extends CommandBase {
     
     if(Pivot.armState == true){
       if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
-        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[3]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
         telescopespeed = telescopespeed / 100;
         this.telescope.telescopeDrive(telescopespeed);
         // SmartDashboard.putNumber("telescope Speed",telescopespeed);

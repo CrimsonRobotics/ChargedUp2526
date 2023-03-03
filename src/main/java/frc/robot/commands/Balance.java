@@ -37,7 +37,7 @@ public class Balance extends CommandBase {
     this.driveTrain.TeleopDrive(speed, 0);
     
     if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
-      isFinished = true;
+      this.isFinished = true;
     }
   }
 
@@ -48,6 +48,6 @@ public class Balance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return this.isFinished;
   }
 }

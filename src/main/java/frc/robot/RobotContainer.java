@@ -143,6 +143,7 @@ public class RobotContainer {
     // operatorL4.onTrue(new WristDrive(wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.intakeHigh)));
 
     // //Travel
+    // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false));
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
     // operatorL12.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
     // operatorL13.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.travel)));
@@ -152,7 +153,8 @@ public class RobotContainer {
 
     // //Manual Mode
     // // operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));    operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));
-    operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)).alongWith(new ManualPivotCommand(operatorR, pivot)));
+    operatorL8.onTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)).alongWith(new ManualPivotCommand(operatorR, pivot)));
+    // operatorR8
 
     
     // //Balance
@@ -184,8 +186,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     
+    return Autos.driveOutAuto(driveTrain);
     // return Autos.oneScoreEngageAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
-    return Autos.exampleAuto(m_exampleSubsystem);
+    // return Autos.exampleAuto(m_exampleSubsystem);
+    // return Autos.driveOutAuto(driveTrain)
     // return new ParallelCommandGroup(
     //   new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh),
     //   new WristDrive(wrist, Constants.outtakeHigh),

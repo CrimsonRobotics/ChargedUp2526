@@ -37,12 +37,12 @@ public class ManualWristCommand extends CommandBase {
   public void execute() {
 
     if(joystick.getPOV() == 0){
-      this.wrist.WristDrive(0.8);
+      this.wrist.WristDrive(0.4);
       SmartDashboard.putString("Wrist", "Up");
 
     }
     else if(joystick.getPOV() == 180){
-      this.wrist.WristDrive(-0.8);
+      this.wrist.WristDrive(-0.4);
       SmartDashboard.putString("Wrist", "Down");
     }
     else{

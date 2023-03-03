@@ -84,9 +84,9 @@ public class Drivetrain extends SubsystemBase {
     left1.setInverted(false);
     left2.setInverted(false);
     left3.setInverted(false);
-    right1.setInverted(false);
-    right2.setInverted(false);
-    right3.setInverted(false);
+    right1.setInverted(true);
+    right2.setInverted(true);
+    right3.setInverted(true);
 
     left1.setIdleMode(IdleMode.kBrake);
     left2.setIdleMode(IdleMode.kBrake);
@@ -272,7 +272,13 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Left 3 Current", left3.getOutputCurrent());
       SmartDashboard.putNumber("Right 1 Current", right1.getOutputCurrent());
       SmartDashboard.putNumber("Right 2 Current", right2.getOutputCurrent());
-      SmartDashboard.putNumber("Right 1 Current", right3.getOutputCurrent());
+      SmartDashboard.putNumber("Right 3 Current", right3.getOutputCurrent());
+
+      SmartDashboard.putNumber("gyro", pigeon.getYaw());
+      SmartDashboard.putNumber("gyro roll", pigeon.getRoll());
+      SmartDashboard.putNumber("gyro pitch", pigeon.getPitch());
+
+
 
       // shift(container.driverL);
       // park(container.driverL, container.driverR);
@@ -320,12 +326,12 @@ public class Drivetrain extends SubsystemBase {
 
     SmartDashboard.putNumber("pov button", container.operatorL.getPOV());
 
-      // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
-      // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
-      // SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
-      // SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
-      // SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
-      // SmartDashboard.putNumber("Right 1 Voltage", right3.getBusVoltage());
+      SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
+      SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
+      SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
+      SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
+      SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
+      SmartDashboard.putNumber("Right 3 Voltage", right3.getBusVoltage());
 
       // SmartDashboard.putNumber("Left 1 Temp", left1.getMotorTemperature());
       // SmartDashboard.putNumber("Left 2 Temp", left2.getMotorTemperature());

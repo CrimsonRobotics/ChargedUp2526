@@ -13,24 +13,27 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  //turn sesitivity adjustment
+  public static double joystickturnsens = 0.87;
   //drivetrain motors
   // public static int fLID = 41; //60;
   // public static int fRID = 42;
 
-  public static int[] leftIDs = {33,41,35};
-  public static int[] rightIDs = {30,42,32};
+  public static int[] leftIDs = {33,42,35};
+  public static int[] rightIDs = {30,41,60}; //32
 
   //arm motors
-  public static int pivotIDs[] = {36, 37};
+  public static int pivotIDs[] = {46, 37}; //36
   public static int telescopeID = 38;
   public static int wristID = 40;
   public static int intakeID = 39;
 
 
   public final static int PCM = 0;
-  public final static int[] clawSolenoidIDs = {1,2};
-  public final static int[] shiftSolenoidIDs = {3,4};
-  public final static int[] brakeSolenoidIDs = {5,6};
+  public final static int[] clawSolenoidIDs = {4,5};
+  public final static int[] shiftSolenoidIDs = {0,2};
+  public final static int[] brakeSolenoidIDs = {1,3};
 
   public static double intakeSpeed = 0.6;
   public static double outtakeSpeed = -0.5;
@@ -45,7 +48,7 @@ public final class Constants {
   public static double[] outtakeLow = {/*Cone*/0, 0, 0,/*Cube */ 10,10,10};
   public static double[] outtakeMid = {/*Cone*/40, 40, 40,/*Cube */ 20,20,20};
   public static double[] outtakeHigh = {/*Cone*/60, 60, 60,/*Cube */ 30,30,30};
-  public static double[] travel = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+  public static double[] travel = {/*Cone*/189, 20, 3.26,/*Cube */ 189, 20, 3.26};
 
 
   // public static double[] cubeIntake = {20, 20, 20, 1};

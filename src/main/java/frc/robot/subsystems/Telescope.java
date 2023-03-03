@@ -10,8 +10,10 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -23,6 +25,8 @@ public class Telescope extends SubsystemBase {
   CANSparkMax telescope;
   public AnalogPotentiometer telescopePot;
   public PIDController telescopePID;
+  public SparkMaxLimitSwitch frontTele;
+  public SparkMaxLimitSwitch backTele;
   
   public Telescope() {
     telescope = new CANSparkMax(Constants.telescopeID, MotorType.kBrushless);
@@ -30,6 +34,9 @@ public class Telescope extends SubsystemBase {
 
     telescope.setIdleMode(IdleMode.kBrake);
     telescope.setSmartCurrentLimit(60);
+
+    frontTele = telescope.getForwardLimitSwitch(Type.kNormallyOpen);
+    backTele = telescope.getReverseLimitSwitch(Type.kNormallyOpen);
 
     telescopePID = new PIDController(PIDConstants.telescopekP, PIDConstants.telescopekI, PIDConstants.telescopekD);
     telescopePID.setIntegratorRange(-PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
@@ -46,6 +53,9 @@ public class Telescope extends SubsystemBase {
     SmartDashboard.putNumber("telescopePot readout", telescopePot.get());
     SmartDashboard.putNumber("Telescope motor current", telescope.getOutputCurrent());
     SmartDashboard.putNumber("Telescope motor voltage", telescope.getBusVoltage());
+
+    SmartDashboard.putBoolean("tele front Limit", frontTele.isPressed());
+    SmartDashboard.putBoolean("tele back Limit", backTele.isPressed());
 
     
 

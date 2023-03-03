@@ -16,7 +16,7 @@ public final class PIDConstants {
     public static double balancekI = 0;
     public static double balancekD = 0;
     public static double balanceSetpoint = -3.69;
-    public static double balanceMaxPercent = 70;
+    public static double balanceMaxPercent = 40;
 
     public static double straightkP = 0.5;
     public static double straightkI = 0;
@@ -39,6 +39,6 @@ public final class PIDConstants {
     public static double telescopekP = 0.7; //1
     public static double telescopekI = 0;
     public static double telescopekD = 0;
-    public static double telescopeMaxPercent = 10;
+    public static double telescopeMaxPercent = 60;
 
 }

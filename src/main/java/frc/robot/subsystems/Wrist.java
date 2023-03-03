@@ -6,9 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAnalogSensor;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAnalogSensor.Mode;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -23,6 +25,9 @@ public class Wrist extends SubsystemBase {
   CANSparkMax wrist;
   public SparkMaxAnalogSensor wristPot;
   public PIDController wristPID;
+  private SparkMaxLimitSwitch wristFrontLim;
+  private SparkMaxLimitSwitch wristBackLim;
+
   /** Creates a new Wrist. */
   public Wrist() {
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushed);
@@ -31,6 +36,10 @@ public class Wrist extends SubsystemBase {
     
     // wristPot = new AnalogPotentiometer(3, 360, 0);
     wristPot = wrist.getAnalog(Mode.kAbsolute);
+
+    wristFrontLim = wrist.getForwardLimitSwitch(Type.kNormallyOpen);
+    wristBackLim = wrist.getReverseLimitSwitch(Type.kNormallyOpen);
+
 
     wristPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     wristPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
@@ -46,6 +55,11 @@ public class Wrist extends SubsystemBase {
     RobotContainer container = Robot.m_robotContainer;
 
     SmartDashboard.putNumber("WristPot readout", wristPot.getVoltage());
+
+    SmartDashboard.putBoolean("wrist front Limit", wristFrontLim.isPressed());
+    SmartDashboard.putBoolean("wrist back Limit", wristBackLim.isPressed());
+
+
 
     // SmartDashboard.putNumber
     // if(container.operatorL.getRawButton(1)==true){

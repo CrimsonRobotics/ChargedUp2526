@@ -26,24 +26,24 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     double xSpeed = -Robot.m_robotContainer.driverL.getY();
-    double ySpeed = Robot.m_robotContainer.driverR.getX();
+    double ySpeed = -Robot.m_robotContainer.driverR.getX() /*  * Constants.joystickturnsens*/;
     double driveSpeed = 0;
     double trnSpeed = 0;
 
-    if (xSpeed>0) {
-      driveSpeed = Math.abs(Math.pow(xSpeed, Constants.driveExpo));
-    }
-    if (xSpeed<0) {
-      driveSpeed = -Math.pow(Math.abs(xSpeed), Constants.driveExpo);
-    }
-    if (ySpeed>0) {
-      trnSpeed = Math.abs(Math.pow(ySpeed, Constants.turnExpo));
-    }
-    if (ySpeed<0) {
-      trnSpeed = -Math.pow(Math.abs(ySpeed), Constants.turnExpo);
-    }
+    // if (xSpeed>0) {
+    //   driveSpeed = Math.abs(Math.pow(xSpeed, Constants.driveExpo));
+    // }
+    // if (xSpeed<0) {
+    //   driveSpeed = -Math.pow(Math.abs(xSpeed), Constants.driveExpo);
+    // }
+    // if (ySpeed>0) {
+    //   trnSpeed = Math.abs(Math.pow(ySpeed, Constants.turnExpo));
+    // }
+    // if (ySpeed<0) {
+    //   trnSpeed = -Math.pow(Math.abs(ySpeed), Constants.turnExpo);
+    // }
 
-      this.driveTrain.TeleopDrive(driveSpeed, trnSpeed);
+      this.driveTrain.TeleopDrive(xSpeed, ySpeed);
   }
 
   // Called once the command ends or is interrupted.

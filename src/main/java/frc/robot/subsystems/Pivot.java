@@ -5,8 +5,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -24,6 +26,8 @@ public class Pivot extends SubsystemBase {
   public static AnalogPotentiometer pivotPot;
   public PIDController pivotPID;
   public static boolean armState;
+  public SparkMaxLimitSwitch limitFront;
+  public SparkMaxLimitSwitch limitBack;
 
 
   /** Creates a new Pivot. */
@@ -35,6 +39,9 @@ public class Pivot extends SubsystemBase {
     pivot2.setIdleMode(IdleMode.kBrake);
     
     pivotPot = new AnalogPotentiometer(1, 360, 0);
+
+    limitFront = pivot1.getForwardLimitSwitch(Type.kNormallyOpen);
+    limitBack = pivot1.getReverseLimitSwitch(Type.kNormallyOpen);
 
     pivotPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     pivotPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
@@ -53,6 +60,13 @@ public class Pivot extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
     SmartDashboard.putNumber("PivotPot readout", pivotPot.get());
+    SmartDashboard.putBoolean("Forward Limit", limitFront.isPressed());
+    SmartDashboard.putBoolean("Reverse Limit", limitBack.isPressed());
+
+    SmartDashboard.putNumber("pivto1 current", pivot1.getOutputCurrent());
+    SmartDashboard.putNumber("pivtot2 current", pivot2.getOutputCurrent());
+
+
     // if(container.operatorR.getRawButton(7)){
     //   PivotDrive(0.3);
     // }
@@ -60,10 +74,10 @@ public class Pivot extends SubsystemBase {
     //   PivotDrive(0);
     // }
 
-    if(container.operatorR.getRawButton(8)||container.operatorR.getRawButton(9)||container.operatorR.getRawButton(10)==true){
+    if(container.operatorR.getRawButton(8)||container.operatorR.getRawButton(9)||container.operatorR.getRawButton(10)){
       armState = true;
     }
-    else if(container.operatorR.getRawButton(6)||container.operatorR.getRawButton(7)||container.operatorR.getRawButton(5)==true){
+    else if(container.operatorR.getRawButton(6)||container.operatorR.getRawButton(7)||container.operatorR.getRawButton(5)){
       armState = false;
     }
   }
