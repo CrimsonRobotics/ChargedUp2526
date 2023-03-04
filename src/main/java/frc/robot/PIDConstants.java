@@ -15,10 +15,10 @@ public final class PIDConstants {
     public static double balancekP = 0.7; //1
     public static double balancekI = 0;
     public static double balancekD = 0;
-    public static double balanceSetpoint = -3.69;
-    public static double balanceMaxPercent = 40;
+    public static double balanceSetpoint = 0;
+    public static double balanceMaxPercent = 80;
 
-    public static double straightkP = 0.5;
+    public static double straightkP = 0.6;
     public static double straightkI = 0;
     public static double straightkD = 0;
     public static double straightSetpoint = 0;
@@ -27,7 +27,7 @@ public final class PIDConstants {
     public static double pivotkP = 0.7; //1
     public static double pivotkI = 0;
     public static double pivotkD = 0;
-    public static double pivotSetpoint = -3.69;
+    public static double pivotSetpoint = 0.39;
     public static double pivotMaxPercent = 70;
   
     public static double wristkP = 0.7; //1

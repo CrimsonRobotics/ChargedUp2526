@@ -35,8 +35,14 @@ public class Pivot extends SubsystemBase {
     pivot1 = new CANSparkMax(Constants.pivotIDs[0], MotorType.kBrushless);
     pivot2 = new CANSparkMax(Constants.pivotIDs[1], MotorType.kBrushless);
 
+    pivot1.restoreFactoryDefaults();
+    pivot2.restoreFactoryDefaults();
+
     pivot1.setIdleMode(IdleMode.kBrake);
     pivot2.setIdleMode(IdleMode.kBrake);
+
+    pivot1.setInverted(false);
+    pivot2.setInverted(false);
     
     pivotPot = new AnalogPotentiometer(1, 360, 0);
 

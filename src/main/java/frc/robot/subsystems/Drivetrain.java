@@ -57,7 +57,7 @@ public class Drivetrain extends SubsystemBase {
   public PIDController turnPID;
   public PIDController balancePID;
   public PIDController straightPID;
-  public PigeonIMU pigeon;
+  public static PigeonIMU pigeon;
   // public DigitalInput limitSwitch;
   // public SparkMaxAnalogSensor thePot;
   // public SparkMaxLimitSwitch theLimit;
@@ -304,7 +304,13 @@ public class Drivetrain extends SubsystemBase {
   
       }
 
-      if (container.driverL.getRawButton(11) ||
+      if (container.driverL.getRawButton(5) ||
+        container.driverL.getRawButton(6) ||
+        container.driverL.getRawButton(7) ||
+        container.driverL.getRawButton(8) ||
+        container.driverL.getRawButton(9) ||
+        container.driverL.getRawButton(10) ||
+        container.driverL.getRawButton(11) ||
         container.driverL.getRawButton(12) ||
         container.driverL.getRawButton(13) ||
         container.driverL.getRawButton(14) ||

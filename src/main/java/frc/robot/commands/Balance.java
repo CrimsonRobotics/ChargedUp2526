@@ -18,9 +18,9 @@ public class Balance extends CommandBase {
   boolean isFinished;
   public Balance(Drivetrain dt) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(dt);
     driveTrain = dt;
-    addRequirements(this.driveTrain);
-    isFinished = false;
+    this.isFinished = false;
   }
 
   // Called when the command is initially scheduled.
@@ -30,11 +30,11 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rollReadout = this.driveTrain.pigeon.getRoll() % 360;
+    double rollReadout = this.driveTrain.pigeon.getPitch() % 360;
 
     double speed = MathUtil.clamp(this.driveTrain.balancePID.calculate(rollReadout, PIDConstants.balanceSetpoint), -PIDConstants.balanceMaxPercent, PIDConstants.balanceMaxPercent);
     speed = speed / 100;
-    this.driveTrain.TeleopDrive(speed, 0);
+    this.driveTrain.TeleopDrive(-speed, 0);
     
     if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
       this.isFinished = true;
@@ -43,7 +43,10 @@ public class Balance extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.driveTrain.TeleopDrive(0, 0);
+    
+  }
 
   // Returns true when the command should end.
   @Override

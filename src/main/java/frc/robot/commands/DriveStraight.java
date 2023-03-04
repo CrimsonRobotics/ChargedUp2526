@@ -29,7 +29,7 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    originalYaw = this.driveTrain.pigeon.getYaw() % 360;
+    originalYaw = Robot.startuporiginalYaw;//this.driveTrain.pigeon.getYaw() % 360;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

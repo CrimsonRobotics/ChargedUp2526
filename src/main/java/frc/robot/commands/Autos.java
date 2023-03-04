@@ -31,9 +31,20 @@ public final class Autos {
       new DriveStraight(d, -0.5),
       new WaitCommand(0.7),
       new DriveStraight(d, 0.5),
-      new WaitCommand(3.7),
+      new WaitCommand(3.8),
       new DriveStraight(d, 0)
-      // new Balance(d)
+    );
+  }
+
+  public static CommandBase ChargeStationAuto(Drivetrain d) {
+    return Commands.sequence(
+      new DriveStraight(d, -0.5),
+      new WaitCommand(0.7),
+      new DriveStraight(d, 0.5),
+      new WaitCommand(1.2),
+      new DriveStraight(d, 0),
+      new Balance(d),
+      new DriveStraight(d, 0)
     );
   }
 

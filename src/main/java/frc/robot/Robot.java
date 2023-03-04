@@ -21,6 +21,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   public static RobotContainer m_robotContainer;
+
+  public static double startuporiginalYaw;
   // public static Drivetrain driveTrain;
   // public static LED led;
   // public static Arm arm;
@@ -40,7 +42,7 @@ public class Robot extends TimedRobot {
     // driveTrain.gyro.calibrate();
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
-    // driveTrain.pigeon.setYaw(0);
+    RobotContainer.driveTrain.pigeon.setYaw(0);
 
   }
 
@@ -76,6 +78,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    startuporiginalYaw = Drivetrain.pigeon.getYaw();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
