@@ -20,11 +20,11 @@ public final class Constants {
   // public static int fLID = 41; //60;
   // public static int fRID = 42;
 
-  public static int[] leftIDs = {33,42,35};
+  public static int[] leftIDs = {55,33,35}; //33
   public static int[] rightIDs = {30,41,60}; //32
 
   //arm motors
-  public static int pivotIDs[] = {46, 48}; //36
+  public static int pivotIDs[] = {42, 48}; //36 //46
   public static int telescopeID = 38;
   public static int wristID = 40;
   public static int intakeID = 39;

@@ -44,7 +44,7 @@ public class Balance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.driveTrain.TeleopDrive(0, 0);
+    this.driveTrain.ManualDrive(0, 0);
     
   }
 

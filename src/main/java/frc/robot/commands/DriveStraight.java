@@ -5,11 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PIDConstants;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveStraight extends CommandBase {
@@ -29,7 +31,8 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    originalYaw = Robot.startuporiginalYaw;//this.driveTrain.pigeon.getYaw() % 360;
+    originalYaw = Robot.startuporiginalYaw;//this.driveTrain.pigeon.getYaw() % 360; //Robot.startuporiginalYaw;
+    // RobotContainer.driveTrain.shifter.set(Value.kReverse);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

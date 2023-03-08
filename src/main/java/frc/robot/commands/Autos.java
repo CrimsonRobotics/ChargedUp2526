@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
@@ -33,18 +34,31 @@ public final class Autos {
       new DriveStraight(d, 0.5),
       new WaitCommand(3.8),
       new DriveStraight(d, 0)
+      // new ManualDrive(d, -0.5, -0.5),
+      // new WaitCommand(0.7),
+      // new ManualDrive(d, 0.5, 0.5),
+      // new WaitCommand(3.8),
+      // new ManualDrive(d, 0, 0)
     );
   }
 
   public static CommandBase ChargeStationAuto(Drivetrain d) {
     return Commands.sequence(
-      new DriveStraight(d, -0.5),
-      new WaitCommand(0.7),
-      new DriveStraight(d, 0.5),
-      new WaitCommand(1.2),
-      new DriveStraight(d, 0),
+      // new DriveStraight(d, -0.1),
+      // new WaitCommand(0.2),
+      // new DriveStraight(d, 0.5),
+      // new WaitCommand(1.2),
+      // new DriveStraight(d, 0),
+      // new Balance(d),
+      // new DriveStraight(d, 0)
+      new ManualDrive(d, -0.2, -0.2),
+      new WaitCommand(0.5),
+      new ManualDrive(d, 0.5, 0.5),
+      new WaitCommand(1.5),
+      new ManualDrive(d, 0, 0),
       new Balance(d),
-      new DriveStraight(d, 0)
+      new ManualDrive(d,0, 0)//,
+      //new WaitUntilCommand(() -> !robot.isauto()))
     );
   }
 

@@ -38,8 +38,11 @@ public class Pivot extends SubsystemBase {
     pivot1.restoreFactoryDefaults();
     pivot2.restoreFactoryDefaults();
 
-    pivot1.setIdleMode(IdleMode.kBrake);
-    pivot2.setIdleMode(IdleMode.kBrake);
+    // pivot1.setIdleMode(IdleMode.kBrake);
+    // pivot2.setIdleMode(IdleMode.kBrake);
+
+    pivot1.setIdleMode(IdleMode.kCoast);
+    pivot2.setIdleMode(IdleMode.kCoast);
 
     pivot1.setInverted(false);
     pivot2.setInverted(false);
