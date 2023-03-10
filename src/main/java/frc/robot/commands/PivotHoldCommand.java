@@ -56,14 +56,14 @@ public class PivotHoldCommand extends CommandBase {
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(pivotspeed);
-      SmartDashboard.putNumber("Pivot Speed",pivotspeed);
+      SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     else if(Pivot.armState == false){
 
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(pivotspeed);
-      SmartDashboard.putNumber("Pivot Speed",pivotspeed);
+      SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     // if(timed == true){
     //   if(timer.get()<time){
