@@ -38,6 +38,9 @@ public class Pivot extends SubsystemBase {
     pivot1.restoreFactoryDefaults();
     pivot2.restoreFactoryDefaults();
 
+    pivot1.setSmartCurrentLimit(60);
+    pivot2.setSmartCurrentLimit(60);
+
     // pivot1.setIdleMode(IdleMode.kBrake);
     // pivot2.setIdleMode(IdleMode.kBrake);
 

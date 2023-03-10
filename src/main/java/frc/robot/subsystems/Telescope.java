@@ -33,7 +33,7 @@ public class Telescope extends SubsystemBase {
     telescopePot = new AnalogPotentiometer(0, 33.1, 0);
 
     telescope.setIdleMode(IdleMode.kBrake);
-    telescope.setSmartCurrentLimit(60);
+    telescope.setSmartCurrentLimit(40);
 
     frontTele = telescope.getForwardLimitSwitch(Type.kNormallyOpen);
     backTele = telescope.getReverseLimitSwitch(Type.kNormallyOpen);

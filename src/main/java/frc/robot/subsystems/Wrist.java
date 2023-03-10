@@ -33,6 +33,8 @@ public class Wrist extends SubsystemBase {
     wrist = new CANSparkMax(Constants.wristID, MotorType.kBrushed);
 
     wrist.setIdleMode(IdleMode.kBrake);
+
+    wrist.setSmartCurrentLimit(40);
     
     // wristPot = new AnalogPotentiometer(3, 360, 0);
     wristPot = wrist.getAnalog(Mode.kAbsolute);

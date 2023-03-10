@@ -21,24 +21,24 @@ public class PivotHoldCommand extends CommandBase {
   double armcase[];
   boolean isFinished;
   private Joystick joystick;
-  Timer timer;
+  // Timer timer;
   Boolean timed;
   double time;
-  public PivotHoldCommand(Joystick j, Pivot p, double ac[], boolean t, double tr) {
+  public PivotHoldCommand(Joystick j, Pivot p, double ac[]/*, boolean t, double tr*/) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
     joystick = j;
     pivot = p;
     armcase = ac;
     isFinished = false;
-    timed = t;
-    time = tr;
+    // timed = t;
+    // time = tr;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
+    // timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -65,17 +65,17 @@ public class PivotHoldCommand extends CommandBase {
       this.pivot.PivotDrive(pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",pivotspeed);
     }
-    if(timed == true){
-      if(timer.get()<time){
-        isFinished = true;
-      }
-      else{
-        isFinished = false;
-      }
-    }
-    else {
-      isFinished = false;
-    }
+    // if(timed == true){
+    //   if(timer.get()<time){
+    //     isFinished = true;
+    //   }
+    //   else{
+    //     isFinished = false;
+    //   }
+    // }
+    // else {
+    //   isFinished = false;
+    // }
   }
 
   // Called once the command ends or is interrupted.
@@ -85,6 +85,6 @@ public class PivotHoldCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return false;
   }
 }

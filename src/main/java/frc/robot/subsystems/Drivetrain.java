@@ -95,12 +95,12 @@ public class Drivetrain extends SubsystemBase {
     right2.setIdleMode(IdleMode.kBrake);
     right3.setIdleMode(IdleMode.kBrake);
 
-    // left1.setSmartCurrentLimit(Constants.driveLim);
-    // left2.setSmartCurrentLimit(Constants.driveLim);
-    // left3.setSmartCurrentLimit(Constants.driveLim);
-    // right1.setSmartCurrentLimit(Constants.driveLim);
-    // right2.setSmartCurrentLimit(Constants.driveLim);
-    // right3.setSmartCurrentLimit(Constants.driveLim);
+    left1.setSmartCurrentLimit(Constants.driveLim);
+    left2.setSmartCurrentLimit(Constants.driveLim);
+    left3.setSmartCurrentLimit(Constants.driveLim);
+    right1.setSmartCurrentLimit(Constants.driveLim);
+    right2.setSmartCurrentLimit(Constants.driveLim);
+    right3.setSmartCurrentLimit(Constants.driveLim);
 
     // gyro = new ADXRS450_Gyro();
     // gyro.calibrate();

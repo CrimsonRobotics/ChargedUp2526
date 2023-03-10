@@ -20,11 +20,13 @@ public final class Constants {
   // public static int fLID = 41; //60;
   // public static int fRID = 42;
 
-  public static int[] leftIDs = {55,33,35}; //33
-  public static int[] rightIDs = {30,41,60}; //32
+  public static int[] leftIDs = {33,41,35}; //33
+  public static int[] rightIDs = {30,49,60}; //32
+
+  public static int driveLim = 45;
 
   //arm motors
-  public static int pivotIDs[] = {42, 48}; //36 //46
+  public static int pivotIDs[] = {46, 48}; //36 //46
   public static int telescopeID = 38;
   public static int wristID = 40;
   public static int intakeID = 39;
@@ -48,7 +50,7 @@ public final class Constants {
   public static double[] outtakeLow = {/*Cone*/0, 0, 0,/*Cube */ 10,10,10};
   public static double[] outtakeMid = {/*Cone*/40, 40, 40,/*Cube */ 20,20,20};
   public static double[] outtakeHigh = {/*Cone*/60, 60, 60,/*Cube */ 30,30,30};
-  public static double[] travel = {/*Cone*/189, 20, 3.26,/*Cube */ 189, 20, 3.26};
+  public static double[] travel = {/*Cone*/180.5, 20, 3.26,/*Cube */ 180.5, 20, 3.26};
 
 
   // public static double[] cubeIntake = {20, 20, 20, 1};

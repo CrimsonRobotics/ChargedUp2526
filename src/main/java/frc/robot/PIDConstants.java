@@ -27,8 +27,8 @@ public final class PIDConstants {
     public static double pivotkP = 0.7; //1
     public static double pivotkI = 0;
     public static double pivotkD = 0;
-    public static double pivotSetpoint = 0.39;
-    public static double pivotMaxPercent = 70;
+    // public static double pivotSetpoint = 0.39;
+    public static double pivotMaxPercent = 20;
   
     public static double wristkP = 0.7; //1
     public static double wristkI = 0;

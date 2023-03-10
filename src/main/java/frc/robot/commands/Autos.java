@@ -116,8 +116,8 @@ public final class Autos {
   public static CommandBase oneScoreRightAuto(Drivetrain d, Joystick j, Pivot p, Wrist w, Telescope t){
     return Commands.sequence(
       new SequentialCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeHigh, true, 5),
-        new PivotHoldCommand(j, p, Constants.travel, false, 0)
+        // new PivotHoldCommand(j, p, Constants.outtakeHigh, true, 5),
+        // new PivotHoldCommand(j, p, Constants.travel, false, 0)
         // new PivotHoldCommand(j, p, Constants.travel, false).alongWith(new WristDrive(w, Constants.travel, false))
 
         // new DriveStraight(d, 0),
