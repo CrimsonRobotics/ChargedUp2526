@@ -22,8 +22,8 @@ public class PivotHoldCommand extends CommandBase {
   boolean isFinished;
   private Joystick joystick;
   // Timer timer;
-  Boolean timed;
-  double time;
+  // Boolean timed;
+  // double time;
   public PivotHoldCommand(Joystick j, Pivot p, double ac[]/*, boolean t, double tr*/) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p);
@@ -39,6 +39,8 @@ public class PivotHoldCommand extends CommandBase {
   @Override
   public void initialize() {
     // timer.start();
+    this.isFinished = false;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,14 +57,14 @@ public class PivotHoldCommand extends CommandBase {
 
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
-      this.pivot.PivotDrive(pivotspeed);
+      this.pivot.PivotDrive(-pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     else if(Pivot.armState == false){
 
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
-      this.pivot.PivotDrive(pivotspeed);
+      this.pivot.PivotDrive(-pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     // if(timed == true){
@@ -80,11 +82,14 @@ public class PivotHoldCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.pivot.PivotDrive(0);
+    this.isFinished = false;
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isFinished;
   }
 }

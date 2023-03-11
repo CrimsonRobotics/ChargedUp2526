@@ -28,17 +28,22 @@ public final class PIDConstants {
     public static double pivotkI = 0;
     public static double pivotkD = 0;
     // public static double pivotSetpoint = 0.39;
-    public static double pivotMaxPercent = 20;
+    public static double pivotMaxPercent = 50;
   
-    public static double wristkP = 0.7; //1
-    public static double wristkI = 0;
+    public static double wristkP = 3; //1
+    public static double wristkI = 1;
     public static double wristkD = 0;
-    public static double wristMaxPercent = 70;
+    public static double wristMaxPercent = 100;
 
   
-    public static double telescopekP = 0.7; //1
-    public static double telescopekI = 0;
+    public static double telescopekP = 6.7; //1
+    public static double telescopekI = 0.5;
     public static double telescopekD = 0;
-    public static double telescopeMaxPercent = 60;
+    public static double telescopeMaxPercent = 100;
+
+    public static double downkP = 0.7; //1
+    public static double downkI = 0;
+    public static double downkD = 0;
+    public static double downMaxPercent = 100;
 
 }

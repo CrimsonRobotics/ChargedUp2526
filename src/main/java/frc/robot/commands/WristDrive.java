@@ -30,25 +30,27 @@ public class WristDrive extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     System.out.printf("Wrist Drive Command Executing");
 
-    double wristPotReadout = this.wrist.wristPot.getVoltage();
+    double wristPotReadout = (this.wrist.wristPot.getPosition()/3.29*360);
 
     if(Pivot.armState == true){
       double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[1]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
-      this.wrist.WristDrive(wristspeed);
+      this.wrist.WristDrive(-wristspeed);
       SmartDashboard.putNumber("Wrist Speed",wristspeed);
     }
     else if(Pivot.armState == false){
       double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[4]), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
-      this.wrist.WristDrive(wristspeed);
+      this.wrist.WristDrive(-wristspeed);
       SmartDashboard.putNumber("Wrist Speed",wristspeed);
     }
     // double wristPotReadout = 100;
@@ -57,11 +59,14 @@ public class WristDrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.isFinished = true;
+    this.wrist.WristDrive(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished ;
+    return this.isFinished ;
   }
 }

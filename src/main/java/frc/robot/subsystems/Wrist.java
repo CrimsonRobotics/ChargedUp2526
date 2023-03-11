@@ -43,8 +43,8 @@ public class Wrist extends SubsystemBase {
     wristBackLim = wrist.getReverseLimitSwitch(Type.kNormallyOpen);
 
 
-    wristPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
-    wristPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+    wristPID = new PIDController(PIDConstants.wristkP, PIDConstants.wristkI, PIDConstants.wristkD);
+    wristPID.setIntegratorRange(-PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
   }
 
   public void WristDrive(double moveSpeed) {
@@ -56,7 +56,7 @@ public class Wrist extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
 
-    SmartDashboard.putNumber("WristPot readout", wristPot.getVoltage());
+    SmartDashboard.putNumber("WristPot readout", (wristPot.getPosition()/3.2*360));
 
     SmartDashboard.putBoolean("wrist front Limit", wristFrontLim.isPressed());
     SmartDashboard.putBoolean("wrist back Limit", wristBackLim.isPressed());

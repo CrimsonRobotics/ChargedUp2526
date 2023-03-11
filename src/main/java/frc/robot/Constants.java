@@ -47,10 +47,12 @@ public final class Constants {
   public static double[] intakeSide = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeShelf = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeHigh = {/*Cone*/30, 30, 30,/*Cube */ 40,40,40};
-  public static double[] outtakeLow = {/*Cone*/0, 0, 0,/*Cube */ 10,10,10};
-  public static double[] outtakeMid = {/*Cone*/40, 40, 40,/*Cube */ 20,20,20};
-  public static double[] outtakeHigh = {/*Cone*/60, 60, 60,/*Cube */ 30,30,30};
-  public static double[] travel = {/*Cone*/180.5, 20, 3.26,/*Cube */ 180.5, 20, 3.26};
+  public static double[] outtakeLow = {/*Cone*/90, 0, 0,/*Cube */ 90,10,10};
+  public static double[] outtakeMid = {/*Cone*/225, 55, 30,/*Cube */ 225,55,30};
+  public static double[] outtakeHigh = {/*Cone*/230, 60, 207,/*Cube */ 230, 30, 207};
+  public static double[] travel = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
+  public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
+
 
 
   // public static double[] cubeIntake = {20, 20, 20, 1};

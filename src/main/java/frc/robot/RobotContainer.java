@@ -132,10 +132,13 @@ public class RobotContainer {
     //Outtake
     // operatorR1.whileTrue(new IntakeCommand(claw, -0.8));
     // operatorR1.whileTrue(new ManualWristCommand(operatorR1, wrist));
-    operatorR1.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.travel));
+    operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.travel).alongWith(new TelescopeDrive(telescope, Constants.travel)).alongWith(new WristDrive(wrist, Constants.travel, false)));
+    operatorR2.whileTrue(new WristDrive(wrist, Constants.test, false));
+    // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)).alongWith(new WristDrive(wrist, Constants.outtakeMid, false)));
+    // operatorR3.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow));
 
     // operatorR2.onTrue(new WristDrive(wrist, Constants.outtakeMid, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)));
-    // operatorR3.onTrue(new WristDrive(wrist, Constants.outtakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh)));
+    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh))/*.alongWith(new WristDrive(wrist, Constants.outtakeHigh, false))*/);
     // operatorR4.onTrue(new WristDrive(wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.outtakeLow)));
 
     // //Intake

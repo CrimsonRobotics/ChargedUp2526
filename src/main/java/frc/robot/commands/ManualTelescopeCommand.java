@@ -40,7 +40,7 @@ public class ManualTelescopeCommand extends CommandBase {
 
     }
     else if(joystick.getPOV() == 180){
-      this.telescope.telescopeDrive(-0.6);
+      this.telescope.telescopeDrive(-0.2);
       SmartDashboard.putString("Extending", "Down");
     }
     else{

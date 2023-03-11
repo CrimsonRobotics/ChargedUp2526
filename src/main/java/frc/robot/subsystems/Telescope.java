@@ -25,12 +25,13 @@ public class Telescope extends SubsystemBase {
   CANSparkMax telescope;
   public AnalogPotentiometer telescopePot;
   public PIDController telescopePID;
+  public PIDController downPID;
   public SparkMaxLimitSwitch frontTele;
   public SparkMaxLimitSwitch backTele;
   
   public Telescope() {
     telescope = new CANSparkMax(Constants.telescopeID, MotorType.kBrushless);
-    telescopePot = new AnalogPotentiometer(0, 33.1, 0);
+    telescopePot = new AnalogPotentiometer(0, 360, 0);
 
     telescope.setIdleMode(IdleMode.kBrake);
     telescope.setSmartCurrentLimit(40);
@@ -40,6 +41,9 @@ public class Telescope extends SubsystemBase {
 
     telescopePID = new PIDController(PIDConstants.telescopekP, PIDConstants.telescopekI, PIDConstants.telescopekD);
     telescopePID.setIntegratorRange(-PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+
+    downPID = new PIDController(PIDConstants.downkP, PIDConstants.downkI, PIDConstants.downkD);
+    downPID.setIntegratorRange(-PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
   }
 
   public void telescopeDrive(double moveSpeed) {

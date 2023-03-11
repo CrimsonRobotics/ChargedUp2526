@@ -29,7 +29,9 @@ public class TelescopeDrive extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -42,12 +44,23 @@ public class TelescopeDrive extends CommandBase {
     
     if(Pivot.armState == true){
       if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
-        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
-        telescopespeed = telescopespeed / 100;
-        this.telescope.telescopeDrive(telescopespeed);
-        // SmartDashboard.putNumber("telescope Speed",telescopespeed);
-        SmartDashboard.putNumber("telescope Speed", telescopespeed);
-        SmartDashboard.putString("waiting for pivot", "No");
+        if((armcase[2]-telescopePotReadout)<0){
+          double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
+          SmartDashboard.putString("waiting for pivot", "No");
+        }
+        else {
+          double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
+          SmartDashboard.putString("waiting for pivot", "No");
+        }
+        
       }
       else{
         this.telescope.telescopeDrive(0);
@@ -59,11 +72,22 @@ public class TelescopeDrive extends CommandBase {
     }
     else if(Pivot.armState == false){
       if(Math.abs(pivotPotReadout-armcase[3])<Constants.extendStopDistance){
-        double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
-        telescopespeed = telescopespeed / 100;
-        this.telescope.telescopeDrive(telescopespeed);
-        // SmartDashboard.putNumber("telescope Speed",telescopespeed);
-        SmartDashboard.putNumber("telescope Speed", telescopespeed);
+        if((armcase[5]-telescopePotReadout)<0){
+          double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
+          SmartDashboard.putString("waiting for pivot", "No");
+        }
+        else {
+          double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
+          SmartDashboard.putString("waiting for pivot", "No");
+        }
       }
       else{
         this.telescope.telescopeDrive(0);
@@ -76,13 +100,14 @@ public class TelescopeDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    this.isFinished = true;
+    this.telescope.telescopeDrive(0);
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return this.isFinished;
   }
 }
