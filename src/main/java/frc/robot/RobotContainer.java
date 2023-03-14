@@ -19,6 +19,7 @@ import frc.robot.commands.ManualWristCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.PivotHoldCommand;
 import frc.robot.commands.TelescopeDrive;
+import frc.robot.commands.TelescopeHoldCommand;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.WristDrive;
 // import frc.robot.subsystems.Arm;
@@ -29,6 +30,7 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Telescope;
 import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -131,19 +133,30 @@ public class RobotContainer {
 
     //Outtake
     // operatorR1.whileTrue(new IntakeCommand(claw, -0.8));
+    operatorR2.whileTrue(new IntakeCommand(claw, -0.8));
+
     // operatorR1.whileTrue(new ManualWristCommand(operatorR1, wrist));
+    double[] testArray = {
+      SmartDashboard.getNumber("Pivot Position", 180), 
+      SmartDashboard.getNumber("Wrist Position", 180), 
+      SmartDashboard.getNumber("Telescope Position", 30), 
+      SmartDashboard.getNumber("Pivot Position", 180), 
+      SmartDashboard.getNumber("Wrist Position", 180), 
+      SmartDashboard.getNumber("Telescope Position", 30)};
+    // operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, testArray).alongWith(new TelescopeDrive(telescope, testArray))/*.alongWith(new WristDrive(wrist, Constants.travel, false))*/);
+   
     operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.travel).alongWith(new TelescopeDrive(telescope, Constants.travel)).alongWith(new WristDrive(wrist, Constants.travel, false)));
-    operatorR2.whileTrue(new WristDrive(wrist, Constants.test, false));
-    // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)).alongWith(new WristDrive(wrist, Constants.outtakeMid, false)));
+    // operatorR2.whileTrue(new WristDrive(wrist, Constants.test, false));
+    // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid))/*.alongWith(new WristDrive(wrist, Constants.outtakeMid, false))*/);
     // operatorR3.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow));
 
-    // operatorR2.onTrue(new WristDrive(wrist, Constants.outtakeMid, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)));
-    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh))/*.alongWith(new WristDrive(wrist, Constants.outtakeHigh, false))*/);
+    // operatorR2.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)));
+    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh)).alongWith(new WristDrive(wrist, Constants.outtakeHigh, false)));
     // operatorR4.onTrue(new WristDrive(wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.outtakeLow)));
 
     // //Intake
     operatorL1.whileTrue(new IntakeCommand(claw, 0.9));
-    // operatorL3.onTrue(new WristDrive(wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)));
+    operatorL3.onTrue(new WristDrive(wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeDrive(telescope, Constants.intakeLow)));
     // operatorL2.onTrue(new WristDrive(wrist, Constants.intakeSide, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.intakeSide)));
     // operatorL4.onTrue(new WristDrive(wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh, false, 0)).alongWith(new TelescopeDrive(telescope, Constants.intakeHigh)));
 

@@ -43,7 +43,6 @@ public class TelescopeDrive extends CommandBase {
     // double telescopePotReadout = 15;
     
     if(Pivot.armState == true){
-      if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
         if((armcase[2]-telescopePotReadout)<0){
           double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
           telescopespeed = telescopespeed / 100;
@@ -61,17 +60,9 @@ public class TelescopeDrive extends CommandBase {
           SmartDashboard.putString("waiting for pivot", "No");
         }
         
-      }
-      else{
-        this.telescope.telescopeDrive(0);
-        SmartDashboard.putNumber("telescope Speed", 0);
-
-        SmartDashboard.putString("waiting for pivot", "Yes");
-
-      }
+      
     }
     else if(Pivot.armState == false){
-      if(Math.abs(pivotPotReadout-armcase[3])<Constants.extendStopDistance){
         if((armcase[5]-telescopePotReadout)<0){
           double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
           telescopespeed = telescopespeed / 100;
@@ -89,13 +80,7 @@ public class TelescopeDrive extends CommandBase {
           SmartDashboard.putString("waiting for pivot", "No");
         }
       }
-      else{
-        this.telescope.telescopeDrive(0);
-        SmartDashboard.putNumber("telescope Speed", 0);
-
-      }
     }
-  }
 
   // Called once the command ends or is interrupted.
   @Override

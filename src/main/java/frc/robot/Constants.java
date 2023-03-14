@@ -43,14 +43,14 @@ public final class Constants {
   public static double driveExpo = 1;
   public static double turnExpo = 1;
 
-  public static double[] intakeLow = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
+  public static double[] intakeLow = {/*Cone*/86, 294, 30,/*Cube */ 74, 294,36};
   public static double[] intakeSide = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeShelf = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeHigh = {/*Cone*/30, 30, 30,/*Cube */ 40,40,40};
   public static double[] outtakeLow = {/*Cone*/90, 0, 0,/*Cube */ 90,10,10};
-  public static double[] outtakeMid = {/*Cone*/225, 55, 30,/*Cube */ 225,55,30};
-  public static double[] outtakeHigh = {/*Cone*/230, 60, 207,/*Cube */ 230, 30, 207};
-  public static double[] travel = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
+  public static double[] outtakeMid = {/*Cone*/225, 250, 30,/*Cube */ 225,250,30};
+  public static double[] outtakeHigh = {/*Cone*/225, 227, 207,/*Cube */ 225, 227, 207}; //207
+  public static double[] travel = {/*Cone*/180, 263, 30,/*Cube */ 180, 263, 30};
   public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
 
 
@@ -63,7 +63,7 @@ public final class Constants {
   public static double telescopeError = 2;
   public static double wristError = 2;
 
-  public static double extendStopDistance = 30;
+  public static double extendStopDistance = 100;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

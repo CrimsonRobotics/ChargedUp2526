@@ -24,20 +24,20 @@ public final class PIDConstants {
     public static double straightSetpoint = 0;
     public static double straightMaxPercent = 100;
   
-    public static double pivotkP = 0.7; //1
-    public static double pivotkI = 0;
-    public static double pivotkD = 0;
+    public static double pivotkP = 0.75;//0.8; //1
+    public static double pivotkI = 0;//0.05;
+    public static double pivotkD = 0.28;//0.2;
     // public static double pivotSetpoint = 0.39;
-    public static double pivotMaxPercent = 50;
+    public static double pivotMaxPercent = 30;
   
     public static double wristkP = 3; //1
-    public static double wristkI = 1;
+    public static double wristkI = 0;
     public static double wristkD = 0;
     public static double wristMaxPercent = 100;
 
   
     public static double telescopekP = 6.7; //1
-    public static double telescopekI = 0.5;
+    public static double telescopekI = 0;
     public static double telescopekD = 0;
     public static double telescopeMaxPercent = 100;
 

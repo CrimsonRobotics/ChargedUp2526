@@ -24,6 +24,9 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
 
   public static double startuporiginalYaw;
+
+  // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
+
   // public static Drivetrain driveTrain;
   // public static LED led;
   // public static Arm arm;
@@ -45,6 +48,12 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
 
+    // SmartDashboard.putNumberArray("PID Positions", defaultPID);
+    SmartDashboard.putNumber("Pivot Position", 180);
+    SmartDashboard.putNumber("Telescope Position", 30);
+    SmartDashboard.putNumber("Wrist Position", 180);
+
+
   }
 
   /**
@@ -64,7 +73,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Pitch Heading", driveTrain.pigeon.getPitch());
     // SmartDashboard.putNumber("Roll Heading", driveTrain.pigeon.getRoll());
 
-
+    
     CommandScheduler.getInstance().run();
   }
 

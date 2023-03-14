@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,7 @@ public class Pivot extends SubsystemBase {
   CANSparkMax pivot2;
   public static AnalogPotentiometer pivotPot;
   public PIDController pivotPID;
+  public LinearFilter filter;
   public static boolean armState;
   public SparkMaxLimitSwitch limitFront;
   public SparkMaxLimitSwitch limitBack;
@@ -57,6 +59,8 @@ public class Pivot extends SubsystemBase {
 
     pivotPID = new PIDController(PIDConstants.pivotkP, PIDConstants.pivotkI, PIDConstants.pivotkD);
     pivotPID.setIntegratorRange(-PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+    // pivotPID.setTolerance(2, 20);
+    filter = LinearFilter.singlePoleIIR(0.1, 0.02);
 
     armState = true;
 
@@ -77,6 +81,10 @@ public class Pivot extends SubsystemBase {
 
     SmartDashboard.putNumber("pivto1 current", pivot1.getOutputCurrent());
     SmartDashboard.putNumber("pivtot2 current", pivot2.getOutputCurrent());
+
+    SmartDashboard.putNumber("Pivot pos error", pivotPID.getPositionError());
+    SmartDashboard.putNumber("Pivot vel error", pivotPID.getVelocityError());
+
 
 
     // if(container.operatorR.getRawButton(7)){

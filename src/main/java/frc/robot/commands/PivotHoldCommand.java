@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import javax.sound.sampled.Line;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +24,7 @@ public class PivotHoldCommand extends CommandBase {
   double armcase[];
   boolean isFinished;
   private Joystick joystick;
+  private LinearFilter filter;
   // Timer timer;
   // Boolean timed;
   // double time;
@@ -33,6 +37,7 @@ public class PivotHoldCommand extends CommandBase {
     isFinished = false;
     // timed = t;
     // time = tr;
+    filter = LinearFilter.singlePoleIIR(0.1, 0.02);
   }
 
   // Called when the command is initially scheduled.
@@ -55,14 +60,14 @@ public class PivotHoldCommand extends CommandBase {
     if(Pivot.armState == true){
       
 
-      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(this.filter.calculate(pivotPotReadout), armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(-pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     else if(Pivot.armState == false){
 
-      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(pivotPotReadout, armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
+      double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(this.filter.calculate(pivotPotReadout), armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(-pivotspeed);
       SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
