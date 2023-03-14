@@ -52,7 +52,7 @@ public final class Constants {
   public static double[] outtakeHigh = {/*Cone*/225, 227, 207,/*Cube */ 225, 227, 207}; //207
   public static double[] travel = {/*Cone*/180, 263, 30,/*Cube */ 180, 263, 30};
   public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
-
+//{/*Cone*/ Pivot, Wrist, Telescope, /*Cube */ Pivot, Wrist, Telescope}
 
 
   // public static double[] cubeIntake = {20, 20, 20, 1};
@@ -63,7 +63,7 @@ public final class Constants {
   public static double telescopeError = 2;
   public static double wristError = 2;
 
-  public static double extendStopDistance = 100;
+  public static double extendStopDistance = 90;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

@@ -61,7 +61,7 @@ public class WristDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.isFinished = true;
-    this.wrist.WristDrive(0);
+    // this.wrist.WristDrive(0);
   }
 
   // Returns true when the command should end.

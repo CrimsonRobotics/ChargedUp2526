@@ -44,8 +44,8 @@ public class TelescopeHoldCommand extends CommandBase {
     // double telescopePotReadout = 15;
     
     if(Pivot.armState == true){
-      if ((armcase[2]-telescopePotReadout)<0){
-        double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+      if ((armcase[2]-telescopePotReadout)<=0){
+          double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
           telescopespeed = telescopespeed / 100;
           this.telescope.telescopeDrive(telescopespeed);
           // SmartDashboard.putNumber("telescope Speed",telescopespeed);
@@ -56,7 +56,7 @@ public class TelescopeHoldCommand extends CommandBase {
 
       
         if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
-            double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
             telescopespeed = telescopespeed / 100;
             this.telescope.telescopeDrive(telescopespeed);
             // SmartDashboard.putNumber("telescope Speed",telescopespeed);
@@ -65,16 +65,18 @@ public class TelescopeHoldCommand extends CommandBase {
           
         }
         else{
-          this.telescope.telescopeDrive(0);
-          SmartDashboard.putNumber("telescope Speed", 0);
-
+          double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, Constants.travel[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
           SmartDashboard.putString("waiting for pivot", "Yes");
 
         }
       }
     }
     else if(Pivot.armState == false){
-      if ((armcase[5]-telescopePotReadout)<0){
+      if ((armcase[5]-telescopePotReadout)<=0){
         double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
           telescopespeed = telescopespeed / 100;
           this.telescope.telescopeDrive(telescopespeed);
@@ -86,7 +88,7 @@ public class TelescopeHoldCommand extends CommandBase {
 
       
         if(Math.abs(pivotPotReadout-armcase[3])<Constants.extendStopDistance){
-            double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
             telescopespeed = telescopespeed / 100;
             this.telescope.telescopeDrive(telescopespeed);
             // SmartDashboard.putNumber("telescope Speed",telescopespeed);
@@ -95,9 +97,11 @@ public class TelescopeHoldCommand extends CommandBase {
           
         }
         else{
-          this.telescope.telescopeDrive(0);
-          SmartDashboard.putNumber("telescope Speed", 0);
-
+          double telescopespeed = MathUtil.clamp(this.telescope.downPID.calculate(telescopePotReadout, Constants.travel[2]), -PIDConstants.downMaxPercent, PIDConstants.downMaxPercent);
+          telescopespeed = telescopespeed / 100;
+          this.telescope.telescopeDrive(telescopespeed);
+          // SmartDashboard.putNumber("telescope Speed",telescopespeed);
+          SmartDashboard.putNumber("telescope Speed", telescopespeed);
           SmartDashboard.putString("waiting for pivot", "Yes");
 
         }
@@ -109,7 +113,7 @@ public class TelescopeHoldCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.isFinished = true;
-    this.telescope.telescopeDrive(0);
+    // this.telescope.telescopeDrive(0);
 
   }
 
