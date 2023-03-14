@@ -290,7 +290,7 @@ public class Drivetrain extends SubsystemBase {
         container.driverL.getRawButton(10)){
           
         parkingBrake.set(Value.kForward);
-        SmartDashboard.putString("parking", "parked");
+        // SmartDashboard.putString("parking", "parked");
       }
       else if(container.driverR.getRawButton(11) ||
         container.driverR.getRawButton(12) ||
@@ -300,7 +300,7 @@ public class Drivetrain extends SubsystemBase {
         container.driverR.getRawButton(16)){
 
         parkingBrake.set(Value.kReverse);
-        SmartDashboard.putString("parking", "not parked");
+        // SmartDashboard.putString("parking", "not parked");
   
       }
 
@@ -317,20 +317,20 @@ public class Drivetrain extends SubsystemBase {
         container.driverL.getRawButton(15) ||
         container.driverL.getRawButton(16)) {
       shifter.set(Value.kForward);
-      SmartDashboard.putString("shift state", "low gear");
+      // SmartDashboard.putString("shift state", "low gear");
 
       // Robot.currentState = "Shifting";
     }
 
     else {
       shifter.set(Value.kReverse);
-      SmartDashboard.putString("shift state", "high gear");
+      // SmartDashboard.putString("shift state", "high gear");
 
     }
     System.out.print(shifter.get()); //shifter.get();
 
 
-    SmartDashboard.putNumber("pov button", container.operatorL.getPOV());
+    // SmartDashboard.putNumber("pov button", container.operatorL.getPOV());
 
       SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
       SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());

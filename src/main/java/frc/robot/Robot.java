@@ -25,6 +25,13 @@ public class Robot extends TimedRobot {
 
   public static double startuporiginalYaw;
 
+  static double[] testArray = {/*Cone*/180, 263, 30,/*Cube */ 180, 263, 30};
+
+  static double pivotTest;
+  static double telescopeTest;
+  static double wristTest;
+
+
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
 
   // public static Drivetrain driveTrain;
@@ -114,7 +121,17 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    pivotTest = SmartDashboard.getNumber("Pivot Position", 180);
+    telescopeTest = SmartDashboard.getNumber("Telescope Position", 30);
+    wristTest = SmartDashboard.getNumber("Wrist Position", 263);
+    testArray[0] = pivotTest;
+    testArray[1] = wristTest;
+    testArray[2] = telescopeTest;
+    testArray[3] = pivotTest;
+    testArray[4] = wristTest;
+    testArray[5] = telescopeTest;
+  }
 
   @Override
   public void testInit() {

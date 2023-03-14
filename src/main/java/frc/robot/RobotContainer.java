@@ -136,16 +136,10 @@ public class RobotContainer {
     operatorR2.whileTrue(new IntakeCommand(claw, -0.8));
 
     // operatorR1.whileTrue(new ManualWristCommand(operatorR1, wrist));
-    double[] testArray = {
-      SmartDashboard.getNumber("Pivot Position", 180), 
-      SmartDashboard.getNumber("Wrist Position", 180), 
-      SmartDashboard.getNumber("Telescope Position", 30), 
-      SmartDashboard.getNumber("Pivot Position", 180), 
-      SmartDashboard.getNumber("Wrist Position", 180), 
-      SmartDashboard.getNumber("Telescope Position", 30)};
-    // operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, testArray).alongWith(new TelescopeDrive(telescope, testArray))/*.alongWith(new WristDrive(wrist, Constants.travel, false))*/);
+    
+    operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, Robot.testArray).alongWith(new TelescopeDrive(telescope, Robot.testArray)).alongWith(new WristDrive(wrist, Robot.testArray, false)));
    
-    operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.travel).alongWith(new TelescopeDrive(telescope, Constants.travel)).alongWith(new WristDrive(wrist, Constants.travel, false)));
+    // operatorR1.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.travel).alongWith(new TelescopeDrive(telescope, Constants.travel)).alongWith(new WristDrive(wrist, Constants.travel, false)));
     // operatorR2.whileTrue(new WristDrive(wrist, Constants.test, false));
     // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid))/*.alongWith(new WristDrive(wrist, Constants.outtakeMid, false))*/);
     // operatorR3.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow));
