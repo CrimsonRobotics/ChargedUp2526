@@ -34,6 +34,8 @@ public class Robot extends TimedRobot {
   static double testkP;
   static double testkI;
   static double testkD;
+  static double testMaxPercent;
+  static double testSetPoint;
 
 
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
@@ -67,6 +69,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("testkP", 0.75);
     SmartDashboard.putNumber("testkI", 0);
     SmartDashboard.putNumber("testkD", 0.28);
+    SmartDashboard.putNumber("testMaxPercent", 0.3);
+    SmartDashboard.putNumber("testSetPoint", 0);
+
 
 
   }
@@ -143,6 +148,10 @@ public class Robot extends TimedRobot {
     testkP = SmartDashboard.getNumber("testkP", 0.75);
     testkI = SmartDashboard.getNumber("testkI", 0);
     testkD = SmartDashboard.getNumber("testkD", 0.28);
+    testMaxPercent = SmartDashboard.getNumber("testMaxPercent", 0.3);
+    testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
+
+
   }
 
   @Override
