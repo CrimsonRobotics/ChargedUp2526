@@ -31,6 +31,10 @@ public class Robot extends TimedRobot {
   static double telescopeTest;
   static double wristTest;
 
+  static double testkP;
+  static double testkI;
+  static double testkD;
+
 
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
 
@@ -59,6 +63,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Pivot Position", 180);
     SmartDashboard.putNumber("Telescope Position", 30);
     SmartDashboard.putNumber("Wrist Position", 180);
+
+    SmartDashboard.putNumber("testkP", 0.75);
+    SmartDashboard.putNumber("testkI", 0);
+    SmartDashboard.putNumber("testkD", 0.28);
 
 
   }
@@ -131,6 +139,10 @@ public class Robot extends TimedRobot {
     testArray[3] = pivotTest;
     testArray[4] = wristTest;
     testArray[5] = telescopeTest;
+
+    testkP = SmartDashboard.getNumber("testkP", 0.75);
+    testkI = SmartDashboard.getNumber("testkI", 0);
+    testkD = SmartDashboard.getNumber("testkD", 0.28);
   }
 
   @Override

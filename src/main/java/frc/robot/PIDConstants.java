@@ -24,9 +24,14 @@ public final class PIDConstants {
     public static double straightSetpoint = 0;
     public static double straightMaxPercent = 100;
   
-    public static double pivotkP = 0.75;//0.8; //1
-    public static double pivotkI = 0;//0.05;
-    public static double pivotkD = 0.28;//0.2;
+    // public static double pivotkP = 0.75;//0.8; //1
+    // public static double pivotkI = 0;//0.05;
+    // public static double pivotkD = 0.28;//0.2;
+
+    public static double pivotkP = Robot.testkP;
+    public static double pivotkI = Robot.testkI;
+    public static double pivotkD = Robot.testkD;
+    
     // public static double pivotSetpoint = 0.39;
     public static double pivotMaxPercent = 30;
   
