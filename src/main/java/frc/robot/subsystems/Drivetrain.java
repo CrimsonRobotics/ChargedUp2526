@@ -123,8 +123,8 @@ public class Drivetrain extends SubsystemBase {
     // theLimit = frontRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
 
     // encoderLeft = frontLeft.getEncoder();
-    encoderLeft = left1.getEncoder();
-    encoderLeft.setPositionConversionFactor(0.04);
+    // encoderLeft = left1.getEncoder();
+    // encoderLeft.setPositionConversionFactor(0.04);
     // pot = new AnalogPotentiometer(0, 10 /*10*/, 0);
     // pot2 = new AnalogPotentiometer(3, 3600, 0);
 
@@ -289,7 +289,7 @@ public class Drivetrain extends SubsystemBase {
         container.driverL.getRawButton(9) ||
         container.driverL.getRawButton(10)){
           
-        parkingBrake.set(Value.kForward);
+        // parkingBrake.set(Value.kForward);
         // SmartDashboard.putString("parking", "parked");
       }
       else if(container.driverR.getRawButton(11) ||
@@ -299,7 +299,7 @@ public class Drivetrain extends SubsystemBase {
         container.driverR.getRawButton(15) ||
         container.driverR.getRawButton(16)){
 
-        parkingBrake.set(Value.kReverse);
+        // parkingBrake.set(Value.kReverse);
         // SmartDashboard.putString("parking", "not parked");
   
       }
