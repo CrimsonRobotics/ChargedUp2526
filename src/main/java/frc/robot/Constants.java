@@ -33,9 +33,9 @@ public final class Constants {
 
 
   public final static int PCM = 0;
-  public final static int[] clawSolenoidIDs = {4,5};
+  public final static int[] clawSolenoidIDs = {1,3};
   public final static int[] shiftSolenoidIDs = {0,2};
-  public final static int[] brakeSolenoidIDs = {1,3};
+  public final static int[] brakeSolenoidIDs = {4,5};
 
   public static double intakeSpeed = 0.6;
   public static double outtakeSpeed = -0.5;
@@ -43,13 +43,13 @@ public final class Constants {
   public static double driveExpo = 1;
   public static double turnExpo = 1;
 
-  public static double[] intakeLow = {/*Cone*/86, 294, 30,/*Cube */ 74, 294,36};
+  public static double[] intakeLow = {/*Cone*/86, 294, 30,/*Cube */ 79, 294,36};
   public static double[] intakeSide = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeShelf = {/*Cone*/20, 20, 20,/*Cube */ 50,50,50};
   public static double[] intakeHigh = {/*Cone*/30, 30, 30,/*Cube */ 40,40,40};
   public static double[] outtakeLow = {/*Cone*/90, 0, 0,/*Cube */ 90,10,10};
-  public static double[] outtakeMid = {/*Cone*/225, 250, 30,/*Cube */ 225,250,30};
-  public static double[] outtakeHigh = {/*Cone*/225, 227, 207,/*Cube */ 225, 227, 207}; //207
+  public static double[] outtakeMid = {/*Cone*/220, 210, 50,/*Cube */ 240,250,30};
+  public static double[] outtakeHigh = {/*Cone*/227, 210, 210,/*Cube */ 235, 218, 180}; //207
   public static double[] travel = {/*Cone*/180, 263, 30,/*Cube */ 180, 263, 30};
   public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
 //{/*Cone*/ Pivot, Wrist, Telescope, /*Cube */ Pivot, Wrist, Telescope}
@@ -63,7 +63,7 @@ public final class Constants {
   public static double telescopeError = 2;
   public static double wristError = 2;
 
-  public static double extendStopDistance = 90;
+  public static double extendStopDistance = 40;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

@@ -22,7 +22,7 @@ public class Claw extends SubsystemBase {
   public Claw() {
     intakeMotor = new CANSparkMax(Constants.intakeID, MotorType.kBrushless);
 
-    intakeMotor.setSmartCurrentLimit(11);
+    intakeMotor.setSmartCurrentLimit(15);
 
     intakeSolenoid = new DoubleSolenoid(
       Constants.PCM, 
@@ -37,11 +37,11 @@ public class Claw extends SubsystemBase {
   public void ToggleIntake(boolean state){
     if (state == true){
       SmartDashboard.putString("Game Piece", "Cone");
-      intakeSolenoid.set(Value.kForward);
+      intakeSolenoid.set(Value.kReverse);
     }
     else {
       SmartDashboard.putString("Game Piece", "Cube");
-      intakeSolenoid.set(Value.kReverse);
+      intakeSolenoid.set(Value.kForward);
     }
   }
 

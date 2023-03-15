@@ -42,16 +42,16 @@ public final class PIDConstants {
     // public static double straightSetpoint = Robot.testSetPoint;
     // public static double straightMaxPercent = Robot.testMaxPercent;
   
-    // public static double pivotkP = 0.75;//0.8; //1
-    // public static double pivotkI = 0;//0.05;
-    // public static double pivotkD = 0.28;//0.2;
-    // public static double pivotMaxPercent = 30;
+    public static double pivotkP = 0.75;//0.8; //1
+    public static double pivotkI = 0;//0.05;
+    public static double pivotkD = 0.28;//0.2;
+    public static double pivotMaxPercent = 30;
 
 
-    public static double pivotkP = Robot.testkP;
-    public static double pivotkI = Robot.testkI;
-    public static double pivotkD = Robot.testkD;
-    public static double pivotMaxPercent = Robot.testMaxPercent;
+    // public static double pivotkP = Robot.testkP;
+    // public static double pivotkI = Robot.testkI;
+    // public static double pivotkD = Robot.testkD;
+    // public static double pivotMaxPercent = Robot.testMaxPercent;
 
   
     public static double wristkP = 3; //1
@@ -78,7 +78,7 @@ public final class PIDConstants {
     public static double downkP = 0.7; //1
     public static double downkI = 0;
     public static double downkD = 0;
-    public static double downMaxPercent = 100;
+    public static double downMaxPercent = 50;
 
     // public static double downkP = Robot.testkP; //1
     // public static double downkI = Robot.testkI;
