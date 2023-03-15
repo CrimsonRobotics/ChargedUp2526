@@ -132,7 +132,7 @@ public class RobotContainer {
     // operatorR2.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
     //Outtake
-    operatorR1.whileTrue(new IntakeCommand(claw, -0.8));
+    operatorR1.whileTrue(new OuttakeCommand(claw, 0.8));
     // operatorR2.whileTrue(new IntakeCommand(claw, -0.9));
 
     // operatorR1.whileTrue(new ManualWristCommand(operatorR1, wrist));

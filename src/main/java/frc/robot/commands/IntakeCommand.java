@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Pivot;
 
 public class IntakeCommand extends CommandBase {
   /** Creates a new IntakeCommand. */
@@ -25,11 +26,18 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void initialize() {
     this.isFinished = false;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (Pivot.armState == true){
+      this.claw.intakeMotor.setSmartCurrentLimit(20);
+    }
+    else if (Pivot.armState == false){
+      this.claw.intakeMotor.setSmartCurrentLimit(15);
+    }
     this.claw.IntakeDrive(speed);
   }
 

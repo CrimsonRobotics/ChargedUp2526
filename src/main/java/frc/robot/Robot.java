@@ -62,15 +62,15 @@ public class Robot extends TimedRobot {
     RobotContainer.driveTrain.pigeon.setYaw(0);
 
     // SmartDashboard.putNumberArray("PID Positions", defaultPID);
-    SmartDashboard.putNumber("Pivot Position", 180);
-    SmartDashboard.putNumber("Telescope Position", 30);
-    SmartDashboard.putNumber("Wrist Position", 180);
+    // SmartDashboard.putNumber("Pivot Position", 180);
+    // SmartDashboard.putNumber("Telescope Position", 30);
+    // SmartDashboard.putNumber("Wrist Position", 180);
 
-    SmartDashboard.putNumber("testkP", 0.75);
-    SmartDashboard.putNumber("testkI", 0);
-    SmartDashboard.putNumber("testkD", 0.28);
-    SmartDashboard.putNumber("testMaxPercent", 0.3);
-    SmartDashboard.putNumber("testSetPoint", 0);
+    // SmartDashboard.putNumber("testkP", 0.75);
+    // SmartDashboard.putNumber("testkI", 0);
+    // SmartDashboard.putNumber("testkD", 0.28);
+    // SmartDashboard.putNumber("testMaxPercent", 0.3);
+    // SmartDashboard.putNumber("testSetPoint", 0);
 
 
 
@@ -135,21 +135,21 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    pivotTest = SmartDashboard.getNumber("Pivot Position", 180);
-    telescopeTest = SmartDashboard.getNumber("Telescope Position", 30);
-    wristTest = SmartDashboard.getNumber("Wrist Position", 263);
-    testArray[0] = pivotTest;
-    testArray[1] = wristTest;
-    testArray[2] = telescopeTest;
-    testArray[3] = pivotTest;
-    testArray[4] = wristTest;
-    testArray[5] = telescopeTest;
+    // pivotTest = SmartDashboard.getNumber("Pivot Position", 180);
+    // telescopeTest = SmartDashboard.getNumber("Telescope Position", 30);
+    // wristTest = SmartDashboard.getNumber("Wrist Position", 263);
+    // testArray[0] = pivotTest;
+    // testArray[1] = wristTest;
+    // testArray[2] = telescopeTest;
+    // testArray[3] = pivotTest;
+    // testArray[4] = wristTest;
+    // testArray[5] = telescopeTest;
 
-    testkP = SmartDashboard.getNumber("testkP", 0.75);
-    testkI = SmartDashboard.getNumber("testkI", 0);
-    testkD = SmartDashboard.getNumber("testkD", 0.28);
-    testMaxPercent = SmartDashboard.getNumber("testMaxPercent", 0.3);
-    testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
+    // testkP = SmartDashboard.getNumber("testkP", 0.75);
+    // testkI = SmartDashboard.getNumber("testkI", 0);
+    // testkD = SmartDashboard.getNumber("testkD", 0.28);
+    // testMaxPercent = SmartDashboard.getNumber("testMaxPercent", 0.3);
+    // testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
 
 
   }

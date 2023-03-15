@@ -16,7 +16,7 @@ import frc.robot.Constants;
 
 public class Claw extends SubsystemBase {
   /** Creates a new Claw. */
-  CANSparkMax intakeMotor;
+  public CANSparkMax intakeMotor;
   public DoubleSolenoid intakeSolenoid;
 
   public Claw() {
