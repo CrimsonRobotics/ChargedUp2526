@@ -33,10 +33,10 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void execute() {
     if (Pivot.armState == true){
-      this.claw.intakeMotor.setSmartCurrentLimit(20);
+      this.claw.intakeMotor.setSmartCurrentLimit(11);
     }
     else if (Pivot.armState == false){
-      this.claw.intakeMotor.setSmartCurrentLimit(15);
+      this.claw.intakeMotor.setSmartCurrentLimit(11);
     }
     this.claw.IntakeDrive(speed);
   }

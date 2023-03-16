@@ -86,7 +86,7 @@ public class TelescopeDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.isFinished = true;
-    this.telescope.telescopeDrive(0);
+    // this.telescope.telescopeDrive(0);
 
   }
 

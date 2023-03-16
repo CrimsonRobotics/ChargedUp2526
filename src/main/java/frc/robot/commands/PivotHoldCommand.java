@@ -89,7 +89,7 @@ public class PivotHoldCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // this.pivot.PivotDrive(0);
-    this.isFinished = false;
+    this.isFinished = true;
   }
 
   // Returns true when the command should end.

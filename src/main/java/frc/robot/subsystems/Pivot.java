@@ -94,10 +94,10 @@ public class Pivot extends SubsystemBase {
     //   PivotDrive(0);
     // }
 
-    if(container.operatorR.getRawButton(8)||container.operatorR.getRawButton(9)||container.operatorR.getRawButton(10)){
+    if(container.operatorR.getRawButton(14)||container.operatorR.getRawButton(15)||container.operatorR.getRawButton(16)){
       armState = true;
     }
-    else if(container.operatorR.getRawButton(6)||container.operatorR.getRawButton(7)||container.operatorR.getRawButton(5)){
+    else if(container.operatorR.getRawButton(11)||container.operatorR.getRawButton(12)||container.operatorR.getRawButton(13)){
       armState = false;
     }
   }

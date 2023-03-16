@@ -89,6 +89,12 @@ public final class Autos {
 
   public static CommandBase oneScoreEngageAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
+      new SequentialCommandGroup(
+        new PivotHoldCommand(j, p, Constants.outtakeMid)/* .alongWith(new TelescopeDrive(t, Constants.outtakeMid)).alongWith(new WristDrive(w, Constants.outtakeMid, false))*/,
+        new WaitCommand(5),
+        new PivotHoldCommand(j, p, Constants.travel)/* .alongWith(new TelescopeDrive(t, Constants.travel)).alongWith(new WristDrive(w, Constants.travel, false))*/
+        )
+      );
       // new ParallelCommandGroup(
       //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
       //   new WristDrive(w, Constants.outtakeHigh, true),
@@ -110,7 +116,7 @@ public final class Autos {
       //   )
       // ) 
       
-    );
+    
   }
 
   public static CommandBase oneScoreRightAuto(Drivetrain d, Joystick j, Pivot p, Wrist w, Telescope t){
