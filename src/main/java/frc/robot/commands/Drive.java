@@ -26,7 +26,7 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     double xSpeed = -Robot.m_robotContainer.driverL.getY();
-    double ySpeed = -Robot.m_robotContainer.driverR.getX() /*  * Constants.joystickturnsens*/;
+    double ySpeed = -Robot.m_robotContainer.driverR.getX()*Constants.joystickturnsens;
     double driveSpeed = 0;
     double trnSpeed = 0;
 

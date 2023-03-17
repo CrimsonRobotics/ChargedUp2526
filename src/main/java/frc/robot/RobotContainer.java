@@ -151,23 +151,31 @@ public class RobotContainer {
     operatorR4.onTrue(new WristDrive(wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(telescope, Constants.outtakeLow)));
 
     // //Intake
-    operatorL1.whileTrue(new IntakeCommand(claw, 1));
+    operatorL11.onTrue(new IntakeCommand(claw, 1));
+    operatorL12.onTrue(new IntakeCommand(claw, 1));
+    operatorL13.onTrue(new IntakeCommand(claw, 1));
+    operatorL14.onTrue(new IntakeCommand(claw, 1));
+    operatorL15.onTrue(new IntakeCommand(claw, 1));
+    operatorL16.onTrue(new IntakeCommand(claw, 1));
+    // operatorL1.whileTrue(new IntakeCommand(claw, 1));
     operatorL3.onTrue(new WristDrive(wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeLow)).alongWith(new IntakeCommand(claw, 1)));
     operatorL2.onTrue(new WristDrive(wrist, Constants.intakeSide, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeSide)).alongWith(new IntakeCommand(claw, 1)));
     operatorL4.onTrue(new WristDrive(wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeHigh)).alongWith(new IntakeCommand(claw, 1)));
 
     // //Travel
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false));
-    operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
-    operatorL12.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
-    operatorL13.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
-    operatorL14.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
-    operatorL15.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
-    operatorL16.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    operatorL1.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL12.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL13.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL14.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL15.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    // operatorL16.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
 
     // //Manual Mode
     // // operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));    operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));
-    operatorL8.onTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)) .alongWith(new ManualPivotCommand(operatorR, pivot)));
+    // operatorL8.onTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)) .alongWith(new ManualPivotCommand(operatorR, pivot)));
+    operatorL8.onTrue(new ManualWristCommand(operatorR, wrist));
     // operatorR8
 
     

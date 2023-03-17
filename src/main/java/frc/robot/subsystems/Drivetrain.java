@@ -316,14 +316,14 @@ public class Drivetrain extends SubsystemBase {
         container.driverL.getRawButton(14) ||
         container.driverL.getRawButton(15) ||
         container.driverL.getRawButton(16)) {
-      shifter.set(Value.kForward);
+      shifter.set(Value.kReverse);
       // SmartDashboard.putString("shift state", "low gear");
 
       // Robot.currentState = "Shifting";
     }
 
     else {
-      shifter.set(Value.kReverse);
+      shifter.set(Value.kForward);
       // SmartDashboard.putString("shift state", "high gear");
 
     }
