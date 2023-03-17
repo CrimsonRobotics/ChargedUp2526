@@ -53,7 +53,7 @@ public final class Constants {
   public static double[] outtakeLow = {/*Cone*/260, 200, 30,/*Cube */ 260,230,30};
   public static double[] outtakeMid = {/*Cone*/222, 180, 95,/*Cube */ 240,250,30};
   public static double[] outtakeHigh = {/*Cone*/223, 190, 210,/*Cube */ 230, 190, 170}; //207
-  public static double[] travel = {/*Cone*/185, 320, 30,/*Cube */ 185, 294, 30};
+  public static double[] travel = {/*Cone*/187, 320, 30,/*Cube */ 187, 320, 30};
   // public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
 //{/*Cone*/ Pivot, Wrist, Telescope, /*Cube */ Pivot, Wrist, Telescope}
 

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
   static double testMaxPercent;
   static double testSetPoint;
 
+  AddressableLED led;
+
 
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
 
@@ -60,6 +63,8 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
+    
+    // led = new AddressableLED(0);
 
     // SmartDashboard.putNumberArray("PID Positions", defaultPID);
     // SmartDashboard.putNumber("Pivot Position", 180);
