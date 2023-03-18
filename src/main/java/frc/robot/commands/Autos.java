@@ -89,12 +89,16 @@ public final class Autos {
 
   public static CommandBase oneScoreEngageAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
-      new SequentialCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeMid).alongWith(new SequentialCommandGroup(new WaitCommand(3), new PivotHoldCommand(j, p, Constants.travel)))/* .alongWith(new TelescopeDrive(t, Constants.outtakeMid)).alongWith(new WristDrive(w, Constants.outtakeMid, false))*/
+      //new SequentialCommandGroup(
+        new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).raceWith(new WaitCommand(4)),
+        new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
+        new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.5)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        /* .alongWith(new TelescopeDrive(t, Constants.outtakeMid)).alongWith(new WristDrive(w, Constants.outtakeMid, false))*/
         // new WaitCommand(5),
         // new PivotHoldCommand(j, p, Constants.travel)/* .alongWith(new TelescopeDrive(t, Constants.travel)).alongWith(new WristDrive(w, Constants.travel, false))*/
-        )
-      );
+        );
+      //);
       // new ParallelCommandGroup(
       //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
       //   new WristDrive(w, Constants.outtakeHigh, true),

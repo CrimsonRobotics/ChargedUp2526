@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -19,13 +20,15 @@ public class TelescopeHoldCommand extends CommandBase {
   private Telescope telescope;
   boolean isFinished;
   double armcase[];
+  Joystick joystick;
 
-  public TelescopeHoldCommand(Telescope t, double ac[]) {
+  public TelescopeHoldCommand(Joystick j, Telescope t, double ac[]) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(t);
     telescope = t;
     isFinished = false;
     armcase = ac;
+    joystick = j;
   }
 
   // Called when the command is initially scheduled.
@@ -42,6 +45,16 @@ public class TelescopeHoldCommand extends CommandBase {
     double telescopePotReadout = this.telescope.telescopePot.get();
     double pivotPotReadout = Pivot.pivotPot.get();
     // double telescopePotReadout = 15;
+    double adjust = 0;
+    if(joystick.getPOV() == 0){
+      adjust = 5;
+    }
+    else if(joystick.getPOV() == 180){
+      adjust = -5;
+    }
+    else{
+      adjust = 0;
+    }
     
     if(Pivot.armState == true){
       if ((armcase[2]-telescopePotReadout)<=0){
@@ -56,7 +69,7 @@ public class TelescopeHoldCommand extends CommandBase {
 
       
         if(Math.abs(pivotPotReadout-armcase[0])<Constants.extendStopDistance){
-            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[2]+adjust), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
             telescopespeed = telescopespeed / 100;
             this.telescope.telescopeDrive(telescopespeed);
             // SmartDashboard.putNumber("telescope Speed",telescopespeed);
@@ -88,7 +101,7 @@ public class TelescopeHoldCommand extends CommandBase {
 
       
         if(Math.abs(pivotPotReadout-armcase[3])<Constants.extendStopDistance){
-            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
+            double telescopespeed = MathUtil.clamp(this.telescope.telescopePID.calculate(telescopePotReadout, armcase[5]+adjust), -PIDConstants.telescopeMaxPercent, PIDConstants.telescopeMaxPercent);
             telescopespeed = telescopespeed / 100;
             this.telescope.telescopeDrive(telescopespeed);
             // SmartDashboard.putNumber("telescope Speed",telescopespeed);

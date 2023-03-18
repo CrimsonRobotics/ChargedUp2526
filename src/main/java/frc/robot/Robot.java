@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,6 +64,8 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
+    CameraServer.startAutomaticCapture("Intake Camera", 0);
+    CameraServer.startAutomaticCapture("Outtake Camera", 1);
     
     // led = new AddressableLED(0);
 

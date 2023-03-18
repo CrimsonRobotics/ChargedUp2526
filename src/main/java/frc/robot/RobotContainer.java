@@ -133,7 +133,7 @@ public class RobotContainer {
     // operatorR2.onTrue(new PivotDrive(this.arm, Constants.intakeHigh));
 
     //Outtake
-    operatorR1.whileTrue(new OuttakeCommand(claw, 0.8));
+    operatorR1.whileTrue(new OuttakeCommand(claw, 0.5));
     // operatorR2.whileTrue(new IntakeCommand(claw, -0.9));
 
     // operatorR1.whileTrue(new ManualWristCommand(operatorR1, wrist));
@@ -145,10 +145,10 @@ public class RobotContainer {
     // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid))/*.alongWith(new WristDrive(wrist, Constants.outtakeMid, false))*/);
     // operatorR3.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow));
 
-    operatorR2.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid)).alongWith(new WristDrive(wrist, Constants.outtakeMid, false)));
-    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeHoldCommand(telescope, Constants.outtakeHigh)).alongWith(new WristDrive(wrist, Constants.outtakeHigh, false)));
+    operatorR2.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeMid)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeMid, false)));
+    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.outtakeHigh)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeHigh, false)));
     // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh)).alongWith(new WristDrive(wrist, Constants.outtakeHigh, false)));
-    operatorR4.onTrue(new WristDrive(wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(telescope, Constants.outtakeLow)));
+    operatorR4.onTrue(new WristDrive(operatorR, wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeLow)));
 
     // //Intake
     operatorL11.onTrue(new IntakeCommand(claw, 1));
@@ -158,13 +158,13 @@ public class RobotContainer {
     operatorL15.onTrue(new IntakeCommand(claw, 1));
     operatorL16.onTrue(new IntakeCommand(claw, 1));
     // operatorL1.whileTrue(new IntakeCommand(claw, 1));
-    operatorL3.onTrue(new WristDrive(wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeLow)).alongWith(new IntakeCommand(claw, 1)));
-    operatorL2.onTrue(new WristDrive(wrist, Constants.intakeSide, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeSide)).alongWith(new IntakeCommand(claw, 1)));
-    operatorL4.onTrue(new WristDrive(wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh)).alongWith(new TelescopeHoldCommand(telescope, Constants.intakeHigh)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL3.onTrue(new WristDrive(operatorR, wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeLow)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL2.onTrue(new WristDrive(operatorR, wrist, Constants.intakeSide, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeSide)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL4.onTrue(new WristDrive(operatorR, wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeHigh)).alongWith(new IntakeCommand(claw, 1)));
 
     // //Travel
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false));
-    operatorL1.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
+    operatorL1.onTrue(new WristDrive(operatorR, wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
     // operatorL12.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
     // operatorL13.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
@@ -208,9 +208,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     
-    return Autos.driveOutAuto(driveTrain);
+    // return Autos.driveOutAuto(driveTrain);
     // return Autos.ChargeStationAuto(driveTrain);
-    // return Autos.oneScoreEngageAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
+    return Autos.oneScoreEngageAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
     // return Autos.exampleAuto(m_exampleSubsystem);
     // return Autos.driveOutAuto(driveTrain);
     // return new ParallelCommandGroup(
