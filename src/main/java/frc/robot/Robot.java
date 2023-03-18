@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drive;
 import frc.robot.subsystems.Drivetrain;
 // import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Pivot;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -33,14 +36,16 @@ public class Robot extends TimedRobot {
   static double telescopeTest;
   static double wristTest;
 
+  DigitalOutput led1;
+
   static double testkP;
   static double testkI;
   static double testkD;
   static double testMaxPercent;
   static double testSetPoint;
 
-  AddressableLED led;
-
+  public AddressableLED m_led;
+  public AddressableLEDBuffer m_ledBuffer;
 
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
 
@@ -64,10 +69,17 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
-    CameraServer.startAutomaticCapture("Intake Camera", 0);
-    CameraServer.startAutomaticCapture("Outtake Camera", 1);
+    CameraServer.startAutomaticCapture("Intake Camera", 0).setResolution(205, 154);
+    // CameraServer.startAutomaticCapture("Outtake Camera", 1);
     
-    // led = new AddressableLED(0);
+    m_led = new AddressableLED(9);
+
+    m_ledBuffer = new AddressableLEDBuffer(120);
+    m_led.setLength(m_ledBuffer.getLength());
+
+    // Set the data
+    m_led.setData(m_ledBuffer);
+    m_led.start();
 
     // SmartDashboard.putNumberArray("PID Positions", defaultPID);
     // SmartDashboard.putNumber("Pivot Position", 180);
@@ -82,6 +94,34 @@ public class Robot extends TimedRobot {
 
 
 
+  }
+
+  public void SetColor(int r, int g, int b){
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      m_ledBuffer.setRGB(i, r, g, b);
+   }
+
+   m_led.setData(m_ledBuffer);
+
+  }
+
+  private void rainbow(int c) {
+    int m_rainbowFirstPixelHue = c;
+    // For every pixel
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Calculate the hue - hue is easier for rainbows because the color
+      // shape is a circle so only one value needs to precess
+      final var hue = (m_rainbowFirstPixelHue + (i * 180 / m_ledBuffer.getLength())) % 180;
+      // Set the value
+      m_ledBuffer.setHSV(i, hue, 255, 128);
+    }
+    // Increase by to make the rainbow "move"
+    m_rainbowFirstPixelHue += 3;
+    // Check bounds
+    m_rainbowFirstPixelHue %= 180;
+
+    m_led.setData(m_ledBuffer);
   }
 
   /**
@@ -107,10 +147,16 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    // led1.set(true);
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    // SetColor(0, 0, 0);
+    // led1.set(true);
+
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -126,7 +172,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    rainbow(10);
+  }
 
   @Override
   public void teleopInit() {
@@ -158,7 +206,15 @@ public class Robot extends TimedRobot {
     // testkD = SmartDashboard.getNumber("testkD", 0.28);
     // testMaxPercent = SmartDashboard.getNumber("testMaxPercent", 0.3);
     // testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
-
+    if (Pivot.armState){
+      SetColor(255, 0, 255);
+    }
+    else if(Pivot.armState == false){
+      SetColor(255, 255, 0);
+    }
+    else {
+      SetColor(0, 255, 0);
+    }
 
   }
 
