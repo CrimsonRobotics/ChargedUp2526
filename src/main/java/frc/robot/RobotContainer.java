@@ -159,9 +159,22 @@ public class RobotContainer {
     operatorL15.onTrue(new IntakeCommand(claw, 1));
     operatorL16.onTrue(new IntakeCommand(claw, 1));
     // operatorL1.whileTrue(new IntakeCommand(claw, 1));
+
+    //Intake Low
     operatorL3.onTrue(new WristDrive(operatorR, wrist, Constants.intakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeLow)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeLow)).alongWith(new IntakeCommand(claw, 1)));
+    
+    //Intake Fallen Cone
     operatorL2.onTrue(new WristDrive(operatorR, wrist, Constants.intakeSide, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeSide)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeSide)).alongWith(new IntakeCommand(claw, 1)));
+    
+    //Intake Shelf
     operatorL4.onTrue(new WristDrive(operatorR, wrist, Constants.intakeHigh, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeHigh)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeHigh)).alongWith(new IntakeCommand(claw, 1)));
+
+    //Intake Shelf with debris
+    operatorL5.onTrue(new WristDrive(operatorR, wrist, Constants.intakeFarShelf, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeFarShelf)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeFarShelf)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL6.onTrue(new WristDrive(operatorR, wrist, Constants.intakeFarShelf, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeFarShelf)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeFarShelf)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL7.onTrue(new WristDrive(operatorR, wrist, Constants.intakeFarShelf, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeFarShelf)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeFarShelf)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL9.onTrue(new WristDrive(operatorR, wrist, Constants.intakeFarShelf, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeFarShelf)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeFarShelf)).alongWith(new IntakeCommand(claw, 1)));
+    operatorL10.onTrue(new WristDrive(operatorR, wrist, Constants.intakeFarShelf, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.intakeFarShelf)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.intakeFarShelf)).alongWith(new IntakeCommand(claw, 1)));
 
     // //Travel
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false));
@@ -175,8 +188,8 @@ public class RobotContainer {
 
     // //Manual Mode
     // // operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));    operatorL8.whileTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualPivotCommand(operatorR, pivot)).alongWith(new ManualWristCommand(operatorR, wrist)));
-    // operatorL8.onTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)) .alongWith(new ManualPivotCommand(operatorR, pivot)));
-    operatorL8.onTrue(new ManualWristCommand(operatorR, wrist));
+    operatorL8.onTrue(new ManualTelescopeCommand(operatorL, telescope).alongWith(new ManualWristCommand(operatorR, wrist)) .alongWith(new ManualPivotCommand(operatorR, pivot)));
+    // operatorL8.onTrue(new ManualWristCommand(operatorR, wrist));
     // operatorR8
 
     
