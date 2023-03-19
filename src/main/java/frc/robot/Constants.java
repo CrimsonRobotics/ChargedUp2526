@@ -48,8 +48,8 @@ public final class Constants {
 
   public static double[] intakeSide = {/*Cone*/69, 260, 55,/*Cube */ 73,270,55};
   // public static double[] intakeShelf = {/*Cone*/20, 263, 20,/*Cube */ 50,50,50};
-  public static double[] intakeHigh = {/*Cone*/160, 338, 70,/*Cube */ 155,333, 70};
-  public static double[] intakeFarShelf = {/*Cone*/160, 338, 70,/*Cube */ 155,333, 70};
+  public static double[] intakeHigh = {/*Cone*/160, 335, 70,/*Cube */ 155,333, 70};
+  public static double[] intakeFarShelf = {/*Cone*/147, 338, 95,/*Cube */ 150,333, 95};
 
 
   public static double[] outtakeLow = {/*Cone*/260, 200, 30,/*Cube */ 260,230,30};

@@ -61,7 +61,7 @@ public class RobotContainer {
 
 
 
-  
+
   //Joysticks
   public static Joystick driverL = new Joystick(0);
   public static Joystick driverR = new Joystick(1);
@@ -146,10 +146,10 @@ public class RobotContainer {
     // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(telescope, Constants.outtakeMid))/*.alongWith(new WristDrive(wrist, Constants.outtakeMid, false))*/);
     // operatorR3.whileTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow));
 
-    operatorR2.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeMid)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeMid, false)));
-    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.outtakeHigh)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeHigh, false)));
+    operatorR2.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeMid).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeMid)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeMid, false)).alongWith(new IntakeCommand(claw, 0.4)));
+    operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.outtakeHigh)).alongWith(new WristDrive(operatorR, wrist, Constants.outtakeHigh, false)).alongWith(new IntakeCommand(claw, 0.4)));
     // operatorR3.onTrue(new PivotHoldCommand(operatorR, pivot, Constants.outtakeHigh).alongWith(new TelescopeDrive(telescope, Constants.outtakeHigh)).alongWith(new WristDrive(wrist, Constants.outtakeHigh, false)));
-    operatorR4.onTrue(new WristDrive(operatorR, wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeLow)));
+    operatorR4.onTrue(new WristDrive(operatorR, wrist, Constants.outtakeLow, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.outtakeLow)).alongWith(new TelescopeDrive(operatorL, telescope, Constants.outtakeLow)).alongWith(new IntakeCommand(claw, 0.4)));
 
     // //Intake
     operatorL11.onTrue(new IntakeCommand(claw, 1));

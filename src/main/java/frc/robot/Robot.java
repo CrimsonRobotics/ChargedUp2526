@@ -44,8 +44,8 @@ public class Robot extends TimedRobot {
   static double testMaxPercent;
   static double testSetPoint;
 
-  public AddressableLED led;
-  public AddressableLEDBuffer ledBuffer;
+  // public AddressableLED led;
+  // public AddressableLEDBuffer ledBuffer;
 
   // public static double[] defaultPID = {/*Cone*/186, 76, 30,/*Cube */ 186, 76, 30};
 
@@ -72,14 +72,14 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture("Intake Camera", 0).setResolution(205, 154);
     // CameraServer.startAutomaticCapture("Outtake Camera", 1);
     
-    led = new AddressableLED(9);
+    // led = new AddressableLED(9);
 
-    ledBuffer = new AddressableLEDBuffer(120);
-    led.setLength(ledBuffer.getLength());
+    // ledBuffer = new AddressableLEDBuffer(58);
+    // led.setLength(ledBuffer.getLength());
 
-    // Set the data
-    led.setData(ledBuffer);
-    led.start();
+    // // Set the data
+    // led.setData(ledBuffer);
+    // led.start();
 
     // SmartDashboard.putNumberArray("PID Positions", defaultPID);
     // SmartDashboard.putNumber("Pivot Position", 180);
@@ -96,33 +96,33 @@ public class Robot extends TimedRobot {
 
   }
 
-  public void SetColor(int r, int g, int b){
-    for (var i = 0; i < ledBuffer.getLength(); i++) {
-      // Sets the specified LED to the RGB values for red
-      ledBuffer.setRGB(i, r, g, b);
-   }
+  // public void SetColor(int r, int g, int b){
+  //   for (var i = 0; i < ledBuffer.getLength(); i++) {
+  //     // Sets the specified LED to the RGB values for red
+  //     ledBuffer.setRGB(i, r, g, b);
+  //  }
 
-   led.setData(ledBuffer);
+  //  led.setData(ledBuffer);
 
-  }
+  // }
 
-  private void rainbow(int c) {
-    int rainbowFirstPixelHue = c;
-    // For every pixel
-    for (var i = 0; i < ledBuffer.getLength(); i++) {
-      // Calculate the hue - hue is easier for rainbows because the color
-      // shape is a circle so only one value needs to precess
-      final var hue = (rainbowFirstPixelHue + (i * 180 / ledBuffer.getLength())) % 180;
-      // Set the value
-      ledBuffer.setHSV(i, hue, 255, 128);
-    }
-    // Increase by to make the rainbow "move"
-    rainbowFirstPixelHue += 3;
-    // Check bounds
-    rainbowFirstPixelHue %= 180;
+  // private void rainbow(int c) {
+  //   int rainbowFirstPixelHue = c;
+  //   // For every pixel
+  //   for (var i = 0; i < ledBuffer.getLength(); i++) {
+  //     // Calculate the hue - hue is easier for rainbows because the color
+  //     // shape is a circle so only one value needs to precess
+  //     final var hue = (rainbowFirstPixelHue + (i * 180 / ledBuffer.getLength())) % 180;
+  //     // Set the value
+  //     ledBuffer.setHSV(i, hue, 255, 128);
+  //   }
+  //   // Increase by to make the rainbow "move"
+  //   rainbowFirstPixelHue += 3;
+  //   // Check bounds
+  //   rainbowFirstPixelHue %= 180;
 
-    led.setData(ledBuffer);
-  }
+  //   led.setData(ledBuffer);
+  // }
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -173,7 +173,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    rainbow(10);
+    // rainbow(10);
   }
 
   @Override
@@ -205,16 +205,19 @@ public class Robot extends TimedRobot {
     // testkI = SmartDashboard.getNumber("testkI", 0);
     // testkD = SmartDashboard.getNumber("testkD", 0.28);
     // testMaxPercent = SmartDashboard.getNumber("testMaxPercent", 0.3);
-    // testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
-    if (Pivot.armState){
-      SetColor(255, 0, 255);
-    }
-    else if(Pivot.armState == false){
-      SetColor(255, 255, 0);
-    }
-    else {
-      SetColor(0, 255, 0);
-    }
+    // // testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
+    // SetColor(0, 255, 0)
+    // if (Pivot.armState){
+    //   SetColor(255, 255, 0);
+
+    // }
+    // else if(Pivot.armState == false){
+    //   SetColor(255, 0, 255);
+
+    // }
+    // else {
+    //   SetColor(0, 255, 0);
+    // }
 
   }
 

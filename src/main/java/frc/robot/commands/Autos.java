@@ -98,8 +98,6 @@ public final class Autos {
         .alongWith(new DriveStraight(d, 0.5)).raceWith(new WaitCommand(1)),*/
 
         // new WaitCommand(10)
-        /* .alongWith(new TelescopeDrive(t, Constants.outtakeMid)).alongWith(new WristDrive(w, Constants.outtakeMid, false))*/
-        // new WaitCommand(5),
         // new PivotHoldCommand(j, p, Constants.travel)/* .alongWith(new TelescopeDrive(t, Constants.travel)).alongWith(new WristDrive(w, Constants.travel, false))*/
         );
       //);
