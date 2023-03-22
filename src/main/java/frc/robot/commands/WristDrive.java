@@ -45,10 +45,10 @@ public class WristDrive extends CommandBase {
     double wristPotReadout = (this.wrist.wristPot.getPosition()/3.29*360);
     double adjust = 0;
     if(joystick.getPOV() == 0){
-      adjust = 5;
+      adjust = 7;
     }
     else if(joystick.getPOV() == 180){
-      adjust = -5;
+      adjust = -7;
     }
     else{
       adjust = 0;

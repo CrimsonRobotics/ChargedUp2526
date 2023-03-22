@@ -93,9 +93,13 @@ public final class Autos {
         new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).raceWith(new WaitCommand(3)),
         new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
         new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.1)),
-        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))/*.raceWith(new WaitCommand(1)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
-        .alongWith(new DriveStraight(d, 0.5)).raceWith(new WaitCommand(1)),*/
+        .alongWith(new DriveStraight(d, 0.2)).raceWith(new WaitCommand(1)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        .alongWith(new DriveStraight(d, 0)).raceWith(new WaitCommand(1)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+
 
         // new WaitCommand(10)
         // new PivotHoldCommand(j, p, Constants.travel)/* .alongWith(new TelescopeDrive(t, Constants.travel)).alongWith(new WristDrive(w, Constants.travel, false))*/

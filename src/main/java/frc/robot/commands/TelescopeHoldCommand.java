@@ -47,10 +47,10 @@ public class TelescopeHoldCommand extends CommandBase {
     // double telescopePotReadout = 15;
     double adjust = 0;
     if(joystick.getPOV() == 0){
-      adjust = 5;
+      adjust = 10;
     }
     else if(joystick.getPOV() == 180){
-      adjust = -5;
+      adjust = -10;
     }
     else{
       adjust = 0;

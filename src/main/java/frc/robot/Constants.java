@@ -43,19 +43,19 @@ public final class Constants {
   public static double driveExpo = 2.24;//2
   public static double turnExpo = 1;
 
-  public static double[] intakeLow = {/*Cone*/93, 320, 30,/*Cube */ 79, 294,36};
+  public static double[] intakeLow = {/*Cone*/93, 320, 15,/*Cube */ 80, 292,11};
   // public static double[] intakeLow = {/*Cone*/79, 290, 30,/*Cube */ 79, 294,36};
 
-  public static double[] intakeSide = {/*Cone*/69, 260, 55,/*Cube */ 73,270,55};
+  public static double[] intakeSide = {/*Cone*/62, 225, 10,/*Cube */ 62,225, 10};
   // public static double[] intakeShelf = {/*Cone*/20, 263, 20,/*Cube */ 50,50,50};
-  public static double[] intakeHigh = {/*Cone*/160, 335, 70,/*Cube */ 155,333, 70};
-  public static double[] intakeFarShelf = {/*Cone*/147, 338, 95,/*Cube */ 150,333, 95};
+  public static double[] intakeHigh = {/*Cone*/160, 335, 55,/*Cube */ 155,333, 53};
+  public static double[] intakeFarShelf = {/*Cone*/147, 338, 97,/*Cube */ 150,333, 90};
 
 
-  public static double[] outtakeLow = {/*Cone*/260, 200, 30,/*Cube */ 260,230,30};
-  public static double[] outtakeMid = {/*Cone*/227, 180, 97.5,/*Cube */ 240,250,30};
-  public static double[] outtakeHigh = {/*Cone*/227, 190, 220,/*Cube */ 230, 190, 170}; //207
-  public static double[] travel = {/*Cone*/192, 320, 25,/*Cube */ 192, 320, 25};
+  public static double[] outtakeLow = {/*Cone*/260, 200, 15,/*Cube */ 260,230,15};
+  public static double[] outtakeMid = {/*Cone*/227, 180, 85,/*Cube */ 240,250,15};
+  public static double[] outtakeHigh = {/*Cone*/227, 190, 205,/*Cube */ 230, 190, 155}; //207
+  public static double[] travel = {/*Cone*/192, 320, 10,/*Cube */ 192, 320, 10};
   // public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
 //{/*Cone*/ Pivot, Wrist, Telescope, /*Cube */ Pivot, Wrist, Telescope}
 

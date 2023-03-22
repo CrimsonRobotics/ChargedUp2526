@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,13 +37,21 @@ public class Robot extends TimedRobot {
   static double telescopeTest;
   static double wristTest;
 
+  DigitalOutput led0;
   DigitalOutput led1;
+  DigitalOutput led2;
+  DigitalOutput led3;
+
+  // DigitalInput ledTest;
+
 
   static double testkP;
   static double testkI;
   static double testkD;
   static double testMaxPercent;
   static double testSetPoint;
+
+  
 
   // public AddressableLED led;
   // public AddressableLEDBuffer ledBuffer;
@@ -69,10 +78,21 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
-    CameraServer.startAutomaticCapture("Intake Camera", 0).setResolution(205, 154);
+    CameraServer.startAutomaticCapture("Intake Camera", 0).setResolution(102, 77);
     // CameraServer.startAutomaticCapture("Outtake Camera", 1);
     
     // led = new AddressableLED(9);
+
+    led0 = new DigitalOutput(11);
+    led1 = new DigitalOutput(13);
+    led2 = new DigitalOutput(15);
+    led3 = new DigitalOutput(17);
+
+    // led0.set(true);
+    // led1.set(true);
+    // led2.set(true);
+    // led3.set(true);
+    // led0 = new DigitalInput(11);
 
     // ledBuffer = new AddressableLEDBuffer(58);
     // led.setLength(ledBuffer.getLength());
@@ -140,7 +160,10 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Yaw Heading", driveTrain.pigeon.getYaw());
     // SmartDashboard.putNumber("Pitch Heading", driveTrain.pigeon.getPitch());
     // SmartDashboard.putNumber("Roll Heading", driveTrain.pigeon.getRoll());
-
+    // led0.set(true);
+    // led1.set(true);
+    // led2.set(true);
+    // led3.set(true);
     
     CommandScheduler.getInstance().run();
   }
@@ -149,12 +172,21 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // led1.set(true);
+    led0.set(true);
+    led1.set(true);
+    led2.set(true);
+    led3.set(true);
+
   }
 
   @Override
   public void disabledPeriodic() {
     // SetColor(0, 0, 0);
     // led1.set(true);
+    led0.set(true);
+    led1.set(true);
+    led2.set(true);
+    led3.set(true);
 
   }
 
@@ -182,15 +214,25 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    led0.set(true);
+    led1.set(true);
+    led2.set(true);
+    led3.set(true);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    led0.set(true);
+    led1.set(true);
+    led2.set(true);
+    led3.set(true);
     // pivotTest = SmartDashboard.getNumber("Pivot Position", 180);
     // telescopeTest = SmartDashboard.getNumber("Telescope Position", 30);
     // wristTest = SmartDashboard.getNumber("Wrist Position", 263);
@@ -200,6 +242,7 @@ public class Robot extends TimedRobot {
     // testArray[3] = pivotTest;
     // testArray[4] = wristTest;
     // testArray[5] = telescopeTest;
+    // led1.set(true);
 
     // testkP = SmartDashboard.getNumber("testkP", 0.75);
     // testkI = SmartDashboard.getNumber("testkI", 0);
@@ -208,12 +251,19 @@ public class Robot extends TimedRobot {
     // // testSetPoint = SmartDashboard.getNumber("testSetPoint", 0);
     // SetColor(0, 255, 0)
     // if (Pivot.armState){
-    //   SetColor(255, 255, 0);
+    //   // SetColor(255, 255, 0);
+    //   led0.set(true);
+    //   led1.set(true);
+    //   led2.set(true);
+    //   led3.set(true);
 
     // }
     // else if(Pivot.armState == false){
-    //   SetColor(255, 0, 255);
-
+    //   // SetColor(255, 0, 255);
+    //   led0.set(true);
+    //   led1.set(true);
+    //   led2.set(true);
+    //   led3.set(true);
     // }
     // else {
     //   SetColor(0, 255, 0);
