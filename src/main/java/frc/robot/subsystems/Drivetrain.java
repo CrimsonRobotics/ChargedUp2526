@@ -282,27 +282,27 @@ public class Drivetrain extends SubsystemBase {
 
       // shift(container.driverL);
       // park(container.driverL, container.driverR);
-      if(container.driverL.getRawButton(5) ||
-        container.driverL.getRawButton(6) ||
-        container.driverL.getRawButton(7) ||
-        container.driverL.getRawButton(8) ||
-        container.driverL.getRawButton(9) ||
-        container.driverL.getRawButton(10)){
+      // if(container.driverL.getRawButton(5) ||
+      //   container.driverL.getRawButton(6) ||
+      //   container.driverL.getRawButton(7) ||
+      //   container.driverL.getRawButton(8) ||
+      //   container.driverL.getRawButton(9) ||
+      //   container.driverL.getRawButton(10)){
           
-        // parkingBrake.set(Value.kForward);
-        // SmartDashboard.putString("parking", "parked");
-      }
-      else if(container.driverR.getRawButton(11) ||
-        container.driverR.getRawButton(12) ||
-        container.driverR.getRawButton(13) ||
-        container.driverR.getRawButton(14) ||
-        container.driverR.getRawButton(15) ||
-        container.driverR.getRawButton(16)){
+      //   // parkingBrake.set(Value.kForward);
+      //   // SmartDashboard.putString("parking", "parked");
+      // }
+      // else if(container.driverR.getRawButton(11) ||
+      //   container.driverR.getRawButton(12) ||
+      //   container.driverR.getRawButton(13) ||
+      //   container.driverR.getRawButton(14) ||
+      //   container.driverR.getRawButton(15) ||
+      //   container.driverR.getRawButton(16)){
 
-        // parkingBrake.set(Value.kReverse);
-        // SmartDashboard.putString("parking", "not parked");
+      //   // parkingBrake.set(Value.kReverse);
+      //   // SmartDashboard.putString("parking", "not parked");
   
-      }
+      // }
 
       if (container.driverL.getRawButton(5) ||
         container.driverL.getRawButton(6) ||
@@ -332,12 +332,12 @@ public class Drivetrain extends SubsystemBase {
 
     // SmartDashboard.putNumber("pov button", container.operatorL.getPOV());
 
-      SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
-      SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
-      SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
-      SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
-      SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
-      SmartDashboard.putNumber("Right 3 Voltage", right3.getBusVoltage());
+      // SmartDashboard.putNumber("Left 1 Voltage", left1.getBusVoltage());
+      // SmartDashboard.putNumber("Left 2 Voltage", left2.getBusVoltage());
+      // SmartDashboard.putNumber("Left 3 Voltage", left3.getBusVoltage());
+      // SmartDashboard.putNumber("Right 1 Voltage", right1.getBusVoltage());
+      // SmartDashboard.putNumber("Right 2 Voltage", right2.getBusVoltage());
+      // SmartDashboard.putNumber("Right 3 Voltage", right3.getBusVoltage());
 
       // SmartDashboard.putNumber("Left 1 Temp", left1.getMotorTemperature());
       // SmartDashboard.putNumber("Left 2 Temp", left2.getMotorTemperature());

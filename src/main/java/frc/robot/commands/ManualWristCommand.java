@@ -38,16 +38,16 @@ public class ManualWristCommand extends CommandBase {
 
     if(joystick.getPOV() == 0){
       this.wrist.WristDrive(0.4);
-      SmartDashboard.putString("Wrist", "Up");
+      // SmartDashboard.putString("Wrist", "Up");
 
     }
     else if(joystick.getPOV() == 180){
       this.wrist.WristDrive(-0.4);
-      SmartDashboard.putString("Wrist", "Down");
+      // SmartDashboard.putString("Wrist", "Down");
     }
     else{
       this.wrist.WristDrive(0);
-      SmartDashboard.putString("Wrist", "No");
+      // SmartDashboard.putString("Wrist", "No");
 
     }
   }

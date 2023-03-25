@@ -40,7 +40,7 @@ public class WristDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.printf("Wrist Drive Command Executing");
+    // System.out.printf("Wrist Drive Command Executing");
 
     double wristPotReadout = (this.wrist.wristPot.getPosition()/3.29*360);
     double adjust = 0;
@@ -58,13 +58,13 @@ public class WristDrive extends CommandBase {
       double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[1]+adjust), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
       this.wrist.WristDrive(-wristspeed);
-      SmartDashboard.putNumber("Wrist Speed",wristspeed);
+      // SmartDashboard.putNumber("Wrist Speed",wristspeed);
     }
     else if(Pivot.armState == false){
       double wristspeed = MathUtil.clamp(this.wrist.wristPID.calculate(wristPotReadout, armcase[4]+adjust), -PIDConstants.wristMaxPercent, PIDConstants.wristMaxPercent);
       wristspeed = wristspeed / 100;
       this.wrist.WristDrive(-wristspeed);
-      SmartDashboard.putNumber("Wrist Speed",wristspeed);
+      // SmartDashboard.putNumber("Wrist Speed",wristspeed);
     }
     // double wristPotReadout = 100;
     // SmartDashboard.putNumber("Wrist Speed",wristspeed);

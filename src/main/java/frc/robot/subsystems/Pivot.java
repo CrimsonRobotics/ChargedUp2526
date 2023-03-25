@@ -76,14 +76,14 @@ public class Pivot extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
     SmartDashboard.putNumber("PivotPot readout", pivotPot.get());
-    SmartDashboard.putBoolean("Forward Limit", limitFront.isPressed());
-    SmartDashboard.putBoolean("Reverse Limit", limitBack.isPressed());
+    // SmartDashboard.putBoolean("Forward Limit", limitFront.isPressed());
+    // SmartDashboard.putBoolean("Reverse Limit", limitBack.isPressed());
 
-    SmartDashboard.putNumber("pivto1 current", pivot1.getOutputCurrent());
-    SmartDashboard.putNumber("pivtot2 current", pivot2.getOutputCurrent());
+    // SmartDashboard.putNumber("pivto1 current", pivot1.getOutputCurrent());
+    // SmartDashboard.putNumber("pivtot2 current", pivot2.getOutputCurrent());
 
-    SmartDashboard.putNumber("Pivot pos error", pivotPID.getPositionError());
-    SmartDashboard.putNumber("Pivot vel error", pivotPID.getVelocityError());
+    // SmartDashboard.putNumber("Pivot pos error", pivotPID.getPositionError());
+    // SmartDashboard.putNumber("Pivot vel error", pivotPID.getVelocityError());
 
 
 

@@ -36,7 +36,7 @@ public class ManualPivotCommand extends CommandBase {
   public void execute() {
     double pivotSpeed = joystick.getY();
     this.pivot.PivotDrive(pivotSpeed);
-    SmartDashboard.putNumber("Manual Pivot", pivotSpeed);
+    // SmartDashboard.putNumber("Manual Pivot", pivotSpeed);
   }
 
   // Called once the command ends or is interrupted.

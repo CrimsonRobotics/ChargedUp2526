@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     // driveTrain.pigeon.setYaw(0);
     // driveTrain.pigeon.set
     RobotContainer.driveTrain.pigeon.setYaw(0);
-    CameraServer.startAutomaticCapture("Intake Camera", 0).setResolution(102, 77);
+    CameraServer.startAutomaticCapture("Outtake Camera", 0).setResolution(102, 77);
     // CameraServer.startAutomaticCapture("Outtake Camera", 1);
     
     // led = new AddressableLED(9);

@@ -62,98 +62,85 @@ public final class Autos {
     );
   }
 
-  public static CommandBase oneScoreLeftAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
+  public static CommandBase overChargeAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
-      // new ParallelCommandGroup(
-      //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
-      //   new WristDrive(w, Constants.outtakeHigh, true),
-      //   new TelescopeDrive(t, Constants.outtakeHigh),
-      //   new SequentialCommandGroup(
-      //     new WaitCommand(3),
-      //     new OuttakeCommand(c, 0.5),
-      //     new WaitCommand(2),
-      //     new OuttakeCommand(c, 0),
-      //     new ParallelCommandGroup(
-      //       new PivotHoldCommand(j, p, Constants.travel, false),
-      //       new WristDrive(w, Constants.travel, true),
-      //       new TelescopeDrive(t, Constants.travel)
-      //     ),
-      //     new DriveStraight(d, 0.5),
-      //     new WaitCommand(5),
-      //     new DriveStraight(d, 0)
-      //   )
-      // )
+      //Score High
+        new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).alongWith(new IntakeHoldCommand(c, 0.6)).raceWith(new WaitCommand(3)),
+        new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
+        new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.1)),
+        //Drive Forward over Charge Station
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        .alongWith(new ManualDrive(d, 0.4, 0.4)).raceWith(new WaitCommand(1.2)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        .alongWith(new ManualDrive(d,0.2, 0.2)).raceWith(new WaitCommand(1.2)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        .alongWith(new ManualDrive(d,0, 0)).raceWith(new WaitCommand(1)),
+        //Drive back onto charge station
+        // new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        // .alongWith(new ManualDrive(d,-0.2, -0.2)).raceWith(new WaitCommand(0.5)),
+        // new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+        // .alongWith(new ManualDrive(d,0, 0)).raceWith(new WaitCommand(1)),
+        // //Balance
+        // new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).alongWith(new Balance(d)),
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      
+    );
+  }
+
+  public static CommandBase oneScoreCloseAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
+    return Commands.sequence(
+      //Score one piece
+      new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).alongWith(new IntakeHoldCommand(c, 0.6)).raceWith(new WaitCommand(3)),
+      new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
+      new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.1)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
+     //Drie out short community
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      .alongWith(new ManualDrive(d, 0.2, 0.2)).raceWith(new WaitCommand(3.5)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      .alongWith(new ManualDrive(d, 0, 0)).raceWith(new WaitCommand(1)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      
     );
 
   }
 
   public static CommandBase oneScoreEngageAuto(Joystick j, Pivot p, Wrist w, Telescope t, Claw c, Drivetrain d){
     return Commands.sequence(
-      //new SequentialCommandGroup(
-        new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).raceWith(new WaitCommand(3)),
+      //Score high
+        new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).alongWith(new IntakeHoldCommand(c, 0.6)).raceWith(new WaitCommand(2.6)),
         new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
         new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.1)),
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
+       //Drive to charge station
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
-        .alongWith(new DriveStraight(d, 0.2)).raceWith(new WaitCommand(1)),
+        .alongWith(new ManualDrive(d, 0.4, 0.4)).raceWith(new WaitCommand(1.25)),
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
-        .alongWith(new DriveStraight(d, 0)).raceWith(new WaitCommand(1)),
+        .alongWith(new ManualDrive(d, 0, 0)).raceWith(new WaitCommand(0.1)),
+        //Balance
+        new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).alongWith(new Balance(d)),
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
 
-
-        // new WaitCommand(10)
-        // new PivotHoldCommand(j, p, Constants.travel)/* .alongWith(new TelescopeDrive(t, Constants.travel)).alongWith(new WristDrive(w, Constants.travel, false))*/
         );
-      //);
-      // new ParallelCommandGroup(
-      //   new PivotHoldCommand(j, p, Constants.outtakeHigh, false),
-      //   new WristDrive(w, Constants.outtakeHigh, true),
-      //   new TelescopeDrive(t, Constants.outtakeHigh),
-      //   new SequentialCommandGroup(
-      //     new WaitCommand(3),
-      //     new OuttakeCommand(c, 0.5),
-      //     new WaitCommand(2),
-      //     new OuttakeCommand(c, 0),
-      //     new ParallelCommandGroup(
-      //       new PivotHoldCommand(j, p, Constants.travel, true),
-      //       new WristDrive(w, Constants.travel, true),
-      //       new TelescopeDrive(t, Constants.travel)
-      //     ),
-      //     new DriveStraight(d, 0.5),
-      //     new WaitCommand(5),
-      //     new DriveStraight(d, 0),
-      //     new Balance(d)
-      //   )
-      // ) 
+     
       
     
   }
 
-  public static CommandBase oneScoreRightAuto(Drivetrain d, Joystick j, Pivot p, Wrist w, Telescope t){
+  public static CommandBase oneScoreFarAuto(Drivetrain d, Joystick j, Pivot p, Wrist w, Telescope t, Claw c){
     return Commands.sequence(
-      new SequentialCommandGroup(
-        // new PivotHoldCommand(j, p, Constants.outtakeHigh, true, 5),
-        // new PivotHoldCommand(j, p, Constants.travel, false, 0)
-        // new PivotHoldCommand(j, p, Constants.travel, false).alongWith(new WristDrive(w, Constants.travel, false))
-
-        // new DriveStraight(d, 0),
-        // new WaitCommand(3),
-        // new ParallelCommandGroup(
-        //   new PivotHoldCommand(j, p, Constants.outtakeHigh),
-        //   new WristDrive(w, Constants.outtakeHigh),
-        //   new TelescopeDrive(t, Constants.outtakeHigh),
-        //   new SequentialCommandGroup(
-        //     new WaitCommand(3),
-        //     new ArmCancelCommand(p, t, w)
-        //     // new ParallelCommandGroup(
-        //     //   new PivotHoldCommand(j, p, Constants.intakeLow),
-        //     //   new WristDrive(w, Constants.intakeLow),
-        //     //   new TelescopeDrive(t, Constants.intakeLow)
-        //     // )
-        //   )
-
-        // )
-      )
+      //Score high
+      new PivotHoldCommand(j, p, Constants.outtakeHigh).alongWith(new TelescopeDrive(j, t, Constants.outtakeHigh)).alongWith(new WristDrive(j, w, Constants.outtakeHigh, false)).alongWith(new IntakeHoldCommand(c, 0.6)).raceWith(new WaitCommand(3)),
+      new OuttakeCommand(c, 1).raceWith(new WaitCommand(0.5)),
+      new OuttakeCommand(c, 0).raceWith(new WaitCommand(0.1)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
+      //Drive out of long community
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      .alongWith(new ManualDrive(d, 0.2, 0.2)).raceWith(new WaitCommand(4.5)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
+      .alongWith(new ManualDrive(d, 0, 0)).raceWith(new WaitCommand(1)),
+      new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
     );
   }
 

@@ -49,12 +49,12 @@ public final class Constants {
   public static double[] intakeSide = {/*Cone*/62, 225, 10,/*Cube */ 62,225, 10};
   // public static double[] intakeShelf = {/*Cone*/20, 263, 20,/*Cube */ 50,50,50};
   public static double[] intakeHigh = {/*Cone*/160, 335, 55,/*Cube */ 155,333, 53};
-  public static double[] intakeFarShelf = {/*Cone*/147, 338, 97,/*Cube */ 150,333, 90};
+  public static double[] intakeFarShelf = {/*Cone*/144, 338, 109,/*Cube */ 144,333, 95};
 
 
   public static double[] outtakeLow = {/*Cone*/260, 200, 15,/*Cube */ 260,230,15};
-  public static double[] outtakeMid = {/*Cone*/227, 180, 85,/*Cube */ 240,250,15};
-  public static double[] outtakeHigh = {/*Cone*/227, 190, 205,/*Cube */ 230, 190, 155}; //207
+  public static double[] outtakeMid = {/*Cone*/225, 185, 105,/*Cube */ 240,250,15};
+  public static double[] outtakeHigh = {/*Cone*/227, 195, 205,/*Cube */ 230, 190, 155}; //207
   public static double[] travel = {/*Cone*/192, 320, 10,/*Cube */ 192, 320, 10};
   // public static double[] test = {/*Cone*/186, 76, 60,/*Cube */ 186, 76, 60};
 //{/*Cone*/ Pivot, Wrist, Telescope, /*Cube */ Pivot, Wrist, Telescope}
@@ -63,7 +63,7 @@ public final class Constants {
   // public static double[] cubeIntake = {20, 20, 20, 1};
 
   public static double alignError = 2;
-  public static double balanceError = 5;
+  public static double balanceError = 3;
   public static double pivotError = 2;
   public static double telescopeError = 2;
   public static double wristError = 2;

@@ -36,16 +36,16 @@ public class ManualTelescopeCommand extends CommandBase {
   public void execute() {
     if(joystick.getPOV() == 0){
       this.telescope.telescopeDrive(0.6);
-      SmartDashboard.putString("Extending", "Up");
+      // SmartDashboard.putString("Extending", "Up");
 
     }
     else if(joystick.getPOV() == 180){
       this.telescope.telescopeDrive(-0.2);
-      SmartDashboard.putString("Extending", "Down");
+      // SmartDashboard.putString("Extending", "Down");
     }
     else{
       this.telescope.telescopeDrive(0);
-      SmartDashboard.putString("Extending", "No");
+      // SmartDashboard.putString("Extending", "No");
 
     }
   }

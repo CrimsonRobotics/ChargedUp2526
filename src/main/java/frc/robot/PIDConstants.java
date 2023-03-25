@@ -18,11 +18,11 @@ public final class PIDConstants {
     // public static double turnSetpoint = Robot.testSetPoint;
     // public static double pidMaxPercent = Robot.testMaxPercent;
   
-    public static double balancekP = 0.7; //1
-    public static double balancekI = 0;
+    public static double balancekP = 0.65; //1
+    public static double balancekI = 0.01;
     public static double balancekD = 0;
     public static double balanceSetpoint = 0;
-    public static double balanceMaxPercent = 80;
+    public static double balanceMaxPercent = 100;
 
     // public static double balancekP = Robot.testkP; //1
     // public static double balancekI = Robot.testkI;

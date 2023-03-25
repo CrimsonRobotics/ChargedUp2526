@@ -51,7 +51,7 @@ public class PivotHoldCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.printf("Pivot Drive Command Executing");
+    // System.out.printf("Pivot Drive Command Executing");
     double adjust = joystick.getY()*5;
 
     double pivotPotReadout = this.pivot.pivotPot.get();
@@ -63,14 +63,14 @@ public class PivotHoldCommand extends CommandBase {
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(this.filter.calculate(pivotPotReadout), armcase[0]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(-pivotspeed);
-      SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
+      // SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     else if(Pivot.armState == false){
 
       double pivotspeed = MathUtil.clamp(this.pivot.pivotPID.calculate(this.filter.calculate(pivotPotReadout), armcase[3]+adjust), -PIDConstants.pivotMaxPercent, PIDConstants.pivotMaxPercent);
       pivotspeed = pivotspeed / 100;
       this.pivot.PivotDrive(-pivotspeed);
-      SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
+      // SmartDashboard.putNumber("Pivot Speed",-pivotspeed);
     }
     // if(timed == true){
     //   if(timer.get()<time){

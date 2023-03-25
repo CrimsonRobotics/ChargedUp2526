@@ -39,13 +39,13 @@ public class DriveStraight extends CommandBase {
   @Override
   public void execute() {
     double pigeonReadout = this.driveTrain.pigeon.getYaw() % 360;
-    SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
-    SmartDashboard.putNumber("original Heading", originalYaw);
+    // SmartDashboard.putNumber("Gyro Heading", pigeonReadout);
+    // SmartDashboard.putNumber("original Heading", originalYaw);
 
     double speed = MathUtil.clamp(this.driveTrain.straightPID.calculate(pigeonReadout, originalYaw), -PIDConstants.straightMaxPercent, PIDConstants.straightMaxPercent);
     speed = speed / 100;
     // this.driveTrain.TeleopDrive(0, -speed);
-    this.driveTrain.TeleopDrive(driveSpeed, -speed);
+    this.driveTrain.TeleopDrive(driveSpeed, speed);
 
     // this.driveTrain.ManualDrive(-speed, speed);
 

@@ -54,12 +54,12 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    RobotContainer container = Robot.m_robotContainer;
+    // RobotContainer container = Robot.m_robotContainer;
 
     SmartDashboard.putNumber("WristPot readout", (wristPot.getPosition()/3.2*360));
 
-    SmartDashboard.putBoolean("wrist front Limit", wristFrontLim.isPressed());
-    SmartDashboard.putBoolean("wrist back Limit", wristBackLim.isPressed());
+    // SmartDashboard.putBoolean("wrist front Limit", wristFrontLim.isPressed());
+    // SmartDashboard.putBoolean("wrist back Limit", wristBackLim.isPressed());
 
 
 

@@ -50,7 +50,7 @@ public class Claw extends SubsystemBase {
     // This method will be called once per scheduler run
     ToggleIntake(Pivot.armState);
     SmartDashboard.putBoolean("Arm State", Pivot.armState);
-    SmartDashboard.putNumber("intake Current", intakeMotor.getOutputCurrent());
+    // SmartDashboard.putNumber("intake Current", intakeMotor.getOutputCurrent());
 
   }
 }

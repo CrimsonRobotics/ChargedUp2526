@@ -55,11 +55,11 @@ public class Telescope extends SubsystemBase {
     // This method will be called once per scheduler run
     RobotContainer container = Robot.m_robotContainer;
     SmartDashboard.putNumber("telescopePot readout", telescopePot.get());
-    SmartDashboard.putNumber("Telescope motor current", telescope.getOutputCurrent());
-    SmartDashboard.putNumber("Telescope motor voltage", telescope.getBusVoltage());
+    // SmartDashboard.putNumber("Telescope motor current", telescope.getOutputCurrent());
+    // SmartDashboard.putNumber("Telescope motor voltage", telescope.getBusVoltage());
 
-    SmartDashboard.putBoolean("tele front Limit", frontTele.isPressed());
-    SmartDashboard.putBoolean("tele back Limit", backTele.isPressed());
+    // SmartDashboard.putBoolean("tele front Limit", frontTele.isPressed());
+    // SmartDashboard.putBoolean("tele back Limit", backTele.isPressed());
 
     
 
