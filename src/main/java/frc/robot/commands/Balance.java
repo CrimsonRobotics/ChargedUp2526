@@ -36,16 +36,16 @@ public class Balance extends CommandBase {
     speed = speed / 100;
     this.driveTrain.TeleopDrive(-speed, 0);
     
-    // if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
-    //   this.isFinished = true;
-    // }
+    if (Math.abs(rollReadout-PIDConstants.balanceSetpoint)<Constants.balanceError){
+      this.isFinished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     this.driveTrain.ManualDrive(0, 0);
-    this.isFinished = true;
+    // this.isFinished = true;
     
   }
 

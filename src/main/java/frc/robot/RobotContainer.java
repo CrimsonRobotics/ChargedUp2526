@@ -224,10 +224,10 @@ public class RobotContainer {
     
     // return Autos.driveOutAuto(driveTrain);
     // return Autos.ChargeStationAuto(driveTrain);
-    return Autos.oneScoreEngageAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
+    // return Autos.oneScoreEngageAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
     // return Autos.overChargeAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
     // return Autos.oneScoreCloseAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
-    // return Autos.oneScoreFarAuto(driveTrain, driverL, pivot, wrist, telescope, claw);
+    return Autos.oneScoreFarAuto(driveTrain, driverL, pivot, wrist, telescope, claw);
     // return Autos.exampleAuto(m_exampleSubsystem);
     // return Autos.driveOutAuto(driveTrain);
     // return new ParallelCommandGroup(

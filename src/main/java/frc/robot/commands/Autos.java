@@ -115,7 +115,7 @@ public final class Autos {
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false)).raceWith(new WaitCommand(1)),
        //Drive to charge station
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
-        .alongWith(new ManualDrive(d, 0.4, 0.4)).raceWith(new WaitCommand(1.25)),
+        .alongWith(new ManualDrive(d, 0.4, 0.4)).raceWith(new WaitCommand(1.6)),
         new PivotHoldCommand(j, p, Constants.travel).alongWith(new TelescopeDrive(j, t, Constants.travel)).alongWith(new WristDrive(j, w, Constants.travel, false))
         .alongWith(new ManualDrive(d, 0, 0)).raceWith(new WaitCommand(0.1)),
         //Balance

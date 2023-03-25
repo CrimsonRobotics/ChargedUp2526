@@ -63,7 +63,7 @@ public final class Constants {
   // public static double[] cubeIntake = {20, 20, 20, 1};
 
   public static double alignError = 2;
-  public static double balanceError = 3;
+  public static double balanceError = 2;
   public static double pivotError = 2;
   public static double telescopeError = 2;
   public static double wristError = 2;
