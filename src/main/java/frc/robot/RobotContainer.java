@@ -178,7 +178,7 @@ public class RobotContainer {
 
     // //Travel
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false));
-    operatorL1.onTrue(new WristDrive(operatorR, wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.5)));
+    operatorL1.onTrue(new WristDrive(operatorR, wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(operatorL, telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.7)));
     // operatorL11.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
     // operatorL12.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
     // operatorL13.onTrue(new WristDrive(wrist, Constants.travel, false).alongWith(new PivotHoldCommand(operatorR, pivot, Constants.travel)).alongWith(new TelescopeHoldCommand(telescope, Constants.travel)).alongWith(new IntakeHoldCommand(claw, 0.3)));
@@ -224,10 +224,10 @@ public class RobotContainer {
     
     // return Autos.driveOutAuto(driveTrain);
     // return Autos.ChargeStationAuto(driveTrain);
-    // return Autos.oneScoreEngageAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
+    return Autos.oneScoreEngageAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
     // return Autos.overChargeAuto(driverL, pivot, wrist, telescope, claw, driveTrain);
     // return Autos.oneScoreCloseAuto(operatorR, pivot, wrist, telescope, claw, driveTrain);
-    return Autos.oneScoreFarAuto(driveTrain, driverL, pivot, wrist, telescope, claw);
+    // return Autos.oneScoreFarAuto(driveTrain, driverL, pivot, wrist, telescope, claw);
     // return Autos.exampleAuto(m_exampleSubsystem);
     // return Autos.driveOutAuto(driveTrain);
     // return new ParallelCommandGroup(
